@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { TextInput } from "react-native-paper";
-import { ALERT_TYPE, Toast, Dialog } from "react-native-alert-notification";
 import { sha256 } from "js-sha256";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 const { width: ScreenWidth } = Dimensions.get("screen");
@@ -16,12 +15,12 @@ const ChangePassword = ({ navigation, route }) => {
       password !== password2 ||
       (password.length <= 0 && password.length <= 0)
     ) {
-      Dialog.show({
+      /*Dialog.show({
         type: ALERT_TYPE.DANGER,
         title: "Password Error",
         textBody: "Passwords do not match or are blank, please try again.",
         autoClose: 3000, // or time in ms by default 5000
-      });
+      });*/
     } else {
       fetch(
         baseUrl +
@@ -32,20 +31,20 @@ const ChangePassword = ({ navigation, route }) => {
       )
         .then((response) => response.json())
         .then(async (jsonData) => {
-          Dialog.show({
+          /*Dialog.show({
             type: ALERT_TYPE.SUCCESS,
             title: "Password",
             textBody: "Profile password was updated and saved successfully.",
             autoClose: 2000, // or time in ms by default 5000
-          });
+          });*/
         })
         .catch((error) => {
-          Toast.show({
+          /*Toast.show({
             type: ALERT_TYPE.WARNING,
             title: "Connection Failed",
             textBody: "Server Connection Error: " + error,
             autoClose: 3000, // or time in ms by default 5000
-          });
+          });*/
         });
     }
   }

@@ -60,8 +60,7 @@
     "react-native-svg": "13.4.0",
     "react-native-vector-icons": "^9.2.0",
     "react-native-web": "~0.18.7",
-    "react-native-webview": "11.26.0",
-    "toggle-switch-react-native": "^3.3.0"
+    "react-native-webview": "11.26.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",

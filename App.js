@@ -19,7 +19,6 @@ import * as Font from "expo-font";
 import { FontAwesome, Ionicons, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { Asset } from 'expo-asset';
 import WebViewer from "./Data/WebView/WebView";
-import { AlertNotificationRoot} from 'react-native-alert-notification';
 
 
 export default function App() {
@@ -57,13 +56,6 @@ if (Platform.OS === 'ios' || Platform.OS === 'android') {
     );
 
     try {
-      const imageAssets = cacheImages([
-        require('./assets/icon.png'),
-        require('./assets/emptyList.png'),
-        require('./assets/2953962.png'),
-        require('./assets/events-transparent-1.png'),
-        require('./assets/events-splash.png'),
-    ]);
 
     const fontAssets = cacheFonts([FontAwesome.font, Ionicons.font, MaterialCommunityIcons.font, Feather.font]);
 
@@ -114,7 +106,6 @@ if (!isReady) {
   if (signIn) {
     return (
       <NavigationContainer>
-        <AlertNotificationRoot>
               <Stack.Navigator initialRouteName="EventLists">
               <Stack.Screen
                   name="Event List"
@@ -161,13 +152,11 @@ if (!isReady) {
                   options={{ headerShown: true, headerBackTitleVisible: false, headerTintColor: '#000000' }}
                 />
               </Stack.Navigator>
-              </AlertNotificationRoot>
       </NavigationContainer>
     );
     }else{
       return (
       <NavigationContainer>
-        <AlertNotificationRoot>
                 <Stack.Navigator initialRouteName="SignIn">
                   <Stack.Screen
                     name="Kiosk Sign In"
@@ -220,7 +209,6 @@ if (!isReady) {
                   options={{ headerShown: true, headerBackTitleVisible: false, headerTintColor: '#000000' }}
                 />
                 </Stack.Navigator>
-                </AlertNotificationRoot>
         </NavigationContainer>
       );
     }

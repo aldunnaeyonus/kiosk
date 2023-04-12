@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { TextInput } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
-import { ALERT_TYPE, Toast, Dialog } from "react-native-alert-notification";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 const { width: ScreenWidth } = Dimensions.get("screen");
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ToggleSwitch from 'toggle-switch-react-native'
 
 
 const ChangeData = ({ navigation, route }) => {
@@ -39,13 +37,13 @@ const ChangeData = ({ navigation, route }) => {
       name.length === null ||
       name.length === null
     ) {
-      Dialog.show({
+      /*Dialog.show({
         type: ALERT_TYPE.DANGER,
         title: "Entry Error",
         textBody:
           "Password and Company Name Field cannot be left blank, please try again.",
         autoClose: 3000, // or time in ms by default 5000
-      });
+      });*/
     } else {
       fetch(
         baseUrl +
@@ -61,20 +59,20 @@ const ChangeData = ({ navigation, route }) => {
         .then((response) => response.json())
         .then(async (jsonData) => {
           await AsyncStorage.setItem("kiosk_comapny_name", name);
-          Dialog.show({
+          /*Dialog.show({
             type: ALERT_TYPE.SUCCESS,
             title: "Information",
             textBody: "Profile information was updated and saved successfully.",
             autoClose: 2000, // or time in ms by default 5000
-          });
+          });*/
         })
         .catch((error) => {
-          Toast.show({
+          /*Toast.show({
             type: ALERT_TYPE.WARNING,
             title: "Connection Failed",
             textBody: "Server Connection Error: " + error,
             autoClose: 3000, // or time in ms by default 5000
-          });
+          });*/
         });
     }
   }
@@ -223,13 +221,7 @@ const ChangeData = ({ navigation, route }) => {
                 }}
               >
                 Use Infustionsoft Database </Text>
-                <ToggleSwitch
-                  isOn={true}
-                  onColor="#2E8B57"
-                  offColor="#5E5E5E"
-                  size="medium"
-                  onToggle={isOn => console.log("changed to : ", isOn)}
-/>
+
                 </View>
 
                 <View style={[styles.dividerTableStyle]} />

@@ -12533,7 +12533,7 @@
   dependencies:
     "read" "^2.0.0"
 
-"prop-types@*", "prop-types@^15.5.7", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
+"prop-types@*", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -13068,7 +13068,7 @@
     "whatwg-fetch" "^3.0.0"
     "ws" "^6.2.2"
 
-"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.71 || 1000.0.0", "react-native@^0.71.0", "react-native@>=0.47.1", "react-native@>=0.57", "react-native@>=0.62.0", "react-native@>=0.65.0", "react-native@>=0.8.0 || 0.8.0-rc || 0.8.0-rc.2 || 0.9.0-rc || 0.10.1", "react-native@0.71.6":
+"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.71 || 1000.0.0", "react-native@^0.71.0", "react-native@>=0.57", "react-native@>=0.62.0", "react-native@>=0.65.0", "react-native@>=0.8.0 || 0.8.0-rc || 0.8.0-rc.2 || 0.9.0-rc || 0.10.1", "react-native@0.71.6":
   "integrity" "sha512-gHrDj7qaAaiE41JwaFCh3AtvOqOLuRgZtHKzNiwxakG/wvPAYmG73ECfWHGxjxIx/QT17Hp37Da3ipCei/CayQ=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.71.6.tgz"
   "version" "0.71.6"
@@ -14888,13 +14888,6 @@
     "extend-shallow" "^3.0.2"
     "regex-not" "^1.0.2"
     "safe-regex" "^1.1.0"
-
-"toggle-switch-react-native@^3.3.0":
-  "integrity" "sha512-DE0UjTOvUpUXjrRjF5r06dqzp/XrbDvJ6hYAwTp6ZgNrxn5Z7bDqe9Rs7axaRbWr7MXe5FdSGkCmfmK6tL7esw=="
-  "resolved" "https://registry.npmjs.org/toggle-switch-react-native/-/toggle-switch-react-native-3.3.0.tgz"
-  "version" "3.3.0"
-  dependencies:
-    "prop-types" "^15.5.7"
 
 "toidentifier@1.0.1":
   "integrity" "sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA=="
