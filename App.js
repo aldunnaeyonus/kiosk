@@ -56,15 +56,7 @@ if (Platform.OS === 'ios' || Platform.OS === 'android') {
     );
 
     try {
-
-    const fontAssets = cacheFonts([FontAwesome.font, Ionicons.font, MaterialCommunityIcons.font, Feather.font]);
-
-    await Promise.all([...imageAssets, ...fontAssets, FontAwesome.font ]);
-
-    const value =
-      Platform.OS !== "web"
-        ? await AsyncStorage.getItem("logedIn")
-        : window.localStorage.getItem("logedIn");
+    const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn")  :  window.localStorage.getItem("logedIn");
     if (value !== null) {
       setSignIn(true);
     } else {
@@ -73,6 +65,8 @@ if (Platform.OS === 'ios' || Platform.OS === 'android') {
   } catch (error) {
     setSignIn(false);
   }
+  const fontAssets = cacheFonts([FontAwesome.font, Ionicons.font, MaterialCommunityIcons.font, Feather.font]);
+    await Promise.all([...fontAssets ]);
 }
 
 useEffect(() => {

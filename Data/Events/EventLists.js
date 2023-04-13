@@ -242,7 +242,7 @@ const EventList = (props, navigation) => {
       <View
         style={{
           height: 60,
-          width: "50%",
+          width: "60%",
           marginBottom: 30,
           flexDirection: "row",
           justifyContent: "center",

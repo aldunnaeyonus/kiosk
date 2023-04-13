@@ -2,7 +2,6 @@ import LoginScreen from "react-native-login-screen";
 import React, { Component } from "react";
 import { sha256 } from "js-sha256";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 interface Props {
   navigation: any;
 }
@@ -20,6 +19,7 @@ export default class SignIn extends Component<Props> {
   render() {
     return (
       <LoginScreen
+        style={{flex: 1}}
         loginButtonText={"Login"}
         disableDivider={false}
         disableSignup={true}
@@ -37,7 +37,11 @@ export default class SignIn extends Component<Props> {
             .then((response) => response.json())
             .then(async (jsonData) => {
               if (jsonData[0].errResponse == "3") {
-                alert("");
+
+              }else if (jsonData[0].errResponse == "1") {
+                
+              }else if (jsonData[0].errResponse == "2") {
+
               } else {
                 await AsyncStorage.setItem("kiosk_id", jsonData[0].kiosk_pin);
                 await AsyncStorage.setItem(
@@ -66,4 +70,5 @@ export default class SignIn extends Component<Props> {
       ></LoginScreen>
     );
   }
+
 }

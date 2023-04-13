@@ -16,34 +16,7 @@ FontAwesome.loadFont();
 import * as Print from "expo-print";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-const baseUrl = "https://dunn-carabali.com/kiosk";
-const html = `
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-<style type="text/css" media="screen"></style>
 
-<style type="text/css" media="print">
- 
-/* @page {size:landscape}  */   
-body {
-    page-break-before: avoid;
-    width:200;
-    height:200;
-    -webkit-transform: rotate(-90deg) scale(.68,.68); 
-    -moz-transform:rotate(-90deg) scale(.58,.58);
-    zoom: 100%    
-  }
-
-</style>
-</head>
-<body style="text-align: center;">
-<h1 style="font-size: 50px; font-family: Helvetica Neue; font-weight: normal;">
-  Hello Expo!
-</h1>
-</body>
-</html>
-`;
 
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -52,6 +25,44 @@ const Checkins = (props, navigation) => {
   const [url, setURL] = useState("");
   const [textValue, settextValue] = useState("");
   const [addedEmails, setaddedEmails] = useState([]);
+  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const mhtml = `
+  <html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <style type="text/css" media="screen"></style>
+  <style>  
+  
+  #body {
+      page-break-before: avoid;
+      height:185px;
+      width:100px;
+      margin: 40;
+      text-align: center;
+      -webkit-transform: rotate(-90deg) scale(.68,.68); ; 
+      -moz-transform:rotate(-90deg) scale(.68,.68); ;
+      zoom: 80%;
+    }
+  #div {
+    width: 200px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  </style>
+  </head>
+  <body id='body'>
+  <h1 style="width: 200px; font-size: 50px; text-align: center; font-family: Helvetica Neue; font-weight: bold;">
+    Andrew
+  </h1>
+  <h1 style="width: 200px; font-size: 40px; text-align: center; font-family: Helvetica Neue; font-weight: normal;">
+    Dunn
+  </h1>
+  <h1 id='div' style="font-family: Helvetica Neue; font-weight: normal;">
+    Guset
+  </h1>
+  </body>
+  </html>
+  `;
 
   const closeEvent = () => {
     axios
@@ -142,9 +153,9 @@ const Checkins = (props, navigation) => {
   }, [isFocused]);
 
   const preview = (name, email, phone, kiosk_id, ifs_id) => {
-    if (addedEmails.includes(email)) {
-      alert(email + " has already checked in.");
-    } else {
+   // if (addedEmails.includes(email)) {
+      //alert(email + " has already checked in.");
+    //} else {
       axios
         .post(
           baseUrl + "/events/checkin.php",
@@ -172,14 +183,16 @@ const Checkins = (props, navigation) => {
         .catch((error) => {
           alert(error);
         });
-    }
+    //}
   };
 
-  const print = async (orientation = Print.Orientation.landscape) => {
+  const print = async (orientations = Print.Orientation.landscape) => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     await Print.printAsync({
-      html,
-      orientation,
+      html: mhtml,
+      width:356,
+      height:101,
+      orientation: orientations,
       printerUrl: url, // iOS only
     });
   };
