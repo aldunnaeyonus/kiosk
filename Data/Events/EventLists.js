@@ -37,7 +37,7 @@ const EventList = (props, navigation) => {
           justifyContent: "center",
           height: 400,
         }}
-        source={require("../../assets/2953962.jpg")}
+        source={require("../../assets/images/2953962.jpg")}
       />
     );
   };
@@ -153,6 +153,7 @@ const EventList = (props, navigation) => {
               event_status: item.kiosk_event_status,
             });
           } else {
+            
           }
         }}
       >
@@ -165,11 +166,19 @@ const EventList = (props, navigation) => {
               justifyContent: "center",
             }}
           >
-            <Text
+            {
+              (item.kiosk_event_status == "0")  ?
+              <Text
               style={{ fontWeight: "bold", fontSize: 21, color: "#000000" }}
             >
               {item.kiosk_event_name}
             </Text>
+            :               <Text
+            style={{ fontWeight: "bold", fontSize: 21, color: "red" }}
+          >
+            {item.kiosk_event_name} [ Closed Event ] 
+          </Text>
+            }
             <Text style={{ fontSize: 15, color: "#808080", paddingTop: 5 }}>
               {item.kiosk_event_location}
             </Text>

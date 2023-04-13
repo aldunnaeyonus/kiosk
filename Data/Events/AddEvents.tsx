@@ -114,7 +114,7 @@ style={{
   flexDirection: "row",
   justifyContent: "center",
 }}
-source={require('../../assets/events-transparent-1.png')}
+source={require('../../assets/images/events-transparent-1.png')}
  />      
         <View
           style={{
@@ -242,21 +242,8 @@ source={require('../../assets/events-transparent-1.png')}
                   color: "black",
                 }}
               >
-                Event Date:  </Text>
-                
-              <Text
-                style={{
-                  marginRight: 0,
-                  marginTop: 22,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 18,
-                  color: "#0e1111",
-                }}
-              >
-                {selectedDate}
-              </Text>
+                Event Date:  {selectedDate}</Text>
+
               <DatePickerModal
           locale="en"
           mode="single"

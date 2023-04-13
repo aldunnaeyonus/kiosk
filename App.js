@@ -9,15 +9,10 @@ import EventLists from "./Data/Events/EventLists";
 import AddEvents from "./Data/Events/AddEvents";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, {useState, useEffect} from "react";
-import {
-  NavigationContainer,
-} from "@react-navigation/native";
+import { NavigationContainer, } from "@react-navigation/native";
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform, Text, LogBox} from "react-native";
-import * as Font from "expo-font";
-import { FontAwesome, Ionicons, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
-import { Asset } from 'expo-asset';
 import WebViewer from "./Data/WebView/WebView";
 
 
@@ -30,43 +25,23 @@ export default function App() {
   Text.defaultProps = Text.defaultProps || {};
   Text.defaultProps.allowFontScaling = false;
 
-  function cacheImages(images) {
-    return images.map(image => {
-        if (typeof image === 'string') {
-            return Image.prefetch(image);
-        } else {
-            return Asset.fromModule(image).downloadAsync();
-        }
-    });
-}
-
-function cacheFonts(fonts) {
-    return fonts.map(async font => await Font.loadAsync(font));
-  }
-
 
 if (Platform.OS === 'ios' || Platform.OS === 'android') {
-  LogBox.ignoreLogs(['Setting a timer']);
+  //LogBox.ignoreLogs(['Setting a timer']);
 }
 
   async function loadAssetsAsync() {
-    await Font.loadAsync(
-      'FontAwesome',
-      require('./Data/fonts/FontAwesome.ttf')
-    );
-
     try {
-    const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn")  :  window.localStorage.getItem("logedIn");
+   const value = Platform.OS !== "web"  ? await AsyncStorage.getItem("logedIn")  : window.localStorage.getItem("logedIn");
     if (value !== null) {
       setSignIn(true);
     } else {
       setSignIn(false);
     }
+
   } catch (error) {
     setSignIn(false);
   }
-  const fontAssets = cacheFonts([FontAwesome.font, Ionicons.font, MaterialCommunityIcons.font, Feather.font]);
-    await Promise.all([...fontAssets ]);
 }
 
 useEffect(() => {

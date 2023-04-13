@@ -16,7 +16,8 @@ FontAwesome.loadFont();
 import * as Print from "expo-print";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+MaterialCommunityIcons.loadFont();
 
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -26,43 +27,6 @@ const Checkins = (props, navigation) => {
   const [textValue, settextValue] = useState("");
   const [addedEmails, setaddedEmails] = useState([]);
   const baseUrl = "https://dunn-carabali.com/kiosk";
-  const mhtml = `
-  <html>
-  <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-  <style type="text/css" media="screen"></style>
-  <style>  
-  
-  #body {
-      page-break-before: avoid;
-      height:185px;
-      width:100px;
-      margin: 40;
-      text-align: center;
-      -webkit-transform: rotate(-90deg) scale(.68,.68); ; 
-      -moz-transform:rotate(-90deg) scale(.68,.68); ;
-      zoom: 80%;
-    }
-  #div {
-    width: 200px;
-    text-align: center;
-    border: 1px solid black;
-  }
-  </style>
-  </head>
-  <body id='body'>
-  <h1 style="width: 200px; font-size: 50px; text-align: center; font-family: Helvetica Neue; font-weight: bold;">
-    Andrew
-  </h1>
-  <h1 style="width: 200px; font-size: 40px; text-align: center; font-family: Helvetica Neue; font-weight: normal;">
-    Dunn
-  </h1>
-  <h1 id='div' style="font-family: Helvetica Neue; font-weight: normal;">
-    Guset
-  </h1>
-  </body>
-  </html>
-  `;
 
   const closeEvent = () => {
     axios
@@ -87,6 +51,39 @@ const Checkins = (props, navigation) => {
 
   useEffect(() => {
     props.navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity                
+        onPress={() => {
+          Alert.alert(
+            "Exit Out",
+            "Are you sure you want to exit out of this Event [" +
+              props.route.params.kiosk_event +
+              "]\n\nThis will erase the duplicate email checker",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "destructive",
+              },
+              {
+                text: "Go back",
+                onPress: () => {
+                  props.navigation.goBack(null);
+
+                },
+              },
+            ],
+            { cancelable: false }
+          );
+        }}
+    >
+      <MaterialCommunityIcons
+                name="chevron-left"
+                size={40}
+                style={styles.moreIcon}
+              />
+    </TouchableOpacity>
+      ),
       headerRight: () => (
         <Button
           textStyle={{
@@ -152,46 +149,98 @@ const Checkins = (props, navigation) => {
     fetchData();
   }, [isFocused]);
 
-  const preview = (name, email, phone, kiosk_id, ifs_id) => {
-   // if (addedEmails.includes(email)) {
-      //alert(email + " has already checked in.");
-    //} else {
-      axios
-        .post(
-          baseUrl + "/events/checkin.php",
-          {
-            attendee: name,
-            email: email,
-            phone: phone,
-            id: kiosk_id,
-            ifs_id: ifs_id,
+  const preview = (fname, lname, email, phone, kiosk_id, ifs_id, status) => {
+    if (addedEmails.includes(email)) {
+    Alert.alert(
+      "Duplicate Checkin",
+      fname+" " +lname +" with email address of" + email + " has already checked in.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "destructive",
+        },
+        {
+          text: "Re-Print Tag",
+          onPress: () => {
+            print(Print.Orientation.landscape, fname, lname, status);
           },
-          {
-            headers: {
-              "Content-Type": "application/json;charset=utf-8",
-            },
-          }
-        )
-        .then((response) => {
-          addedEmails.push(email);
-          setFilteredDataSource([]);
-          setisFound(true);
-          searchFilterFunction("");
-          settextValue("");
-          print(Print.Orientation.landscape);
-        })
-        .catch((error) => {
-          alert(error);
-        });
-    //}
+        },
+      ],
+      { cancelable: false }
+    );
+    } else {
+    axios
+      .post(
+        baseUrl + "/events/checkin.php",
+        {
+          attendee: fname+"-"+lname,
+          email: email,
+          phone: phone,
+          id: kiosk_id,
+          ifs_id: ifs_id,
+          pin: props.route.params.kiosk_id
+        },
+        {
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+        }
+      )
+      .then((response) => {
+
+        addedEmails.push(email);
+
+        setFilteredDataSource([]);
+        setisFound(true);
+        searchFilterFunction("");
+        settextValue("");
+        print(Print.Orientation.landscape, fname, lname, status);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+    }
   };
 
-  const print = async (orientations = Print.Orientation.landscape) => {
+  const print = async (orientations, fname, lname, status) => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     await Print.printAsync({
-      html: mhtml,
-      width:356,
-      height:101,
+      html: `
+      <html>
+      <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
+        <style>
+          @page {
+            margin: 0;
+          }
+          #body {
+            zoom:500%
+            height: '100%';
+            width: '100%';
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
+          }
+          #content {
+            position: relative;
+        }
+         #content img {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+        }
+        </style>
+      </head>
+      <body id="body"">
+      <div style="font-size: 55vw; font-weight: bolder; width:'100%'; text-align: center;">${fname}<div>
+      <div style="font-size: 35vw;  width:'100%';  margin: 0 auto; text-align: center;">${lname}<div>
+      <div style="font-size: 25vw;  width:'100%';  margin: 0 auto; text-align: center;">${status}<div>
+      </body>
+    </html>
+      `,
       orientation: orientations,
       printerUrl: url, // iOS only
     });
@@ -202,11 +251,13 @@ const Checkins = (props, navigation) => {
       <TouchableOpacity
         onPress={() => {
           preview(
-            item.name,
+            item.fname,
+            item.lname,
             item.email,
             item.phone,
             props.route.params.kiosk_id,
-            item.ifs_id
+            item.ifs_id, 
+            item.status
           );
         }}
       >
@@ -221,7 +272,7 @@ const Checkins = (props, navigation) => {
             >
               <FontAwesome name="tag" size={12} style={styles.whiteIcon2} />
               <Text style={{ fontWeight: "bold", marginTop: 5 }}>
-                {item.name}
+                {item.fname} {item.lname}
               </Text>
             </View>
             <View
@@ -422,6 +473,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "center",
     flexDirection: "row",
+  },
+  moreIcon: {
+    marginLeft:-5,
+    justifyContent: "center",
   },
 });
 export default Checkins;
