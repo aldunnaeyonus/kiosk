@@ -114,7 +114,7 @@ style={{
   flexDirection: "row",
   justifyContent: "center",
 }}
-source={require('../../assets/images/events-transparent-1.png')}
+source={require('../../assets/events-transparent-1.png')}
  />      
         <View
           style={{

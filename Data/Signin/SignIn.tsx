@@ -23,7 +23,7 @@ export default class SignIn extends Component<Props> {
         loginButtonText={"Login"}
         disableDivider={false}
         disableSignup={true}
-        logoImageSource={require('../../assets/images/emptyList.png')}
+        logoImageSource={require('../../assets/emptyList.png')}
         disableSocialButtons={true}
         onSignupPress={() => {}}
         onLoginPress={() => {

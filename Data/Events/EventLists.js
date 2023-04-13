@@ -24,6 +24,7 @@ const EventList = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const isFocused = useIsFocused();
+  const [isLoding, setisLoding] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const EmptyListMessage = ({ item }) => {
     return (
@@ -37,7 +38,7 @@ const EventList = (props, navigation) => {
           justifyContent: "center",
           height: 400,
         }}
-        source={require("../../assets/images/2953962.jpg")}
+        source={require("../../assets/2953962.jpg")}
       />
     );
   };
@@ -60,12 +61,14 @@ const EventList = (props, navigation) => {
           .sort((a, b) =>
             a.kiosk_event_timestamp > b.kiosk_event_timestamp ? 1 : -1
           );
+        setisLoding(false)
         setFilteredDataSource(myData);
         setMasterDataSource(myData);
       });
   };
 
   useEffect(() => {
+    setisLoding(true)
     setActive(selectedIndex == 0 ? "0" : "1");
     const fetchData = async () => {
       const kiosk_id =
@@ -97,6 +100,7 @@ const EventList = (props, navigation) => {
             .sort((a, b) =>
               a.kiosk_event_timestamp > b.kiosk_event_timestamp ? 1 : -1
             );
+            setisLoding(false)
           setFilteredDataSource(myData);
           setMasterDataSource(myData);
         });
@@ -243,6 +247,11 @@ const EventList = (props, navigation) => {
     );
   }
 
+  const handleRefresh = () => {
+    handleSingleIndexSelect(selectedIndex)
+    setisLoding(true);
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -274,6 +283,9 @@ const EventList = (props, navigation) => {
       <FlatList
         style={{ flex: 1 }}
         ListEmptyComponent={EmptyListMessage}
+        refreshing={isLoding}
+        keyExtractor={item => item.kiosk_event_id}
+        onRefresh={handleRefresh}
         data={filteredDataSource}
         renderItem={({ item }) => <Item item={item} />}
       />

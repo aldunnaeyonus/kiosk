@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
-import { TextInput } from "react-native-paper";
+import { TextInput, Switch } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 const { width: ScreenWidth } = Dimensions.get("screen");
@@ -13,6 +13,8 @@ const ChangeData = ({ navigation, route }) => {
   const [myName, setMyName] = useState("");
   const [myMobile, setmyMobile] = useState("");
   const baseUrl = "https://dunn-carabali.com/kiosk";
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,13 +26,14 @@ const ChangeData = ({ navigation, route }) => {
           setMyEmail(jsonData[0].email);
           setMyName(jsonData[0].name);
           setmyMobile(jsonData[0].mobile);
+          setIsSwitchOn((jsonData[0].kiosk_is_ifs == "1" ? true : false))
           await AsyncStorage.setItem("kiosk_comapny_name", jsonData[0].name);
         });
     };
     fetchData();
   }, [isFocused]);
 
-  async function fetchCode(name: any, email: any, mobile: any) {
+  async function fetchCode(name: any, email: any, mobile: any, kiosk_is_ifs: any) {
     if (
       name.length <= 0 ||
       name.length <= 0 ||
@@ -54,7 +57,9 @@ const ChangeData = ({ navigation, route }) => {
           "&name=" +
           name +
           "&mobile=" +
-          mobile
+          mobile +
+          "&kiosk_is_ifs=" +
+          (kiosk_is_ifs == true ? "1" : "0")
       )
         .then((response) => response.json())
         .then(async (jsonData) => {
@@ -89,7 +94,7 @@ const ChangeData = ({ navigation, route }) => {
         <Text
           style={{ marginRight: 10 }}
           onPress={() => {
-            fetchCode(myName, myEmail, myMobile);
+            fetchCode(myName, myEmail, myMobile, isSwitchOn);
           }}
         >
           {" "}
@@ -221,7 +226,16 @@ const ChangeData = ({ navigation, route }) => {
                 }}
               >
                 Use Infustionsoft Database </Text>
-
+                <Switch 
+                color='#007AFF'
+                 style={{
+                  marginRight: 40,
+                  marginTop: 15,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+                value={isSwitchOn} 
+                onValueChange={onToggleSwitch} />
                 </View>
 
                 <View style={[styles.dividerTableStyle]} />

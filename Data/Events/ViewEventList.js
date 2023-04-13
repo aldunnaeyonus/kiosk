@@ -17,6 +17,7 @@ import {
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
     const isFocused = useIsFocused();
+    const [isLoding, setisLoding] = useState(true);
 
 
     const EmptyListMessage = () => {
@@ -30,13 +31,14 @@ import {
             justifyContent: "center",
             height: 400,
           }}
-          source={require("../../assets/images/2953962.jpg")}
+          source={require("../../assets/2953962.jpg")}
         />
       );
     };
     
   
     useEffect(() => {
+      setisLoding(true)
       const fetchData = async () => {
         fetch( baseUrl + "/events/attendees.php?kiosk_id=" + props.route.params.kiosk_id )
           .then((response) => response.json())
@@ -46,6 +48,7 @@ import {
               .sort((a, b) =>
                 a.kiosk_attendee_events_attendee_fname > b.kiosk_attendee_events_attendee_fname ? 1 : -1
               );
+              setisLoding(false)
             setFilteredDataSource(myData);
             setMasterDataSource(myData);
           });
@@ -86,20 +89,7 @@ import {
         setSearch(text);
       }
     };
-  
-   const renderSeparator = () => {
-      return (
-        <View
-          style={{
-            height: 1,
-            width: "86%",
-            backgroundColor: "#CED0CE",
-            marginLeft: "10%"
-          }}
-        />
-      );
-    };
-  
+
     return (
       <View style={styles.container}>
         <TextInput
@@ -109,6 +99,7 @@ import {
           placeholder="Search by Attendee Name"
         />
         <FlatList
+         refreshing={isLoding}
           style={{ flex: 1 }}
           ListEmptyComponent={EmptyListMessage}
           data={filteredDataSource}

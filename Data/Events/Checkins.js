@@ -27,6 +27,7 @@ const Checkins = (props, navigation) => {
   const [textValue, settextValue] = useState("");
   const [addedEmails, setaddedEmails] = useState([]);
   const baseUrl = "https://dunn-carabali.com/kiosk";
+  const [isLoding, setisLoding] = useState(true);
 
   const closeEvent = () => {
     axios
@@ -123,6 +124,7 @@ const Checkins = (props, navigation) => {
   }, [isFocused]);
 
   const searchFilterFunction = async (text) => {
+    setisLoding(true)
     await fetch(baseUrl + "/search/index.php?email=" + text)
       .then((response) => response.json())
       .then(async (jsonData) => {
@@ -131,6 +133,7 @@ const Checkins = (props, navigation) => {
           .sort((a, b) => (a.name > b.name ? 1 : -1));
         setFilteredDataSource(myData);
         setisFound(true);
+        setisLoding(false)
       });
   };
 
@@ -427,6 +430,8 @@ const Checkins = (props, navigation) => {
 
       <FlatList
         style={{ flex: 1 }}
+        refreshing={isLoding}
+        keyExtractor={item => item.kiosk_event_id}
         data={filteredDataSource}
         renderItem={({ item }) => <Item item={item} />}
       />
