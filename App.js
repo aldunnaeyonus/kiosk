@@ -2,6 +2,7 @@
 import Checkins from "./Data/Events/Checkins";
 import ChangePass from "./Data/Settings/ChangePassword";
 import ChangeData from "./Data/Settings/ChangeData";
+import ViewEventList from "./Data/Events/ViewEventList";
 import AddAttendee from "./Data/Events/AddAttendee";
 import Bluetooth from "./Data/Settings/Bluetooth";
 import SignIn from "./Data/Signin/SignIn";
@@ -120,6 +121,11 @@ if (!isReady) {
                   component={ChangeData}
                   options={{ headerShown: true, headerBackTitleVisible: false, headerTintColor: '#000000' }}
                 />
+                                <Stack.Screen
+                  name="View Event Attendee List"
+                  component={ViewEventList}
+                  options={{ headerShown: true, headerBackTitleVisible: false, headerTintColor: '#000000' }}
+                />
               </Stack.Navigator>
       </NavigationContainer>
     );
@@ -175,6 +181,11 @@ if (!isReady) {
                 <Stack.Screen
                   name="Change Account Details"
                   component={ChangeData}
+                  options={{ headerShown: true, headerBackTitleVisible: false, headerTintColor: '#000000' }}
+                />
+                <Stack.Screen
+                  name="View Event Attendee List"
+                  component={ViewEventList}
                   options={{ headerShown: true, headerBackTitleVisible: false, headerTintColor: '#000000' }}
                 />
                 </Stack.Navigator>

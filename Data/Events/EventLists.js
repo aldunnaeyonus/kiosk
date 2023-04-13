@@ -153,7 +153,10 @@ const EventList = (props, navigation) => {
               event_status: item.kiosk_event_status,
             });
           } else {
-            
+            props.navigation.navigate("View Event Attendee List", {
+              kiosk_id: item.kiosk_event_id,
+              kiosk_event: item.kiosk_event_name,
+            });
           }
         }}
       >

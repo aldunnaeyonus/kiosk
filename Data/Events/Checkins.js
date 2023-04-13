@@ -174,7 +174,8 @@ const Checkins = (props, navigation) => {
       .post(
         baseUrl + "/events/checkin.php",
         {
-          attendee: fname+"-"+lname,
+          fattendee: fname,
+          lattendee: lname,
           email: email,
           phone: phone,
           id: kiosk_id,
