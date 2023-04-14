@@ -230,32 +230,7 @@ const previewAction = () => {
             <InfoText text="More" />
             <View style={[styles.dividerTableStyle]} />
             <View>
-            <ListItem
-              containerStyle={{ paddingVertical: 5 }}
-              key="5"
-              onPress={privacy}
-            >
-              <Icon
-                type="ionicon"
-                name="document"
-                size={20}
-                color="white"
-                containerStyle={{
-                  backgroundColor: "#007AFF",
-                  width: 28,
-                  height: 28,
-                  borderRadius: 6,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              />
-              <ListItem.Content>
-                <ListItem.Title>Name Tag Templates</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
-            <View style={[styles.dividerTableStyleShort]} />
-
+            
             <ListItem
               containerStyle={{ paddingVertical: 5 }}
               key="6"

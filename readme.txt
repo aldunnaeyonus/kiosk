@@ -21,3 +21,6 @@ NPM Installs
     npx npm-check-updates -u 
     npm install -g npm-check-updates
     npm install
+
+Watchman
+    watchman watch-del '/Users/andrewdunn/Documents/GitHubDunn/kiosk' ; watchman watch-project '/Users/andrewdunn/Documents/GitHubDunn/kiosk'
