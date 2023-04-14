@@ -306,7 +306,7 @@ const AddAttendee = ({ navigation, props }) => {
               lname,
               email,
               phone,
-              props.route.params.kiosk_id,
+              route.params.kiosk_id,
               "0",
               "Guest"
             );
