@@ -5,6 +5,7 @@ import ViewEventList from "./Data/Events/ViewEventList";
 import AddAttendee from "./Data/Events/AddAttendee";
 import Bluetooth from "./Data/Settings/Bluetooth";
 import SignIn from "./Data/Signin/SignIn";
+import Register from "./Data/Signin/Register";
 import EventLists from "./Data/Events/EventLists";
 import AddEvents from "./Data/Events/AddEvents";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -14,6 +15,7 @@ import * as SplashScreen from "expo-splash-screen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform, Text, LogBox } from "react-native";
 import WebViewer from "./Data/WebView/WebView";
+import { AlertNotificationRoot } from "react-native-alert-notification";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -52,7 +54,6 @@ export default function App() {
         const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn") : window.localStorage.getItem("logedIn");
         setSignIn(stringToBoolean(value));
         await SplashScreen.preventAutoHideAsync();
-        await new Promise((resolve) => setTimeout(resolve, 2000));
       } catch (e) {
         console.warn(e);
       } finally {
@@ -73,12 +74,12 @@ export default function App() {
   if (signIn) {
     return (
       <NavigationContainer>
+                    <AlertNotificationRoot>
         <Stack.Navigator initialRouteName="EventLists">
           <Stack.Screen
             name="Event List"
             component={EventLists}
             options={{
-              gestureEnabled: false,
               headerShown: true,
               headerLeft: () => <></>,
             }}
@@ -161,22 +162,43 @@ export default function App() {
             component={SignIn}
             options={{ headerShown: false }}
           />
+           <Stack.Screen
+                  name="Register an Account"
+                  component={Register}
+                  options={{
+                    headerShown: true,
+                    headerTransparent: true,
+                    headerTintColor: "#000",
+                    headerBackTitleVisible: false,
+                  }}
+                />
         </Stack.Navigator>
+        </AlertNotificationRoot>
       </NavigationContainer>
     );
   } else {
     return (
       <NavigationContainer>
+                    <AlertNotificationRoot>
         <Stack.Navigator initialRouteName="SignIn">
           <Stack.Screen
             name="Kiosk Sign In"
             component={SignIn}
             options={{ headerShown: false }}
           />
+ <Stack.Screen
+                  name="Register an Account"
+                  component={Register}
+                  options={{
+                    headerShown: true,
+                    headerTransparent: true,
+                    headerTintColor: "#000",
+                    headerBackTitleVisible: false,
+                  }}
+                />
           <Stack.Screen
             name="Event List"
             options={{
-              gestureEnabled: false,
               headerShown: true,
               headerLeft: () => <></>,
             }}
@@ -255,6 +277,7 @@ export default function App() {
             }}
           />
         </Stack.Navigator>
+        </AlertNotificationRoot>
       </NavigationContainer>
     );
   }

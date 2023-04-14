@@ -35,13 +35,13 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
   const privacy = async () => {
     props.navigation.navigate("WebView", {
-      url: baseUrl + "privacyPolicy.html",
+      url: baseUrl + "/privacyPolicy.html",
       name: "Privacy Policy",
     });
   };
   const terms = async () => {
     props.navigation.navigate("WebView", {
-      url: baseUrl + "termsUsePolicy.html",
+      url: baseUrl + "/termsUsePolicy.html",
       name: "Terms & Use",
     });
   };

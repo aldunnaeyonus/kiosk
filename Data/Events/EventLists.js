@@ -45,8 +45,6 @@ const EventList = (props, navigation) => {
   const handleSingleIndexSelect = (index) => {
     setActive(index == 0 ? "0" : "1");
     setSelectedIndex(index);
-    setFilteredDataSource([]);
-    setMasterDataSource([]);
     fetch(
       baseUrl +
         "/events/index.php?kiosk_id=" +
@@ -84,8 +82,6 @@ const EventList = (props, navigation) => {
       props.navigation.setOptions({
         title: kiosk_comapny_name + " Events List",
       });
-      setFilteredDataSource([]);
-      setMasterDataSource([]);
       fetch(
         baseUrl +
           "/events/index.php?kiosk_id=" +

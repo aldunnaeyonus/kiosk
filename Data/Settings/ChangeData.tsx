@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions,  ActivityIndicator, Modal } from "react-native";
 import { TextInput, Switch } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 const { width: ScreenWidth } = Dimensions.get("screen");
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ALERT_TYPE, Toast, Dialog } from "react-native-alert-notification";
 
 
 const ChangeData = ({ navigation, route }) => {
@@ -15,7 +16,18 @@ const ChangeData = ({ navigation, route }) => {
   const baseUrl = "https://dunn-carabali.com/kiosk";
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+  const [visible, setvisible] = useState(false);
 
+  const CustomProgressBar = ({ visible }) => (
+    <Modal style={{backgroundColor: 'transparent'}} onRequestClose={() => null} visible={visible}>
+      <View style={{ flex: 1, backgroundColor: '#dcdcdc', alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ borderRadius: 10, backgroundColor: 'white', padding: 25 }}>
+          <Text style={{ fontSize: 20, fontWeight: '200' }}>Creating Event</Text>
+          <ActivityIndicator size="large" />
+        </View>
+      </View>
+    </Modal>
+  );
   useEffect(() => {
     const fetchData = async () => {
       fetch(
@@ -40,14 +52,15 @@ const ChangeData = ({ navigation, route }) => {
       name.length === null ||
       name.length === null
     ) {
-      /*Dialog.show({
+      Toast.show({
         type: ALERT_TYPE.DANGER,
         title: "Entry Error",
         textBody:
           "Password and Company Name Field cannot be left blank, please try again.",
         autoClose: 3000, // or time in ms by default 5000
-      });*/
+      });
     } else {
+      setvisible(true)
       fetch(
         baseUrl +
           "/profile/save.php?id=" +
@@ -64,20 +77,23 @@ const ChangeData = ({ navigation, route }) => {
         .then((response) => response.json())
         .then(async (jsonData) => {
           await AsyncStorage.setItem("kiosk_comapny_name", name);
-          /*Dialog.show({
+          Dialog.show({
             type: ALERT_TYPE.SUCCESS,
             title: "Information",
             textBody: "Profile information was updated and saved successfully.",
             autoClose: 2000, // or time in ms by default 5000
-          });*/
+          });
+          setvisible(false)
+
         })
         .catch((error) => {
-          /*Toast.show({
+          setvisible(false)
+          Toast.show({
             type: ALERT_TYPE.WARNING,
             title: "Connection Failed",
             textBody: "Server Connection Error: " + error,
             autoClose: 3000, // or time in ms by default 5000
-          });*/
+          });
         });
     }
   }
@@ -106,6 +122,7 @@ const ChangeData = ({ navigation, route }) => {
 
   return (
     <SafeAreaProvider style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
+                      <CustomProgressBar visible={visible} />
       <View
         style={{
           marginTop: 180,

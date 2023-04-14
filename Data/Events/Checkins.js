@@ -18,7 +18,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 MaterialCommunityIcons.loadFont();
-
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
+  
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [isFound, setisFound] = useState(true);
@@ -45,7 +46,13 @@ const Checkins = (props, navigation) => {
         props.navigation.goBack(null);
       })
       .catch((error) => {
-        alert(error);
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.WARNING,
+          title: "Connection Failed",
+          textBody: "Server Connection Error: " + error,
+          autoClose: 5000, // or time in ms by default 5000
+        });
       });
   };
 
@@ -211,7 +218,13 @@ const Checkins = (props, navigation) => {
           print(Print.Orientation.landscape, fname, lname, status);
         })
         .catch((error) => {
-          alert(error);
+          Toast.show({
+            onPress() {},
+            type: ALERT_TYPE.WARNING,
+            title: "Connection Failed",
+            textBody: "Server Connection Error: " + error,
+            autoClose: 5000, // or time in ms by default 5000
+          });
         });
     }
   };

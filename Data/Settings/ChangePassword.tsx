@@ -1,27 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Dimensions,  ActivityIndicator, Modal } from "react-native";
 import { TextInput } from "react-native-paper";
 import { sha256 } from "js-sha256";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 const { width: ScreenWidth } = Dimensions.get("screen");
+import { ALERT_TYPE, Toast, Dialog } from "react-native-alert-notification";
 
 const ChangePassword = ({ navigation, route }) => {
   const [userPassword, setuserPassword] = useState("");
   const [userPassword2, setuserPassword2] = useState("");
   const baseUrl = "https://dunn-carabali.com/kiosk";
+  const [visible, setvisible] = useState(false);
+  const CustomProgressBar = ({ visible }) => (
+    <Modal style={{backgroundColor: 'transparent'}} onRequestClose={() => null} visible={visible}>
+      <View style={{ flex: 1, backgroundColor: '#dcdcdc', alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ borderRadius: 10, backgroundColor: 'white', padding: 25 }}>
+          <Text style={{ fontSize: 20, fontWeight: '200' }}>Creating Event</Text>
+          <ActivityIndicator size="large" />
+        </View>
+      </View>
+    </Modal>
+  );
 
   async function fetchCode(password: any, password2: any) {
     if (
       password !== password2 ||
       (password.length <= 0 && password.length <= 0)
     ) {
-      /*Dialog.show({
+      Dialog.show({
         type: ALERT_TYPE.DANGER,
         title: "Password Error",
         textBody: "Passwords do not match or are blank, please try again.",
         autoClose: 3000, // or time in ms by default 5000
-      });*/
+      });
     } else {
+      setvisible(true)
       fetch(
         baseUrl +
           "/profile/password.php?id=" +
@@ -31,20 +44,22 @@ const ChangePassword = ({ navigation, route }) => {
       )
         .then((response) => response.json())
         .then(async (jsonData) => {
-          /*Dialog.show({
+          setvisible(false)
+          Dialog.show({
             type: ALERT_TYPE.SUCCESS,
             title: "Password",
             textBody: "Profile password was updated and saved successfully.",
             autoClose: 2000, // or time in ms by default 5000
-          });*/
+          });
         })
         .catch((error) => {
-          /*Toast.show({
+          setvisible(false)
+          Toast.show({
             type: ALERT_TYPE.WARNING,
             title: "Connection Failed",
             textBody: "Server Connection Error: " + error,
             autoClose: 3000, // or time in ms by default 5000
-          });*/
+          });
         });
     }
   }
@@ -68,6 +83,7 @@ const ChangePassword = ({ navigation, route }) => {
 
   return (
     <SafeAreaProvider style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
+                            <CustomProgressBar visible={visible} />
       <View style={{ width: "100%" }}></View>
       <View
         style={{

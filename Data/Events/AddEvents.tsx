@@ -7,6 +7,8 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
+  ActivityIndicator,
+  Modal
 } from "react-native";
 import InteractiveTextInput from "react-native-text-input-interactive";
 import { TextInput } from "react-native-paper";
@@ -19,10 +21,12 @@ import { Platform } from "react-native";
 const { width: ScreenWidth } = Dimensions.get("screen");
 import axios from "axios";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
 FontAwesome.loadFont();
 const AddEvent = ({ navigation, props }) => {
   const [datePickerVisible, setDatePickerVisible] = useState(false);
+  const [visible, setvisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
     moment(new Date()).format("MMMM DD, YYYY")
   );
@@ -34,12 +38,28 @@ const AddEvent = ({ navigation, props }) => {
   const [kiosk_id, setkiosk_id] = useState("");
   const [kiosk_logo, setkiosk_logo] = useState("");
   const [kiosk_is_ifs, setkiosk_is_ifs] = useState("0");
-  
+
+  const CustomProgressBar = ({ visible }) => (
+    <Modal style={{backgroundColor: 'transparent'}} onRequestClose={() => null} visible={visible}>
+      <View style={{ flex: 1, backgroundColor: '#dcdcdc', alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ borderRadius: 10, backgroundColor: 'white', padding: 25 }}>
+          <Text style={{ fontSize: 20, fontWeight: '200' }}>Creating Event</Text>
+          <ActivityIndicator size="large" />
+        </View>
+      </View>
+    </Modal>
+  );
+
   const preview = () => {
     if ((title.length <= 0) || (location.length <= 0) || (selectedDate.length <= 0)){
-      alert("The title, location, and selected date are required entried.")
+      Dialog.show({
+        type: ALERT_TYPE.WARNING,
+        title: "Error",
+        textBody: "The title, location, and selected date are required entried.",
+        autoClose: 5000, // or time in ms by default 5000
+      });
     }else{  
-
+      setvisible(true)
   axios.post(baseUrl + '/events/create.php', {
         title: title, 
         location: location, 
@@ -53,10 +73,18 @@ const AddEvent = ({ navigation, props }) => {
   }
 })
         .then(response => {
+          setvisible(false)
           navigation.goBack(null)
       })
       .catch(error => {
-        alert(error);
+        setvisible(false)
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.WARNING,
+          title: "Connection Failed",
+          textBody: "Server Connection Error: " + error,
+          autoClose: 5000, // or time in ms by default 5000
+        });
     });
   }
       };
@@ -105,6 +133,8 @@ const AddEvent = ({ navigation, props }) => {
 
   return (
     <SafeAreaProvider style={styles.container}>
+          <CustomProgressBar visible={visible} />
+
       <Image 
     resizeMode='contain'
     resizeMethod="scale"
