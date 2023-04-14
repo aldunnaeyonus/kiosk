@@ -27,7 +27,6 @@ const Checkins = (props, navigation) => {
   const [textValue, settextValue] = useState("");
   const [addedEmails, setaddedEmails] = useState([]);
   const baseUrl = "https://dunn-carabali.com/kiosk";
-  const [isLoding, setisLoding] = useState(true);
 
   const closeEvent = () => {
     axios
@@ -53,37 +52,36 @@ const Checkins = (props, navigation) => {
   useEffect(() => {
     props.navigation.setOptions({
       headerLeft: () => (
-        <TouchableOpacity                
-        onPress={() => {
-          Alert.alert(
-            "Exit Out",
-            "Are you sure you want to exit out of this Event [" +
-              props.route.params.kiosk_event +
-              "]\n\nThis will erase the duplicate email checker",
-            [
-              {
-                text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "destructive",
-              },
-              {
-                text: "Go back",
-                onPress: () => {
-                  props.navigation.goBack(null);
-
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert(
+              "Exit Out",
+              "Are you sure you want to exit out of this Event [" +
+                props.route.params.kiosk_event +
+                "]\n\nThis will erase the duplicate email checker",
+              [
+                {
+                  text: "Cancel",
+                  onPress: () => console.log("Cancel Pressed"),
+                  style: "destructive",
                 },
-              },
-            ],
-            { cancelable: false }
-          );
-        }}
-    >
-      <MaterialCommunityIcons
-                name="chevron-left"
-                size={40}
-                style={styles.moreIcon}
-              />
-    </TouchableOpacity>
+                {
+                  text: "Go back",
+                  onPress: () => {
+                    props.navigation.goBack(null);
+                  },
+                },
+              ],
+              { cancelable: false }
+            );
+          }}
+        >
+          <MaterialCommunityIcons
+            name="chevron-left"
+            size={40}
+            style={styles.moreIcon}
+          />
+        </TouchableOpacity>
       ),
       headerRight: () => (
         <Button
@@ -124,17 +122,24 @@ const Checkins = (props, navigation) => {
   }, [isFocused]);
 
   const searchFilterFunction = async (text) => {
-    setisLoding(true)
-    await fetch(baseUrl + "/search/index.php?email=" + text)
+    if (text.length <= 0){
+      setFilteredDataSource([]);
+      setisFound(true);
+    }else{
+    await fetch(baseUrl + "/search/index.php?email=" + text+"&pin="+props.route.params.kiosk_owner)
       .then((response) => response.json())
       .then(async (jsonData) => {
         const myData = []
           .concat(jsonData)
           .sort((a, b) => (a.name > b.name ? 1 : -1));
         setFilteredDataSource(myData);
+        if (myData.length <= 0){
+          setisFound(false);
+        }else{
         setisFound(true);
-        setisLoding(false)
+        }
       });
+    }
   };
 
   useEffect(() => {
@@ -154,56 +159,60 @@ const Checkins = (props, navigation) => {
 
   const preview = (fname, lname, email, phone, kiosk_id, ifs_id, status) => {
     if (addedEmails.includes(email)) {
-    Alert.alert(
-      "Duplicate Checkin",
-      fname+" " +lname +" with email address of" + email + " has already checked in.",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "destructive",
-        },
-        {
-          text: "Re-Print Tag",
-          onPress: () => {
-            print(Print.Orientation.landscape, fname, lname, status);
+      Alert.alert(
+        "Duplicate Checkin",
+        fname +
+          " " +
+          lname +
+          " with email address of" +
+          email +
+          " has already checked in.",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "destructive",
           },
-        },
-      ],
-      { cancelable: false }
-    );
+          {
+            text: "Re-Print Tag",
+            onPress: () => {
+              print(Print.Orientation.landscape, fname, lname, status);
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     } else {
-    axios
-      .post(
-        baseUrl + "/events/checkin.php",
-        {
-          fattendee: fname,
-          lattendee: lname,
-          email: email,
-          phone: phone,
-          id: kiosk_id,
-          ifs_id: ifs_id,
-          pin: props.route.params.kiosk_id
-        },
-        {
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
+      axios
+        .post(
+          baseUrl + "/events/checkin.php",
+          {
+            fattendee: fname,
+            lattendee: lname,
+            email: email,
+            phone: phone,
+            id: kiosk_id,
+            ifs_id: ifs_id,
+            pin: props.route.params.kiosk_id,
           },
-        }
-      )
-      .then((response) => {
+          {
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+          }
+        )
+        .then((response) => {
+          addedEmails.push(email);
 
-        addedEmails.push(email);
-
-        setFilteredDataSource([]);
-        setisFound(true);
-        searchFilterFunction("");
-        settextValue("");
-        print(Print.Orientation.landscape, fname, lname, status);
-      })
-      .catch((error) => {
-        alert(error);
-      });
+          setFilteredDataSource([]);
+          setisFound(true);
+          searchFilterFunction("");
+          settextValue("");
+          print(Print.Orientation.landscape, fname, lname, status);
+        })
+        .catch((error) => {
+          alert(error);
+        });
     }
   };
 
@@ -260,7 +269,7 @@ const Checkins = (props, navigation) => {
             item.email,
             item.phone,
             props.route.params.kiosk_id,
-            item.ifs_id, 
+            item.ifs_id,
             item.status
           );
         }}
@@ -430,8 +439,6 @@ const Checkins = (props, navigation) => {
 
       <FlatList
         style={{ flex: 1 }}
-        refreshing={isLoding}
-        keyExtractor={item => item.kiosk_event_id}
         data={filteredDataSource}
         renderItem={({ item }) => <Item item={item} />}
       />
@@ -481,7 +488,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   moreIcon: {
-    marginLeft:-5,
+    marginLeft: -5,
     justifyContent: "center",
   },
 });

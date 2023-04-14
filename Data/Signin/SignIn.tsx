@@ -6,7 +6,6 @@ interface Props {
   navigation: any;
 }
 const baseUrl = "https://dunn-carabali.com/kiosk";
-
 export default class SignIn extends Component<Props> {
   emails: any;
   passwords: any;
@@ -19,11 +18,11 @@ export default class SignIn extends Component<Props> {
   render() {
     return (
       <LoginScreen
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         loginButtonText={"Login"}
         disableDivider={false}
         disableSignup={true}
-        logoImageSource={require('../../assets/emptyList.png')}
+        logoImageSource={require("../../assets/emptyList.png")}
         disableSocialButtons={true}
         onSignupPress={() => {}}
         onLoginPress={() => {
@@ -35,14 +34,15 @@ export default class SignIn extends Component<Props> {
               sha256(this.passwords)
           )
             .then((response) => response.json())
+
             .then(async (jsonData) => {
               if (jsonData[0].errResponse == "3") {
-
-              }else if (jsonData[0].errResponse == "1") {
-                
-              }else if (jsonData[0].errResponse == "2") {
-
-              } else {
+                alert("3")
+              } else if (jsonData[0].errResponse == "1") {
+                alert("1")
+              } else if (jsonData[0].errResponse == "2") {
+                alert("2")
+              } else if (jsonData[0].errResponse == "Success") {
                 await AsyncStorage.setItem("kiosk_id", jsonData[0].kiosk_pin);
                 await AsyncStorage.setItem(
                   "kiosk_logo",
@@ -70,5 +70,4 @@ export default class SignIn extends Component<Props> {
       ></LoginScreen>
     );
   }
-
 }

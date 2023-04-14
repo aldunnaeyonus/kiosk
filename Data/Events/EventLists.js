@@ -154,11 +154,13 @@ const EventList = (props, navigation) => {
             props.navigation.navigate("Check In Attendees", {
               kiosk_id: item.kiosk_event_id,
               kiosk_event: item.kiosk_event_name,
+              kiosk_owner: item.kiosk_event_owner_id,
               event_status: item.kiosk_event_status,
             });
           } else {
             props.navigation.navigate("View Event Attendee List", {
               kiosk_id: item.kiosk_event_id,
+              kiosk_owner: item.kiosk_event_owner_id,
               kiosk_event: item.kiosk_event_name,
             });
           }

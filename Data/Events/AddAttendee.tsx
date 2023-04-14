@@ -11,7 +11,6 @@ import {
 import InteractiveTextInput from "react-native-text-input-interactive";
 import { TextInput } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import moment from "moment";
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width: ScreenWidth } = Dimensions.get("screen");
@@ -21,43 +20,14 @@ FontAwesome.loadFont();
 import * as Print from "expo-print";
 
 const AddAttendee = ({ navigation, props }) => {
-  const [datePickerVisible, setDatePickerVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(
-    moment(new Date()).format("MMMM DD, YYYY")
-  );
-  const [title, settitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [tag, setTag] = useState("");
+  const [fname, setfname] = useState("");
+  const [lname, setlname] = useState("");
+  const [email, setemail] = useState("");
+  const [phone, setphone] = useState("");
   const isFocused = useIsFocused();
   const [url, setURL] = useState("");
   const baseUrl = "https://dunn-carabali.com/kiosk";
-  const html = `
-  <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-  <style type="text/css" media="screen"></style>
   
-  <style type="text/css" media="print">
-   
-  /* @page {size:landscape}  */   
-  body {
-      page-break-before: avoid;
-      width:200;
-      height:200;
-      -webkit-transform: rotate(-90deg) scale(.68,.68); 
-      -moz-transform:rotate(-90deg) scale(.58,.58);
-      zoom: 100%    
-    }
-  
-  </style>
-</head>
-<body style="text-align: center;">
-  <h1 style="font-size: 50px; font-family: Helvetica Neue; font-weight: normal;">
-    Hello Expo!
-  </h1>
-</body>
-</html>
-`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,27 +44,63 @@ const AddAttendee = ({ navigation, props }) => {
     fetchData();
   }, [isFocused]);
 
-  const print = async (orientation = Print.Orientation.portrait) => {
+  const print = async (orientations: any, fname: any, lname: any, status: any) => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     await Print.printAsync({
-      html,
-      orientation,
+      html: `
+      <html>
+      <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
+        <style>
+          @page {
+            margin: 0;
+          }
+          #body {
+            zoom:500%
+            height: '100%';
+            width: '100%';
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
+          }
+          #content {
+            position: relative;
+        }
+         #content img {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+        }
+        </style>
+      </head>
+      <body id="body"">
+      <div style="font-size: 55vw; font-weight: bolder; width:'100%'; text-align: center;">${fname}<div>
+      <div style="font-size: 35vw;  width:'100%';  margin: 0 auto; text-align: center;">${lname}<div>
+      <div style="font-size: 25vw;  width:'100%';  margin: 0 auto; text-align: center;">${status}<div>
+      </body>
+    </html>
+      `,
+      orientation: orientations,
       printerUrl: url, // iOS only
     });
   };
 
-  const preview = () => {
-    if (title.length <= 0 || location.length <= 0 || tag.length <= 0) {
-      alert("The title, phone, and email address are required entried.");
+  const preview = (fname: any, lname: any, email: any, phone: any, kiosk_id: any, ifs_id: any, status: any) => {
+    if (fname.length <= 0 || lname.length <= 0 || email.length <= 0) {
+      alert("Your name and email address are required entries.");
     } else {
       axios
         .post(
           baseUrl + "/events/checkin.php",
           {
-            attendee: title,
-            email: location,
-            phone: tag,
-            id: props.route.params.kiosk_id,
+            fattendee: fname,
+            lattendee: lname,
+            email: email,
+            phone: phone,
+            id: kiosk_id,
+            ifs_id: ifs_id,
           },
           {
             headers: {
@@ -103,8 +109,7 @@ const AddAttendee = ({ navigation, props }) => {
           }
         )
         .then((response) => {
-          print(Print.Orientation.portrait);
-
+          print(Print.Orientation.landscape, fname, lname, status);
           navigation.goBack(null);
         })
         .catch((error) => {
@@ -113,20 +118,6 @@ const AddAttendee = ({ navigation, props }) => {
     }
   };
 
-  const showDatePicker = () => {
-    setDatePickerVisible(true);
-  };
-  const hideDatePicker = React.useCallback(() => {
-    setDatePickerVisible(false);
-  }, [datePickerVisible]);
-
-  const onConfirmSingle = React.useCallback(
-    (params: { date: moment.MomentInput }) => {
-      setDatePickerVisible(false);
-      setSelectedDate(moment(params.date).format("MMMM DD, YYYY"));
-    },
-    [setDatePickerVisible, selectedDate]
-  );
 
   useEffect(() => {
     {
@@ -157,6 +148,7 @@ const AddAttendee = ({ navigation, props }) => {
             }}
           >
             <TextInput.Icon
+                          iconColor='#007AFF'
               style={{
                 marginLeft: 38,
                 marginTop: 45,
@@ -179,14 +171,13 @@ const AddAttendee = ({ navigation, props }) => {
                 justifyContent: "center",
               }}
               keyboardType="default"
-              placeholder="Name"
+              placeholder="First Name"
               onChangeText={(text) => {
-                settitle(text);
+                setfname(text);
               }}
             />
           </View>
           <View style={[styles.dividerStyle]} />
-
           <View
             style={{
               backgroundColor: "white",
@@ -198,6 +189,48 @@ const AddAttendee = ({ navigation, props }) => {
             }}
           >
             <TextInput.Icon
+                          iconColor='#007AFF'
+              style={{
+                marginLeft: 38,
+                marginTop: 45,
+                flexDirection: "row",
+                width: "90%",
+                justifyContent: "space-between",
+              }}
+              size={20}
+              icon="tag-outline"
+            />
+
+            <InteractiveTextInput
+              maxLength={33}
+              autoCapitalize="words"
+              textInputStyle={{
+                backgroundColor: "white",
+                marginLeft: 38,
+                fontSize: 18,
+                height: 60,
+                justifyContent: "center",
+              }}
+              keyboardType="default"
+              placeholder="Last Name"
+              onChangeText={(text) => {
+                setlname(text);
+              }}
+            />
+          </View>
+          <View style={[styles.dividerStyle]} />
+          <View
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              height: 60,
+              marginTop: 0,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <TextInput.Icon
+                          iconColor='#007AFF'
               style={{
                 marginLeft: 38,
                 marginTop: 45,
@@ -220,7 +253,7 @@ const AddAttendee = ({ navigation, props }) => {
               keyboardType="email-address"
               placeholder="Email Address"
               onChangeText={(text) => {
-                setLocation(text);
+                setemail(text);
               }}
             />
           </View>
@@ -237,6 +270,7 @@ const AddAttendee = ({ navigation, props }) => {
             }}
           >
             <TextInput.Icon
+                          iconColor='#007AFF'
               style={{
                 marginLeft: 38,
                 marginTop: 45,
@@ -258,7 +292,7 @@ const AddAttendee = ({ navigation, props }) => {
               keyboardType="phone-pad"
               placeholder="Phone Number"
               onChangeText={(text) => {
-                setTag(text);
+                setphone(text);
               }}
             />
           </View>
@@ -267,17 +301,25 @@ const AddAttendee = ({ navigation, props }) => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            preview();
+            preview(
+              fname,
+              lname,
+              email,
+              phone,
+              props.route.params.kiosk_id,
+              "0",
+              "Guest"
+            );
           }}
         >
           <View
             style={{
               height: 50,
-              width: 200,
+              width: 300,
               marginTop: 50,
               flexDirection: "row",
               borderRadius: 20,
-              backgroundColor: "green",
+              backgroundColor: "#007AFF",
               justifyContent: "center",
               alignItems: "center",
               alignSelf: "center",
@@ -291,10 +333,7 @@ const AddAttendee = ({ navigation, props }) => {
                 alignItems: "center",
                 fontSize: 17,
               }}
-            >
-              {" "}
-              Chekin{" "}
-            </Text>
+            >{" "} Create User & Chek In {" "} </Text>
             <FontAwesome name="check" size={15} style={styles.whiteIcon} />
           </View>
         </TouchableOpacity>
