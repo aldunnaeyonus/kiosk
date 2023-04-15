@@ -201,7 +201,6 @@ const previewAction = () => {
                 <ListItem.Chevron />
               </ListItem>
               <View style={[styles.dividerTableStyleShort]} />
-
               <ListItem
               containerStyle={{paddingVertical: 5 }}
               key="8"
@@ -228,34 +227,35 @@ const previewAction = () => {
             </ListItem>
               <View style={[styles.dividerTableStyle]} />
             </View>
-            <InfoText text="Printers" />
-            <View style={[styles.dividerTableStyle]} />
-              <ListItem
-                containerStyle={{ paddingVertical: 5 }}
-                key="3"
-                onPress={selectPrinter}
-              >
-                <Icon
-                  type="ionicon"
-                  name="print"
-                  size={20}
-                  color="white"
-                  containerStyle={{
-                    backgroundColor: "#007AFF",
-                    width: 28,
-                    height: 28,
-                    borderRadius: 6,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                />
-                <ListItem.Content>
-                  <ListItem.Title>{title != null ? `Selected Printer: ${title}` : 'Select Printer'}</ListItem.Title>
-                </ListItem.Content>
-                <ListItem.Chevron />
-              </ListItem>
-              <View style={[styles.dividerTableStyle]} />
 
+            {
+            Platform.OS === 'ios' ? 
+            <>
+            <InfoText text="Printers" /><View style={[styles.dividerTableStyle]} /><ListItem
+                  containerStyle={{ paddingVertical: 5 }}
+                  key="3"
+                  onPress={selectPrinter}
+                >
+                  <Icon
+                    type="ionicon"
+                    name="print"
+                    size={20}
+                    color="white"
+                    containerStyle={{
+                      backgroundColor: "#007AFF",
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }} />
+                  <ListItem.Content>
+                    <ListItem.Title>{title != null ? `Selected Printer: ${title}` : 'Select Printer'}</ListItem.Title>
+                  </ListItem.Content>
+                  <ListItem.Chevron />
+                </ListItem><View style={[styles.dividerTableStyle]} /></>
+                  : ""
+                  }
 
             <InfoText text="More" />
             <View style={[styles.dividerTableStyle]} />

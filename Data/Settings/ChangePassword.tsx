@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Dimensions,  ActivityIndicator, Modal } from "react-native";
+import { View, Text, StyleSheet, Dimensions,  ActivityIndicator, Modal, ScrollView } from "react-native";
 import { TextInput } from "react-native-paper";
 import { sha256 } from "js-sha256";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -84,6 +84,8 @@ const ChangePassword = ({ navigation, route }) => {
   return (
     <SafeAreaProvider style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
                             <CustomProgressBar visible={visible} />
+                            <ScrollView style={styles.container}>
+
       <View style={{ width: "100%" }}></View>
       <View
         style={{
@@ -160,12 +162,16 @@ const ChangePassword = ({ navigation, route }) => {
           Please do not enter a password, leave both fields blank, unless the
           intent is to change the current password.
         </Text>
-      </View>
+      </View></ScrollView>
     </SafeAreaProvider>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
   dividerTableStyle: {
     height: 0.5,
     marginTop: 10,
