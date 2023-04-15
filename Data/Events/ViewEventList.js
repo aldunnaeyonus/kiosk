@@ -11,6 +11,7 @@ import {
   FontAwesome.loadFont();
   const baseUrl = "https://dunn-carabali.com/kiosk";
   import { ListItem } from '@rneui/themed'
+  import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
 
   const ViewEventList = (props) => {
     const [search, setSearch] = useState("");
@@ -68,7 +69,16 @@ import {
             color="black"
             name={"file-excel-o"}
             onPress={() => {
-
+              fetch( baseUrl + "/events/excel.php?kiosk_id=" + props.route.params.kiosk_id )
+              .then((response) => response.json())
+              .then(async (jsonData) => {
+                Dialog.show({
+                  type: ALERT_TYPE.SUCCESS,
+                  title: "Success",
+                  textBody: "Please check your email inbox or spam folder for the generated excel file.",
+                  autoClose: 5000, // or time in ms by default 5000
+                });
+              })
             }}
           />
         ),
@@ -104,12 +114,11 @@ import {
           ListEmptyComponent={EmptyListMessage}
           data={filteredDataSource}
           keyExtractor={item => item.kiosk_attendee_events_attendee_email}
-
           renderItem={({ item }) => 
           <ListItem key={item.kiosk_attendee_events_event_ifs_id} bottomDivider>
         <ListItem.Content>
           <ListItem.Title style={{    fontSize: 20, fontWeight: "bold", marginBottom:10}}><FontAwesome name="id-badge" size={20} style={styles.whiteIcon2} /> {item.kiosk_attendee_events_attendee_fname} {item.kiosk_attendee_events_attendee_lname}</ListItem.Title>
-          <ListItem.Subtitle><FontAwesome name="envelope-o" size={15} style={styles.whiteIcon2} /> {item.kiosk_attendee_events_attendee_email} | <FontAwesome name="mobile" size={15} style={styles.whiteIcon2} /> {item.kiosk_attendee_events_attendee_phone} | IFS ID: {item.kiosk_attendee_events_event_ifs_id}</ListItem.Subtitle>
+          <ListItem.Subtitle><FontAwesome name="envelope-o" size={15} style={styles.whiteIcon2} /> {item.kiosk_attendee_events_attendee_email} | <FontAwesome name="mobile" size={15} style={styles.whiteIcon2} /> {item.kiosk_attendee_events_attendee_phone}</ListItem.Subtitle>
         </ListItem.Content>
       </ListItem>
           }

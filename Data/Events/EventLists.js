@@ -181,7 +181,7 @@ const EventList = (props, navigation) => {
             :               <Text
             style={{ fontWeight: "bold", fontSize: 21, color: "red" }}
           >
-            {item.kiosk_event_name} [ Closed Event ] 
+            {item.kiosk_event_name}
           </Text>
             }
             <Text style={{ fontSize: 15, color: "#808080", paddingTop: 5 }}>

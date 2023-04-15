@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Dimensions,  ActivityIndicator, Modal } from "react-native";
+import { View, Text, StyleSheet, Dimensions,  ActivityIndicator, Modal, ScrollView } from "react-native";
 import { TextInput, Switch } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -17,7 +17,10 @@ const ChangeData = ({ navigation, route }) => {
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   const [visible, setvisible] = useState(false);
+  const [ifsname, setmyifsname] = useState("");
+  const [myifsecret, setmyifsecret] = useState("");
 
+  
   const CustomProgressBar = ({ visible }) => (
     <Modal style={{backgroundColor: 'transparent'}} onRequestClose={() => null} visible={visible}>
       <View style={{ flex: 1, backgroundColor: '#dcdcdc', alignItems: 'center', justifyContent: 'center' }}>
@@ -35,6 +38,8 @@ const ChangeData = ({ navigation, route }) => {
       )
         .then((response) => response.json())
         .then(async (jsonData) => {
+          setmyifsname(jsonData[0].secret);
+          setmyifsecret(jsonData[0].secretname);
           setMyEmail(jsonData[0].email);
           setMyName(jsonData[0].name);
           setmyMobile(jsonData[0].mobile);
@@ -71,6 +76,10 @@ const ChangeData = ({ navigation, route }) => {
           name +
           "&mobile=" +
           mobile +
+          "&secret=" +
+          myifsecret +
+          "&secretname=" +
+          ifsname +
           "&kiosk_is_ifs=" +
           (kiosk_is_ifs == true ? "1" : "0")
       )
@@ -122,10 +131,11 @@ const ChangeData = ({ navigation, route }) => {
 
   return (
     <SafeAreaProvider style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
-                      <CustomProgressBar visible={visible} />
+            <ScrollView style={styles.container}>
+     <CustomProgressBar visible={visible} />
       <View
         style={{
-          marginTop: 180,
+          marginTop: isSwitchOn ? 262 : 180,
           width: "100%",
           height: 60,
           alignItems: "center",
@@ -212,7 +222,6 @@ const ChangeData = ({ navigation, route }) => {
           }}
         />
         <View style={[styles.dividerTableStyleShort]} />
-
         <View
               style={{
                 backgroundColor: "white",
@@ -254,8 +263,59 @@ const ChangeData = ({ navigation, route }) => {
                 value={isSwitchOn} 
                 onValueChange={onToggleSwitch} />
                 </View>
-
-                <View style={[styles.dividerTableStyle]} />
+                { 
+                isSwitchOn? 
+                <>
+                <View style={[styles.dividerTableStyleShort]} />
+                <TextInput
+              left={<TextInput.Icon
+                size={20}
+                iconColor="#007AFF"
+                icon="form-textbox" />}
+              style={{
+                backgroundColor: "white",
+                width: "100%",
+                height: 60,
+                justifyContent: "center",
+              }}
+              mode="flat"
+              underlineColor="white"
+              maxLength={10}
+              dense={true}
+              keyboardType="default"
+              activeUnderlineColor="#fff"
+              selectionColor="#000"
+              label="IFS Connection Name"
+              value={ifsname}
+              placeholder="mywonderifsname"
+              onChangeText={(text) => {
+                setmyifsname("" + text);
+              } } /><View style={[styles.dividerTableStyleShort]} /><TextInput
+                left={<TextInput.Icon
+                  size={20}
+                  iconColor="#007AFF"
+                  icon="form-textbox-password" />}
+                style={{
+                  backgroundColor: "white",
+                  width: "100%",
+                  height: 60,
+                  justifyContent: "center",
+                }}
+                mode="flat"
+                underlineColor="white"
+                maxLength={10}
+                dense={true}
+                keyboardType="default"
+                activeUnderlineColor="#fff"
+                selectionColor="#000"
+                label="IFS Connection Secret"
+                value={myifsecret}
+                placeholder="87gBHBGYyo9v78yb9o8yb"
+                onChangeText={(text) => {
+                  setmyifsecret("" + text);
+                } } /></>
+        : "" }
+      <View style={[styles.dividerTableStyle]} />
     
         <Text
           style={{
@@ -274,11 +334,16 @@ const ChangeData = ({ navigation, route }) => {
           password.~{"\n"}Messaging and data rates will apply.
         </Text>
       </View>
+      </ScrollView>
     </SafeAreaProvider>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
   dividerTableStyle: {
     height: 0.5,
     marginTop: 10,

@@ -178,31 +178,6 @@ const previewAction = () => {
               <View style={[styles.dividerTableStyleShort]} />
               <ListItem
                 containerStyle={{ paddingVertical: 5 }}
-                key="3"
-                onPress={selectPrinter}
-              >
-                <Icon
-                  type="ionicon"
-                  name="print"
-                  size={20}
-                  color="white"
-                  containerStyle={{
-                    backgroundColor: "#007AFF",
-                    width: 28,
-                    height: 28,
-                    borderRadius: 6,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                />
-                <ListItem.Content>
-                  <ListItem.Title>{title != null ? `Selected Printer: ${title}` : 'Select Printer'}</ListItem.Title>
-                </ListItem.Content>
-                <ListItem.Chevron />
-              </ListItem>
-              <View style={[styles.dividerTableStyleShort]} />
-              <ListItem
-                containerStyle={{ paddingVertical: 5 }}
                 key="4"
                 onPress={deleteAccount}
               >
@@ -225,12 +200,66 @@ const previewAction = () => {
                 </ListItem.Content>
                 <ListItem.Chevron />
               </ListItem>
+              <View style={[styles.dividerTableStyleShort]} />
+
+              <ListItem
+              containerStyle={{paddingVertical: 5 }}
+              key="8"
+              onPress={logout}
+            >
+              <Icon
+                type="ionicon"
+                name="power"
+                size={20}
+                color="white"
+                containerStyle={{
+                  backgroundColor: "#FF3232",
+                  width: 28,
+                  height: 28,
+                  borderRadius: 6,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              />
+              <ListItem.Content>
+                <ListItem.Title>Logout</ListItem.Title>
+              </ListItem.Content>
+              <ListItem.Chevron />
+            </ListItem>
               <View style={[styles.dividerTableStyle]} />
             </View>
+            <InfoText text="Printers" />
+            <View style={[styles.dividerTableStyle]} />
+              <ListItem
+                containerStyle={{ paddingVertical: 5 }}
+                key="3"
+                onPress={selectPrinter}
+              >
+                <Icon
+                  type="ionicon"
+                  name="print"
+                  size={20}
+                  color="white"
+                  containerStyle={{
+                    backgroundColor: "#007AFF",
+                    width: 28,
+                    height: 28,
+                    borderRadius: 6,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                />
+                <ListItem.Content>
+                  <ListItem.Title>{title != null ? `Selected Printer: ${title}` : 'Select Printer'}</ListItem.Title>
+                </ListItem.Content>
+                <ListItem.Chevron />
+              </ListItem>
+              <View style={[styles.dividerTableStyle]} />
+
+
             <InfoText text="More" />
             <View style={[styles.dividerTableStyle]} />
             <View>
-            
             <ListItem
               containerStyle={{ paddingVertical: 5 }}
               key="6"
@@ -279,32 +308,7 @@ const previewAction = () => {
                 <ListItem.Title>Terms & Use Policy</ListItem.Title>
               </ListItem.Content>
               <ListItem.Chevron />
-            </ListItem>
-            <View style={[styles.dividerTableStyleShort]} />
-            <ListItem
-              containerStyle={{paddingVertical: 5 }}
-              key="8"
-              onPress={logout}
-            >
-              <Icon
-                type="ionicon"
-                name="power"
-                size={20}
-                color="white"
-                containerStyle={{
-                  backgroundColor: "#FF3232",
-                  width: 28,
-                  height: 28,
-                  borderRadius: 6,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              />
-              <ListItem.Content>
-                <ListItem.Title>Logout</ListItem.Title>
-              </ListItem.Content>
-              <ListItem.Chevron />
-            </ListItem>
+            </ListItem>            
             <View style={[styles.dividerTableStyle]} />
             </View>
           </View>
