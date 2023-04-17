@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Platform,
   Image,
+  Alert
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
@@ -16,7 +17,6 @@ FontAwesome.loadFont();
 import SegmentedControlTab from "react-native-segmented-control-tab";
 const baseUrl = "https://dunn-carabali.com/kiosk";
 
-Icon.loadFont();
 const EventList = (props, navigation) => {
   const [search, setSearch] = useState("");
   const [active, setActive] = useState(0);
@@ -149,12 +149,43 @@ const EventList = (props, navigation) => {
       <TouchableOpacity
         onPress={() => {
           if (item.kiosk_event_status == "0") {
-            props.navigation.navigate("Check In Attendees", {
-              kiosk_id: item.kiosk_event_id,
-              kiosk_event: item.kiosk_event_name,
-              kiosk_owner: item.kiosk_event_owner_id,
-              event_status: item.kiosk_event_status,
-            });
+
+          Alert.alert(
+            "Kiosk Mode",
+            "Choose a view mode:",
+            [
+              {
+                text: "Kiosk Mode",
+                onPress: () => {
+                  props.navigation.navigate("Check In Attendees", {
+                    kiosk_id: item.kiosk_event_id,
+                    kiosk_event: item.kiosk_event_name,
+                    kiosk_owner: item.kiosk_event_owner_id,
+                    event_status: item.kiosk_event_status,
+                    mode: "KIOSK",
+                  });
+                },
+              },
+                {
+                text: "Normal Mode",
+                onPress: () => {
+                  props.navigation.navigate("Check In Attendees", {
+                    kiosk_id: item.kiosk_event_id,
+                    kiosk_event: item.kiosk_event_name,
+                    kiosk_owner: item.kiosk_event_owner_id,
+                    event_status: item.kiosk_event_status,
+                    mode: "NORMAL",
+                  });
+                },
+              },
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "destructive",
+              },
+            ],
+            { cancelable: false }
+          );
           } else {
             props.navigation.navigate("View Event Attendee List", {
               kiosk_id: item.kiosk_event_id,

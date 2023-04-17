@@ -59,6 +59,7 @@ const Checkins = (props, navigation) => {
   useEffect(() => {
     props.navigation.setOptions({
       headerLeft: () => (
+        props.route.params.mode === "NORMAL" ? 
         <TouchableOpacity
           onPress={() => {
             Alert.alert(
@@ -89,8 +90,40 @@ const Checkins = (props, navigation) => {
             style={styles.moreIcon}
           />
         </TouchableOpacity>
+        :   <TouchableOpacity
+        delayLongPress={2000}
+        onLongPress={() => {
+          Alert.alert(
+            "Exit Out",
+            "Are you sure you want to exit out of this Event [" +
+              props.route.params.kiosk_event +
+              "]\n\nThis will erase the duplicate email checker",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "destructive",
+              },
+              {
+                text: "Go back",
+                onPress: () => {
+                  props.navigation.goBack(null);
+                },
+              },
+            ],
+            { cancelable: false }
+          );
+        }}
+      >
+         <MaterialCommunityIcons
+            name="chevron-left"
+            size={40}
+            style={styles.moreIconWhite}
+          />
+      </TouchableOpacity>
       ),
       headerRight: () => (
+          props.route.params.mode === "NORMAL" ? 
         <Button
           textStyle={{
             color: "white",
@@ -118,8 +151,10 @@ const Checkins = (props, navigation) => {
               ],
               { cancelable: false }
             );
-          }}
+          }
+        }
         />
+         : ""
       ),
     });
   }, [navigation]);
@@ -502,6 +537,11 @@ const styles = StyleSheet.create({
   },
   moreIcon: {
     marginLeft: -5,
+    justifyContent: "center",
+  },
+  moreIconWhite: {
+    marginLeft: -5,
+    color: "transparent",
     justifyContent: "center",
   },
 });

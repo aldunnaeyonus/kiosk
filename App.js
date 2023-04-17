@@ -13,13 +13,13 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform, Text, LogBox, StyleSheet } from "react-native";
+import { Platform, Text, LogBox, StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import WebViewer from "./Data/WebView/WebView";
 import { AlertNotificationRoot } from "react-native-alert-notification";
 import AppIntroSlider from 'react-native-app-intro-slider';
-import Icon from 'react-native-vector-icons/Ionicons';
 import * as Print from 'expo-print';
-
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+FontAwesome.loadFont();
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -50,33 +50,40 @@ export default function App() {
   const slides = [
     {
       key: '1',
-      title: 'Set Thermal Printer',
-      text: 'Description.\nSay something cool',
+      title: 'Selecting A Printer',
+      text: 'By selecting a Printer no, the app will allow for silent printing when printing badges.\nSo users will not receive annoying pop-ups when users print badges.',
       image: require('./assets/pos-printer.png'),
       backgroundColor: '#0E86D4',
     },
     {
       key: '2',
       title: 'Infusionsoft and Sql Database Intergrations',
-      text: 'Other cool stuff',
+      text: 'Administratios can opt in to use the infusionsoft database for established members.\n-OR-\nAdministrators can start fresh and create your own user base within the app.\nThis option is under settings, Update Account Details option.',
       image: require('./assets/data-processing.png'),
       backgroundColor: '#055C9D',
+    },
+    {
+      key: '3',
+      title: 'Kiosk Mode',
+      text: 'Kiosk Mode prevents any erouneous navigation away from the checkin screen.\nAdministrators can touch the upper left corner for 2 seconds to exit kiosk mode and navigate back to normal mode.',
+      image: require('./assets/kios_mode.png'),
+      backgroundColor: '#0E86D4',
     }
   ];
 
   useEffect(() => {
     async function prepare() {
       try {
-        const showSlide = await AsyncStorage.getItem("showRealApp", false);
+        const showSlide = await AsyncStorage.getItem("showRealApp");
         setshowRealApp(showSlide)
-        const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn", false) : window.localStorage.getItem("logedIn", false);
+        const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn") : window.localStorage.getItem("logedIn");
         setSignIn(stringToBoolean(value));
         await SplashScreen.preventAutoHideAsync();
       } catch (e) {
         console.warn(e);
       } finally {
         setIsReady(true);
-        const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn", false) : window.localStorage.getItem("logedIn", false);
+        const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn") : window.localStorage.getItem("logedIn");
         setSignIn(stringToBoolean(value));
         await SplashScreen.hideAsync();
       }
@@ -90,19 +97,14 @@ export default function App() {
   }
 
   const onDone = async () => {
-    const showSlide = await AsyncStorage.setItem("showRealApp", true);
+    const showSlide = await AsyncStorage.setItem("showRealApp", "true");
     setshowRealApp(showSlide)
   }
 
   const renderItem = ({ item }) => {
     return (
       <View
-        style={[
-          styles.slide,
-          {
-            backgroundColor: item.bg,
-          },
-        ]}>
+        style={[styles.slide, { backgroundColor: item.backgroundColor } ]}>
         <Text style={styles.title}>{item.title}</Text>
         <Image source={item.image} style={styles.image} />
         <Text style={styles.text}>{item.text}</Text>
@@ -119,6 +121,7 @@ export default function App() {
               height: 50,
               width: 210,
               marginBottom: 30,
+              marginTop: 25,
               flexDirection: "row",
               borderRadius: 20,
               backgroundColor: "#ffffff",
@@ -137,7 +140,7 @@ export default function App() {
               }}>
               {" "} Select A Printer {" "}
             </Text>
-            <FontAwesome name="printer" size={15} style={styles.whiteIcon} />
+            <FontAwesome name="print" size={15} style={styles.whiteIcon} />
           </View>
         </TouchableOpacity>
          : ""
@@ -149,8 +152,8 @@ export default function App() {
   const renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Icon
-          name="md-arrow-round-forward"
+        <FontAwesome
+          name="arrow-right"
           color="rgba(255, 255, 255, .9)"
           size={24}
         />
@@ -162,8 +165,8 @@ export default function App() {
   const renderDoneButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Icon
-          name="md-checkmark"
+        <FontAwesome
+          name="check"
           color="rgba(255, 255, 255, .9)"
           size={24}
         />
@@ -409,16 +412,21 @@ export default function App() {
     },
     slide: {
       flex: 1,
+      alignContent:'center',
+      flexDirection: 'column',
       alignItems: 'center',
+      alignself: 'center',
       justifyContent: 'center',
     },
     image: {
       width: 400,
+      justifyContent: 'center',
+      alignItems: 'center',
+      tintColor:'white',
       height: 400,
-      marginVertical: 32,
     },
     text: {
-      fontSize: 18,
+      fontSize: 20,
       color: 'white',
       textAlign: 'center',
     },
