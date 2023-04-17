@@ -18,6 +18,7 @@ import WebViewer from "./Data/WebView/WebView";
 import { AlertNotificationRoot } from "react-native-alert-notification";
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Icon from 'react-native-vector-icons/Ionicons';
+import * as Print from 'expo-print';
 
 
 export default function App() {
@@ -46,32 +47,20 @@ export default function App() {
 }
   Text.defaultProps = Text.defaultProps || {};
   Text.defaultProps.allowFontScaling = false;
-
-  if (Platform.OS === "ios" || Platform.OS === "android") {
-    LogBox.ignoreLogs(['Setting a timer']);
-  }
-
   const slides = [
     {
       key: '1',
-      title: 'Set Network Printers',
+      title: 'Set Thermal Printer',
       text: 'Description.\nSay something cool',
-      //image: require('../../assets/2.jpg'),
-      backgroundColor: '#007AFF',
+      image: require('./assets/pos-printer.png'),
+      backgroundColor: '#0E86D4',
     },
     {
       key: '2',
-      title: 'Infusionsoft Database Intergration',
+      title: 'Infusionsoft and Sql Database Intergrations',
       text: 'Other cool stuff',
-      //image: require('../../assets/2.jpg'),
-      backgroundColor: '#007AFF',
-    },
-    {
-      key: '3',
-      title: 'Prints all size name tags',
-      text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
-      //image: require('../../assets/2.jpg'),
-      backgroundColor: '#007AFF',
+      image: require('./assets/data-processing.png'),
+      backgroundColor: '#055C9D',
     }
   ];
 
@@ -80,14 +69,14 @@ export default function App() {
       try {
         const showSlide = await AsyncStorage.getItem("showRealApp", false);
         setshowRealApp(showSlide)
-        const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn") : window.localStorage.getItem("logedIn");
+        const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn", false) : window.localStorage.getItem("logedIn", false);
         setSignIn(stringToBoolean(value));
         await SplashScreen.preventAutoHideAsync();
       } catch (e) {
         console.warn(e);
       } finally {
         setIsReady(true);
-        const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn") : window.localStorage.getItem("logedIn");
+        const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn", false) : window.localStorage.getItem("logedIn", false);
         setSignIn(stringToBoolean(value));
         await SplashScreen.hideAsync();
       }
@@ -102,7 +91,7 @@ export default function App() {
 
   const onDone = async () => {
     const showSlide = await AsyncStorage.setItem("showRealApp", true);
-    setshowRealApp(true)
+    setshowRealApp(showSlide)
   }
 
   const renderItem = ({ item }) => {
@@ -117,6 +106,42 @@ export default function App() {
         <Text style={styles.title}>{item.title}</Text>
         <Image source={item.image} style={styles.image} />
         <Text style={styles.text}>{item.text}</Text>
+        {
+          item.key == "1" ? 
+          <TouchableOpacity
+          onPress={async () => {
+            const printer = await Print.selectPrinterAsync(); // iOS only
+            await AsyncStorage.setItem("printerURL", printer.url);
+            await AsyncStorage.setItem("printerName", printer.name);
+          }}>
+          <View
+            style={{
+              height: 50,
+              width: 210,
+              marginBottom: 30,
+              flexDirection: "row",
+              borderRadius: 20,
+              backgroundColor: "#ffffff",
+              fontWeight: "bold",
+              justifyContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}>
+            <Text
+              style={{
+                color: "#000000",
+                fontWeight: "bold",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: 17,
+              }}>
+              {" "} Select A Printer {" "}
+            </Text>
+            <FontAwesome name="printer" size={15} style={styles.whiteIcon} />
+          </View>
+        </TouchableOpacity>
+         : ""
+        }
       </View>
     );
   }
@@ -370,6 +395,10 @@ export default function App() {
 }
 
   const styles = StyleSheet.create({
+    whiteIcon: {
+      color: "#000000",
+      justifyContent: "center",
+    },
     buttonCircle: {
       width: 44,
       height: 44,
@@ -382,19 +411,19 @@ export default function App() {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: 'blue',
     },
     image: {
-      width: 320,
-      height: 320,
+      width: 400,
+      height: 400,
       marginVertical: 32,
     },
     text: {
-      color: 'rgba(255, 255, 255, 0.8)',
+      fontSize: 18,
+      color: 'white',
       textAlign: 'center',
     },
     title: {
-      fontSize: 22,
+      fontSize: 25,
       color: 'white',
       textAlign: 'center',
     },
