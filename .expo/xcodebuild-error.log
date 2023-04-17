@@ -1,0 +1,340 @@
+2023-04-14 06:41:40.612 xcodebuild[44095:835336]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f915e342740 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24db50 _dispatch_sync_invoke_and_complete_recurse + 65
+	8   libdispatch.dylib                   0x00007ff80b24d6ae _dispatch_sync_f_slow + 194
+	9   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	10  DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	11  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	12  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	13  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	14  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	15  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	16  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	17  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	18  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	19  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	20  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	21  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	22  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:41:45.831 xcodebuild[44095:836132] Failed to start service (com.apple.amfi.lockdown): 0xe800001a
+2023-04-14 06:41:48.441 xcodebuild[44095:836114]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f925e2d9070 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24db50 _dispatch_sync_invoke_and_complete_recurse + 65
+	8   libdispatch.dylib                   0x00007ff80b24d6ae _dispatch_sync_f_slow + 194
+	9   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	10  DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	11  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	12  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	13  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	14  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	15  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	16  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	17  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	18  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	19  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	20  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	21  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	22  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:41:52.321 xcodebuild[44095:836122]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f915e37e320 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:41:55.941 xcodebuild[44095:836122]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f915e37e400 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:41:59.181 xcodebuild[44095:836122]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f915e37e3b0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:42:04.282 xcodebuild[44095:836690]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f920dd862f0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:42:09.830 xcodebuild[44095:836132]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f915e37fce0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:42:14.951 xcodebuild[44095:836122]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f915e3808d0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:42:20.482 xcodebuild[44095:836128]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f914de768c0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:42:27.321 xcodebuild[44095:836128]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f920f3d05a0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:42:35.122 xcodebuild[44095:838834]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f916d9b1c60 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:44:09.321 xcodebuild[44095:841663]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f914db8c520 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24db50 _dispatch_sync_invoke_and_complete_recurse + 65
+	8   libdispatch.dylib                   0x00007ff80b24d6ae _dispatch_sync_f_slow + 194
+	9   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	10  DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	11  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	12  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	13  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	14  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	15  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	16  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	17  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	18  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	19  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	20  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	21  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	22  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:44:19.345 xcodebuild[44095:841663]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f915e3321e0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
+2023-04-14 06:44:36.058 xcodebuild[44095:841659]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f915e2f2dd0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
+	0   DTDeviceKitBase                     0x0000000116fd2c90 DTDKCreateNSErrorFromAMDErrorCode + 235
+	1   DTDeviceKitBase                     0x0000000116fe0568 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 609
+	2   DTDeviceKitBase                     0x0000000116fdfcac __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_3 + 22
+	3   DTDeviceKitBase                     0x0000000116fd4f84 __DTDKExecuteInSession_block_invoke_2 + 35
+	4   DTDeviceKitBase                     0x0000000116fd4604 __DTDKExecuteWithConnection_block_invoke_2 + 218
+	5   DTDeviceKitBase                     0x0000000116fd4501 __DTDKExecuteWithConnection_block_invoke + 106
+	6   libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	7   libdispatch.dylib                   0x00007ff80b24d7ee _dispatch_lane_barrier_sync_invoke_and_complete + 60
+	8   DVTFoundation                       0x000000010aaa8821 DVTDispatchBarrierSync + 148
+	9   DVTFoundation                       0x000000010aa7df44 -[DVTDispatchLock performLockedBlock:] + 60
+	10  DTDeviceKitBase                     0x0000000116fd4400 DTDKExecuteWithConnection + 217
+	11  DTDeviceKitBase                     0x0000000116fd4e2a DTDKExecuteInSession + 239
+	12  DTDeviceKitBase                     0x0000000116fdfafd __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 132
+	13  DVTFoundation                       0x000000010aaa7a09 __DVT_CALLING_CLIENT_BLOCK__ + 7
+	14  DVTFoundation                       0x000000010aaa851d __DVTDispatchAsync_block_invoke + 196
+	15  libdispatch.dylib                   0x00007ff80b23f0cc _dispatch_call_block_and_release + 12
+	16  libdispatch.dylib                   0x00007ff80b240317 _dispatch_client_callout + 8
+	17  libdispatch.dylib                   0x00007ff80b246317 _dispatch_lane_serial_drain + 672
+	18  libdispatch.dylib                   0x00007ff80b246e30 _dispatch_lane_invoke + 417
+	19  libdispatch.dylib                   0x00007ff80b250eee _dispatch_workloop_worker_thread + 753
+	20  libsystem_pthread.dylib             0x00007ff80b3f3fd0 _pthread_wqthread + 326
+	21  libsystem_pthread.dylib             0x00007ff80b3f2f57 start_wqthread + 15
+), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}

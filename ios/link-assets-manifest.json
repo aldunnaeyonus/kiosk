@@ -1,0 +1,25 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/2953962.jpg",
+      "sha1": "acc1c7a7e9c43527e435b8c79bc8126d3d053264"
+    },
+    {
+      "path": "assets/emptyList.png",
+      "sha1": "284186ee1a83441cb57b0a938305dfc4fa7f4879"
+    },
+    {
+      "path": "assets/events-transparent-1.png",
+      "sha1": "b47c2e53f4c1256f4b1d2a1b1fc4e3e4e7450115"
+    },
+    {
+      "path": "assets/icon.png",
+      "sha1": "a41fc26a35cb50f2cacaa6485d5fbc64fb5b4e77"
+    },
+    {
+      "path": "assets/splash.png",
+      "sha1": "4de67a76b6b564249629c471f5badc582f44dcc4"
+    }
+  ]
+}
