@@ -13,12 +13,16 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform, Text, LogBox } from "react-native";
+import { Platform, Text, LogBox, StyleSheet } from "react-native";
 import WebViewer from "./Data/WebView/WebView";
 import { AlertNotificationRoot } from "react-native-alert-notification";
+import AppIntroSlider from 'react-native-app-intro-slider';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 export default function App() {
   const Stack = createStackNavigator();
+  const [showRealApp, setshowRealApp] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [isReady, setIsReady] = useState(false);
   LogBox.ignoreAllLogs(true);
@@ -47,10 +51,35 @@ export default function App() {
     LogBox.ignoreLogs(['Setting a timer']);
   }
 
+  const slides = [
+    {
+      key: '1',
+      title: 'Set Network Printers',
+      text: 'Description.\nSay something cool',
+      //image: require('../../assets/2.jpg'),
+      backgroundColor: '#007AFF',
+    },
+    {
+      key: '2',
+      title: 'Infusionsoft Database Intergration',
+      text: 'Other cool stuff',
+      //image: require('../../assets/2.jpg'),
+      backgroundColor: '#007AFF',
+    },
+    {
+      key: '3',
+      title: 'Prints all size name tags',
+      text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
+      //image: require('../../assets/2.jpg'),
+      backgroundColor: '#007AFF',
+    }
+  ];
 
   useEffect(() => {
     async function prepare() {
       try {
+        const showSlide = await AsyncStorage.getItem("showRealApp", false);
+        setshowRealApp(showSlide)
         const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn") : window.localStorage.getItem("logedIn");
         setSignIn(stringToBoolean(value));
         await SplashScreen.preventAutoHideAsync();
@@ -71,6 +100,52 @@ export default function App() {
     return null;
   }
 
+  const onDone = async () => {
+    const showSlide = await AsyncStorage.setItem("showRealApp", true);
+    setshowRealApp(true)
+  }
+
+  const renderItem = ({ item }) => {
+    return (
+      <View
+        style={[
+          styles.slide,
+          {
+            backgroundColor: item.bg,
+          },
+        ]}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Image source={item.image} style={styles.image} />
+        <Text style={styles.text}>{item.text}</Text>
+      </View>
+    );
+  }
+
+  const renderNextButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Icon
+          name="md-arrow-round-forward"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+        />
+      </View>
+    );
+  };
+  const keyExtractor = (item) => item.title;
+
+  const renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Icon
+          name="md-checkmark"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+        />
+      </View>
+    );
+  };
+  if (showRealApp) {
   if (signIn) {
     return (
       <NavigationContainer>
@@ -280,5 +355,47 @@ export default function App() {
         </AlertNotificationRoot>
       </NavigationContainer>
     );
+          }
+   }else {
+    return <AppIntroSlider 
+    keyExtractor={keyExtractor}
+    renderDoneButton={renderDoneButton}
+    showSkipButton
+    showPrevButton
+    renderNextButton={renderNextButton}
+    renderItem={renderItem} 
+    data={slides} 
+    onDone={onDone}/>;
   }
 }
+
+  const styles = StyleSheet.create({
+    buttonCircle: {
+      width: 44,
+      height: 44,
+      backgroundColor: 'rgba(0, 0, 0, .2)',
+      borderRadius: 22,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    slide: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'blue',
+    },
+    image: {
+      width: 320,
+      height: 320,
+      marginVertical: 32,
+    },
+    text: {
+      color: 'rgba(255, 255, 255, 0.8)',
+      textAlign: 'center',
+    },
+    title: {
+      fontSize: 22,
+      color: 'white',
+      textAlign: 'center',
+    },
+  });

@@ -15,8 +15,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 FontAwesome.loadFont();
 import SegmentedControlTab from "react-native-segmented-control-tab";
 const baseUrl = "https://dunn-carabali.com/kiosk";
-import AppIntroSlider from 'react-native-app-intro-slider';
-import Icon from 'react-native-vector-icons/Ionicons';
+
 Icon.loadFont();
 const EventList = (props, navigation) => {
   const [search, setSearch] = useState("");
@@ -28,27 +27,7 @@ const EventList = (props, navigation) => {
   const isFocused = useIsFocused();
   const [isLoding, setisLoding] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [showRealApp, setshowRealApp] = useState(false);
-  const slides = [
-  {
-    key: '1',
-    title: 'Set Printer',
-    text: 'Description.\nSay something cool',
-    backgroundColor: '#007AFF',
-  },
-  {
-    key: '2',
-    title: 'Infusionsoft Intergration',
-    text: 'Other cool stuff',
-    backgroundColor: '#007AFF',
-  },
-  {
-    key: '3',
-    title: 'Prints all size name tags',
-    text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
-    backgroundColor: '#007AFF',
-  }
-];
+  
   const EmptyListMessage = ({ item }) => {
     return (
       // Flat List Item
@@ -273,44 +252,8 @@ const EventList = (props, navigation) => {
     setisLoding(true);
   };
 
-  const onDone = () => {
-    setshowRealApp(true);
-  }
-  const renderItem = ({ item }) => {
-    return (
-      <View style={styles.slide}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Image source={item.image} />
-        <Text style={styles.text}>{item.text}</Text>
-      </View>
-    );
-  }
+  
 
-  const renderNextButton = () => {
-    return (
-      <View style={styles.buttonCircle}>
-        <Icon
-          name="md-arrow-round-forward"
-          color="rgba(255, 255, 255, .9)"
-          size={24}
-        />
-      </View>
-    );
-  };
-
-  const renderDoneButton = () => {
-    return (
-      <View style={styles.buttonCircle}>
-        <Icon
-          name="md-checkmark"
-          color="rgba(255, 255, 255, .9)"
-          size={24}
-        />
-      </View>
-    );
-  };
-
-  if (showRealApp) {
   return (
     <View style={styles.container}>
       <TextInput
@@ -384,28 +327,11 @@ const EventList = (props, navigation) => {
       </TouchableOpacity>
     </View>
   );
-}else{
-  return <AppIntroSlider 
-  renderDoneButton={renderDoneButton}
-  renderNextButton={renderNextButton}
-  renderItem={renderItem} 
-  data={slides} 
-  onDone={onDone}/>;
-
-}
 };
 
 
 const styles = StyleSheet.create({
-  buttonCircle: {
-    width: 40,
-    height: 40,
-    backgroundColor: 'rgba(0, 0, 0, .2)',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
+    container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
