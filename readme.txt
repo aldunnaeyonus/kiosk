@@ -14,7 +14,7 @@ PODs
     pod install
 
 Start expo 
-    npx expo start --clear  
+    npx expo start --clear  v
 
 NPM Installs
     expo doctor --fix-dependencies

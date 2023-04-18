@@ -51,7 +51,7 @@ export default function App() {
     {
       key: '1',
       title: 'Selecting A Printer',
-      text: 'By selecting a Printer no, the app will allow for silent printing when printing badges.\nSo users will not receive annoying pop-ups when users print badges.',
+      text: 'By selecting a Printer no, the app will allow for silent printing when printing badges.\nSo users will not receive annoying pop-ups when printing badges.',
       image: require('./assets/pos-printer.png'),
       backgroundColor: '#0E86D4',
     },
@@ -97,8 +97,8 @@ export default function App() {
   }
 
   const onDone = async () => {
-    const showSlide = await AsyncStorage.setItem("showRealApp", "true");
-    setshowRealApp(showSlide)
+    await AsyncStorage.setItem("showRealApp", "true");
+    setshowRealApp(true)
   }
 
   const renderItem = ({ item }) => {
@@ -428,6 +428,7 @@ export default function App() {
     text: {
       fontSize: 20,
       color: 'white',
+      padding: 10,
       textAlign: 'center',
     },
     title: {

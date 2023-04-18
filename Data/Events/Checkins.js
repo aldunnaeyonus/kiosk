@@ -124,16 +124,17 @@ const Checkins = (props, navigation) => {
       ),
       headerRight: () => (
           props.route.params.mode === "NORMAL" ? 
-        <Button
-          textStyle={{
-            color: "white",
-          }}
-          color="red"
-          title="Close Event"
+          <FontAwesome
+          style={{ paddingRight: 20 }}
+          backgroundColor="white"
+          borderRadius={17}
+          size={28}
+          color="black"
+          name={"file-archive-o"}
           onPress={() => {
             Alert.alert(
-              "Close Checkin",
-              "Are you sure you want to close out this Event [" +
+              "Archive Event",
+              "Are you sure you want to Archive this Event [" +
                 props.route.params.kiosk_event +
                 "]\n\nThis will prevent attendees from checking in.",
               [
@@ -143,7 +144,7 @@ const Checkins = (props, navigation) => {
                   style: "destructive",
                 },
                 {
-                  text: "Close Event Checkin",
+                  text: "Archive Event",
                   onPress: () => {
                     closeEvent();
                   },
@@ -151,8 +152,7 @@ const Checkins = (props, navigation) => {
               ],
               { cancelable: false }
             );
-          }
-        }
+          }}
         />
          : ""
       ),
@@ -407,7 +407,7 @@ const Checkins = (props, navigation) => {
         }}
         keyboardType="default"
         underlineColorAndroid="transparent"
-        placeholder="Search by Email or First & Last name"
+        placeholder="Search by Email or Name"
         value={textValue}
       />
       <View
@@ -479,7 +479,7 @@ const Checkins = (props, navigation) => {
                 fontSize: 20,
               }}
             >
-              Attendee Not Found, Touch to Add
+              Add An Attendee
             </Text>
           </View>
         </TouchableOpacity>
@@ -503,7 +503,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderWidth: 1,
     paddingLeft: 20,
-    width: "60%",
+    width: "90%",
     alignSelf: "center",
     marginTop: 10,
     marginBottom: 30,

@@ -291,7 +291,7 @@ const EventList = (props, navigation) => {
         style={styles.textInputStyle}
         onChangeText={(text) => searchFilterFunction(text)}
         underlineColorAndroid="transparent"
-        placeholder="Search Past, Present & Future Events"
+        placeholder="Search "
       />
       <View
         style={{
@@ -417,7 +417,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderWidth: 1,
     paddingLeft: 20,
-    width: "60%",
+    width: "90%",
     alignSelf: "center",
     marginTop: 10,
     marginBottom: 30,

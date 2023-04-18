@@ -3,74 +3,67 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		147F189DDB88E42504F8F9C2 /* libPods-EventKiosk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9E6D82742F801776B84429 /* libPods-EventKiosk.a */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		85195ACF29E98966004E54D1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		85195AD129E989AD004E54D1 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AAD29E974BB004E54D1 /* Fontisto.ttf */; };
-		85195AD229E989AD004E54D1 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AAE29E974BB004E54D1 /* Octicons.ttf */; };
-		85195AD329E989AD004E54D1 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AAF29E974BB004E54D1 /* Feather.ttf */; };
-		85195AD429E989AD004E54D1 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AB029E974BB004E54D1 /* Entypo.ttf */; };
-		85195AD529E989AD004E54D1 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AB129E974BB004E54D1 /* FontAwesome5_Brands.ttf */; };
-		85195AD629E989AD004E54D1 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AB229E974BB004E54D1 /* MaterialCommunityIcons.ttf */; };
-		85195AD729E989AD004E54D1 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AB329E974BB004E54D1 /* AntDesign.ttf */; };
-		85195AD829E989AD004E54D1 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AB429E974BB004E54D1 /* Foundation.ttf */; };
-		85195AD929E989AD004E54D1 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AB529E974BB004E54D1 /* Ionicons.ttf */; };
-		85195ADA29E989AD004E54D1 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AB629E974BB004E54D1 /* FontAwesome5_Solid.ttf */; };
-		85195ADB29E989AD004E54D1 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AB729E974BB004E54D1 /* FontAwesome5_Regular.ttf */; };
-		85195ADC29E989AD004E54D1 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AB829E974BB004E54D1 /* FontAwesome.ttf */; };
-		85195ADD29E989AD004E54D1 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195AB929E974BB004E54D1 /* Zocial.ttf */; };
-		85195ADE29E989AD004E54D1 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195ABA29E974BB004E54D1 /* EvilIcons.ttf */; };
-		85195ADF29E989AD004E54D1 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195ABB29E974BB004E54D1 /* SimpleLineIcons.ttf */; };
-		85195AE029E989AD004E54D1 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85195ABC29E974BB004E54D1 /* MaterialIcons.ttf */; };
-		85195AE329E98D56004E54D1 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 85195AE129E98D4F004E54D1 /* main.jsbundle */; };
-		85195AE529E9C83D004E54D1 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = 85195AE429E9C83D004E54D1 /* login.png */; };
+		46B2C201F3DF4561BE1F6181 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A52C7026134D49BA816BF7 /* noop-file.swift */; };
+		856ADB3529EF01DF00ED6609 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2529EF01DF00ED6609 /* Fontisto.ttf */; };
+		856ADB3629EF01DF00ED6609 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2629EF01DF00ED6609 /* Octicons.ttf */; };
+		856ADB3729EF01DF00ED6609 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2729EF01DF00ED6609 /* Feather.ttf */; };
+		856ADB3829EF01DF00ED6609 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2829EF01DF00ED6609 /* Entypo.ttf */; };
+		856ADB3929EF01DF00ED6609 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2929EF01DF00ED6609 /* FontAwesome5_Brands.ttf */; };
+		856ADB3A29EF01DF00ED6609 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2A29EF01DF00ED6609 /* MaterialCommunityIcons.ttf */; };
+		856ADB3B29EF01DF00ED6609 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2B29EF01DF00ED6609 /* AntDesign.ttf */; };
+		856ADB3C29EF01DF00ED6609 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2C29EF01DF00ED6609 /* Foundation.ttf */; };
+		856ADB3D29EF01DF00ED6609 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2D29EF01DF00ED6609 /* Ionicons.ttf */; };
+		856ADB3E29EF01DF00ED6609 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2E29EF01DF00ED6609 /* FontAwesome5_Solid.ttf */; };
+		856ADB3F29EF01DF00ED6609 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2F29EF01DF00ED6609 /* FontAwesome5_Regular.ttf */; };
+		856ADB4029EF01DF00ED6609 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB3029EF01DF00ED6609 /* FontAwesome.ttf */; };
+		856ADB4129EF01DF00ED6609 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB3129EF01DF00ED6609 /* Zocial.ttf */; };
+		856ADB4229EF01DF00ED6609 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB3229EF01DF00ED6609 /* EvilIcons.ttf */; };
+		856ADB4329EF01DF00ED6609 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB3329EF01DF00ED6609 /* SimpleLineIcons.ttf */; };
+		856ADB4429EF01DF00ED6609 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB3429EF01DF00ED6609 /* MaterialIcons.ttf */; };
+		856ADB4729EF023300ED6609 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB4629EF023300ED6609 /* main.jsbundle */; };
+		96905EF65AED1B983A6B3ABC /* libPods-EventKiosk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-EventKiosk.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		D0533B63233B416F9F33F1F3 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7996C16B133D4400BDE4A144 /* noop-file.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0188042EA82EDCA87377BBD7 /* Pods-EventKiosk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventKiosk.debug.xcconfig"; path = "Target Support Files/Pods-EventKiosk/Pods-EventKiosk.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* EventKiosk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventKiosk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = EventKiosk/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = EventKiosk/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = EventKiosk/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = EventKiosk/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = EventKiosk/main.m; sourceTree = "<group>"; };
-		1542B154FCB54A9D86571A89 /* 2953962.jpg */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = 2953962.jpg; path = ../assets/2953962.jpg; sourceTree = "<group>"; };
-		4B432CE838BE47469EE54578 /* events-transparent-1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "events-transparent-1.png"; path = "../assets/events-transparent-1.png"; sourceTree = "<group>"; };
-		6BA8BF18D62BE88C975A5054 /* Pods-EventKiosk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventKiosk.release.xcconfig"; path = "Target Support Files/Pods-EventKiosk/Pods-EventKiosk.release.xcconfig"; sourceTree = "<group>"; };
-		7996C16B133D4400BDE4A144 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "EventKiosk/noop-file.swift"; sourceTree = "<group>"; };
-		85195AAD29E974BB004E54D1 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
-		85195AAE29E974BB004E54D1 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
-		85195AAF29E974BB004E54D1 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
-		85195AB029E974BB004E54D1 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
-		85195AB129E974BB004E54D1 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
-		85195AB229E974BB004E54D1 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
-		85195AB329E974BB004E54D1 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
-		85195AB429E974BB004E54D1 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
-		85195AB529E974BB004E54D1 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
-		85195AB629E974BB004E54D1 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
-		85195AB729E974BB004E54D1 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
-		85195AB829E974BB004E54D1 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
-		85195AB929E974BB004E54D1 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
-		85195ABA29E974BB004E54D1 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
-		85195ABB29E974BB004E54D1 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
-		85195ABC29E974BB004E54D1 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
-		85195AE129E98D4F004E54D1 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = EventKiosk/main.jsbundle; sourceTree = "<group>"; };
-		85195AE429E9C83D004E54D1 /* login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login.png; sourceTree = "<group>"; };
-		A0A075BB6BE34A508F2E549C /* splash.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = splash.png; path = ../assets/splash.png; sourceTree = "<group>"; };
+		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-EventKiosk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EventKiosk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C2E3173556A471DD304B334 /* Pods-EventKiosk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventKiosk.debug.xcconfig"; path = "Target Support Files/Pods-EventKiosk/Pods-EventKiosk.debug.xcconfig"; sourceTree = "<group>"; };
+		7A4D352CD337FB3A3BF06240 /* Pods-EventKiosk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventKiosk.release.xcconfig"; path = "Target Support Files/Pods-EventKiosk/Pods-EventKiosk.release.xcconfig"; sourceTree = "<group>"; };
+		856ADB2529EF01DF00ED6609 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
+		856ADB2629EF01DF00ED6609 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
+		856ADB2729EF01DF00ED6609 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
+		856ADB2829EF01DF00ED6609 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		856ADB2929EF01DF00ED6609 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
+		856ADB2A29EF01DF00ED6609 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
+		856ADB2B29EF01DF00ED6609 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
+		856ADB2C29EF01DF00ED6609 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
+		856ADB2D29EF01DF00ED6609 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		856ADB2E29EF01DF00ED6609 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
+		856ADB2F29EF01DF00ED6609 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		856ADB3029EF01DF00ED6609 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		856ADB3129EF01DF00ED6609 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		856ADB3229EF01DF00ED6609 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		856ADB3329EF01DF00ED6609 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
+		856ADB3429EF01DF00ED6609 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		856ADB4629EF023300ED6609 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = EventKiosk/main.jsbundle; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = EventKiosk/SplashScreen.storyboard; sourceTree = "<group>"; };
-		AEA4E994CED84C8BA5EACAC3 /* icon.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icon.png; path = ../assets/icon.png; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		C74D020733D146F1A81F5535 /* emptyList.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = emptyList.png; path = ../assets/emptyList.png; sourceTree = "<group>"; };
-		DC9E6D82742F801776B84429 /* libPods-EventKiosk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EventKiosk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6A52C7026134D49BA816BF7 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "EventKiosk/noop-file.swift"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-EventKiosk/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				147F189DDB88E42504F8F9C2 /* libPods-EventKiosk.a in Frameworks */,
+				96905EF65AED1B983A6B3ABC /* libPods-EventKiosk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,16 +83,15 @@
 		13B07FAE1A68108700A75B9A /* EventKiosk */ = {
 			isa = PBXGroup;
 			children = (
-				85195AAC29E974BB004E54D1 /* Fonts */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				85195AE129E98D4F004E54D1 /* main.jsbundle */,
+				856ADB4629EF023300ED6609 /* main.jsbundle */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				7996C16B133D4400BDE4A144 /* noop-file.swift */,
+				E6A52C7026134D49BA816BF7 /* noop-file.swift */,
 			);
 			name = EventKiosk;
 			sourceTree = "<group>";
@@ -108,7 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				DC9E6D82742F801776B84429 /* libPods-EventKiosk.a */,
+				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-EventKiosk.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -129,7 +121,6 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
-				CBFF9230218F43FE8E3F15D5 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -144,28 +135,27 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		85195AAC29E974BB004E54D1 /* Fonts */ = {
+		856ADB2429EF01DF00ED6609 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				85195AAD29E974BB004E54D1 /* Fontisto.ttf */,
-				85195AAE29E974BB004E54D1 /* Octicons.ttf */,
-				85195AAF29E974BB004E54D1 /* Feather.ttf */,
-				85195AB029E974BB004E54D1 /* Entypo.ttf */,
-				85195AB129E974BB004E54D1 /* FontAwesome5_Brands.ttf */,
-				85195AB229E974BB004E54D1 /* MaterialCommunityIcons.ttf */,
-				85195AB329E974BB004E54D1 /* AntDesign.ttf */,
-				85195AB429E974BB004E54D1 /* Foundation.ttf */,
-				85195AB529E974BB004E54D1 /* Ionicons.ttf */,
-				85195AB629E974BB004E54D1 /* FontAwesome5_Solid.ttf */,
-				85195AB729E974BB004E54D1 /* FontAwesome5_Regular.ttf */,
-				85195AB829E974BB004E54D1 /* FontAwesome.ttf */,
-				85195AB929E974BB004E54D1 /* Zocial.ttf */,
-				85195ABA29E974BB004E54D1 /* EvilIcons.ttf */,
-				85195ABB29E974BB004E54D1 /* SimpleLineIcons.ttf */,
-				85195ABC29E974BB004E54D1 /* MaterialIcons.ttf */,
+				856ADB2529EF01DF00ED6609 /* Fontisto.ttf */,
+				856ADB2629EF01DF00ED6609 /* Octicons.ttf */,
+				856ADB2729EF01DF00ED6609 /* Feather.ttf */,
+				856ADB2829EF01DF00ED6609 /* Entypo.ttf */,
+				856ADB2929EF01DF00ED6609 /* FontAwesome5_Brands.ttf */,
+				856ADB2A29EF01DF00ED6609 /* MaterialCommunityIcons.ttf */,
+				856ADB2B29EF01DF00ED6609 /* AntDesign.ttf */,
+				856ADB2C29EF01DF00ED6609 /* Foundation.ttf */,
+				856ADB2D29EF01DF00ED6609 /* Ionicons.ttf */,
+				856ADB2E29EF01DF00ED6609 /* FontAwesome5_Solid.ttf */,
+				856ADB2F29EF01DF00ED6609 /* FontAwesome5_Regular.ttf */,
+				856ADB3029EF01DF00ED6609 /* FontAwesome.ttf */,
+				856ADB3129EF01DF00ED6609 /* Zocial.ttf */,
+				856ADB3229EF01DF00ED6609 /* EvilIcons.ttf */,
+				856ADB3329EF01DF00ED6609 /* SimpleLineIcons.ttf */,
+				856ADB3429EF01DF00ED6609 /* MaterialIcons.ttf */,
 			);
-			name = Fonts;
-			path = EventKiosk/Supporting/Fonts;
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		92DBD88DE9BF7D494EA9DA96 /* EventKiosk */ = {
@@ -179,30 +169,18 @@
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				856ADB2429EF01DF00ED6609 /* Fonts */,
 				BB2F792C24A3F905000567C9 /* Expo.plist */,
 			);
 			name = Supporting;
 			path = EventKiosk/Supporting;
 			sourceTree = "<group>";
 		};
-		CBFF9230218F43FE8E3F15D5 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				1542B154FCB54A9D86571A89 /* 2953962.jpg */,
-				C74D020733D146F1A81F5535 /* emptyList.png */,
-				85195AE429E9C83D004E54D1 /* login.png */,
-				4B432CE838BE47469EE54578 /* events-transparent-1.png */,
-				AEA4E994CED84C8BA5EACAC3 /* icon.png */,
-				A0A075BB6BE34A508F2E549C /* splash.png */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0188042EA82EDCA87377BBD7 /* Pods-EventKiosk.debug.xcconfig */,
-				6BA8BF18D62BE88C975A5054 /* Pods-EventKiosk.release.xcconfig */,
+				6C2E3173556A471DD304B334 /* Pods-EventKiosk.debug.xcconfig */,
+				7A4D352CD337FB3A3BF06240 /* Pods-EventKiosk.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -222,14 +200,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "EventKiosk" */;
 			buildPhases = (
-				A12751EDA863F4694AAE6C33 /* [CP] Check Pods Manifest.lock */,
+				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				B6481910F512ABCA13649EA8 /* [CP] Embed Pods Frameworks */,
-				49E992E58118F43593E813BB /* [CP] Copy Pods Resources */,
+				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -246,8 +223,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 8Q2CG2HVZ9;
@@ -278,26 +254,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85195AD129E989AD004E54D1 /* Fontisto.ttf in Resources */,
-				85195AD229E989AD004E54D1 /* Octicons.ttf in Resources */,
-				85195AD329E989AD004E54D1 /* Feather.ttf in Resources */,
-				85195AE329E98D56004E54D1 /* main.jsbundle in Resources */,
-				85195AD429E989AD004E54D1 /* Entypo.ttf in Resources */,
-				85195AD529E989AD004E54D1 /* FontAwesome5_Brands.ttf in Resources */,
-				85195AD629E989AD004E54D1 /* MaterialCommunityIcons.ttf in Resources */,
-				85195AD729E989AD004E54D1 /* AntDesign.ttf in Resources */,
-				85195AD829E989AD004E54D1 /* Foundation.ttf in Resources */,
-				85195AD929E989AD004E54D1 /* Ionicons.ttf in Resources */,
-				85195ADA29E989AD004E54D1 /* FontAwesome5_Solid.ttf in Resources */,
-				85195ADB29E989AD004E54D1 /* FontAwesome5_Regular.ttf in Resources */,
-				85195ADC29E989AD004E54D1 /* FontAwesome.ttf in Resources */,
-				85195AE529E9C83D004E54D1 /* login.png in Resources */,
-				85195ADD29E989AD004E54D1 /* Zocial.ttf in Resources */,
-				85195ADE29E989AD004E54D1 /* EvilIcons.ttf in Resources */,
-				85195ADF29E989AD004E54D1 /* SimpleLineIcons.ttf in Resources */,
-				85195AE029E989AD004E54D1 /* MaterialIcons.ttf in Resources */,
-				85195ACF29E98966004E54D1 /* Images.xcassets in Resources */,
+				856ADB3F29EF01DF00ED6609 /* FontAwesome5_Regular.ttf in Resources */,
+				856ADB3629EF01DF00ED6609 /* Octicons.ttf in Resources */,
+				856ADB3929EF01DF00ED6609 /* FontAwesome5_Brands.ttf in Resources */,
+				856ADB3D29EF01DF00ED6609 /* Ionicons.ttf in Resources */,
+				856ADB4429EF01DF00ED6609 /* MaterialIcons.ttf in Resources */,
+				856ADB3E29EF01DF00ED6609 /* FontAwesome5_Solid.ttf in Resources */,
+				856ADB4329EF01DF00ED6609 /* SimpleLineIcons.ttf in Resources */,
+				856ADB4729EF023300ED6609 /* main.jsbundle in Resources */,
+				856ADB3829EF01DF00ED6609 /* Entypo.ttf in Resources */,
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
+				856ADB3B29EF01DF00ED6609 /* AntDesign.ttf in Resources */,
+				856ADB4129EF01DF00ED6609 /* Zocial.ttf in Resources */,
+				856ADB3C29EF01DF00ED6609 /* Foundation.ttf in Resources */,
+				856ADB3729EF01DF00ED6609 /* Feather.ttf in Resources */,
+				856ADB4229EF01DF00ED6609 /* EvilIcons.ttf in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				856ADB4029EF01DF00ED6609 /* FontAwesome.ttf in Resources */,
+				856ADB3529EF01DF00ED6609 /* Fontisto.ttf in Resources */,
+				856ADB3A29EF01DF00ED6609 /* MaterialCommunityIcons.ttf in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,27 +294,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" $PROJECT_ROOT ios relative | tail -n 1)\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n\n";
 		};
-		49E992E58118F43593E813BB /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EventKiosk/Pods-EventKiosk-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EventKiosk/Pods-EventKiosk-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A12751EDA863F4694AAE6C33 /* [CP] Check Pods Manifest.lock */ = {
+		08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -361,22 +316,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B6481910F512ABCA13649EA8 /* [CP] Embed Pods Frameworks */ = {
+		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EventKiosk/Pods-EventKiosk-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+				"${PODS_ROOT}/Target Support Files/Pods-EventKiosk/Pods-EventKiosk-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EventKiosk/Pods-EventKiosk-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EventKiosk/Pods-EventKiosk-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -408,7 +365,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				D0533B63233B416F9F33F1F3 /* noop-file.swift in Sources */,
+				46B2C201F3DF4561BE1F6181 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,12 +374,12 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0188042EA82EDCA87377BBD7 /* Pods-EventKiosk.debug.xcconfig */;
+			baseConfigurationReference = 6C2E3173556A471DD304B334 /* Pods-EventKiosk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventKiosk/EventKiosk.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -430,11 +387,8 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = EventKiosk/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -444,9 +398,6 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dunn-carabali.bigdogkiosk";
 				PRODUCT_NAME = EventKiosk;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -456,19 +407,16 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6BA8BF18D62BE88C975A5054 /* Pods-EventKiosk.release.xcconfig */;
+			baseConfigurationReference = 7A4D352CD337FB3A3BF06240 /* Pods-EventKiosk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventKiosk/EventKiosk.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
 				INFOPLIST_FILE = EventKiosk/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -478,9 +426,6 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.dunn-carabali.bigdogkiosk";
 				PRODUCT_NAME = EventKiosk;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -520,7 +465,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -537,10 +482,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					/usr/lib/swift,
-					"$(inherited)",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -582,7 +524,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -592,10 +534,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					/usr/lib/swift,
-					"$(inherited)",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
