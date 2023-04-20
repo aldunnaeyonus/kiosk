@@ -66,7 +66,7 @@ export default function App() {
     {
       key: '3',
       title: 'Kiosk Mode',
-      text: 'Kiosk Mode prevents any erouneous navigation away from the checkin screen.\nAdministrators can touch the upper left corner for 2 seconds to exit kiosk mode and navigate back to normal mode.',
+      text: 'Kiosk Mode prevents any erouneous navigation away from the checkin screen.\nAdministrators can touch the upper left corner for 2 seconds or swipe from the left to right to exit kiosk mode and navigate back to normal mode.',
       image: require('./assets/kios_mode.png'),
       backgroundColor: '#0E86D4',
     }

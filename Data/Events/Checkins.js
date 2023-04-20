@@ -3,7 +3,7 @@ import {
   Text,
   View,
   FlatList,
-  Button,
+  Image,
   TextInput,
   TouchableOpacity,
   Alert,
@@ -25,10 +25,10 @@ const Checkins = (props, navigation) => {
   const [isFound, setisFound] = useState(true);
   const isFocused = useIsFocused();
   const [url, setURL] = useState("");
+  const [logo, setLogo] = useState("");
   const [textValue, settextValue] = useState("");
   const [addedEmails, setaddedEmails] = useState([]);
   const baseUrl = "https://dunn-carabali.com/kiosk";
-
   const closeEvent = () => {
     axios
       .post(
@@ -187,6 +187,7 @@ const Checkins = (props, navigation) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLogo(baseUrl+'/logos/'+props.route.params.event_logo)
         const kiosPrinterURL =
           Platform.OS !== "web"
             ? await AsyncStorage.getItem("printerURL")
@@ -399,6 +400,20 @@ const Checkins = (props, navigation) => {
 
   return (
     <View style={styles.container}>
+       <Image 
+    resizeMode='contain'
+    resizeMethod="auto"
+    style={{
+      width:'100%',
+      marginTop:10,
+      height:'10%',
+      alignSelf: "center",
+      flexDirection: "row",
+      justifyContent: "center",
+    }}
+    source={{uri: logo}}
+ />      
+
       <TextInput
         style={styles.textInputStyle}
         onChangeText={(text) => {
@@ -412,9 +427,8 @@ const Checkins = (props, navigation) => {
       />
       <View
         style={{
-          height: 50,
+          height: 60,
           width: "75%",
-          marginBottom: 30,
           marginTop: -20,
           flexDirection: "row",
           borderRadius: 100,

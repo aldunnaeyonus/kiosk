@@ -22,6 +22,7 @@ const { width: ScreenWidth } = Dimensions.get("screen");
 import axios from "axios";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
+import DropDownPicker from 'react-native-dropdown-picker';
 
 FontAwesome.loadFont();
 const AddEvent = ({ navigation, props }) => {
@@ -39,6 +40,15 @@ const AddEvent = ({ navigation, props }) => {
   const [kiosk_id, setkiosk_id] = useState("");
   const [kiosk_logo, setkiosk_logo] = useState("");
   const [kiosk_is_ifs, setkiosk_is_ifs] = useState("0");
+  const [items, setItems] = useState([
+    {label: 'Austin RENC', value: 'AustinRENCLogoLong.png'},
+    {label: 'Austin RENC', value: 'DallasREIALogoLong.png'},
+    {label: 'Houston RENC', value: 'HoustonREIALogoLong.png'},
+    {label: 'San Antonio RENC', value: 'SanAntonioRENCLogoLong.png'},
+    {label: 'Big Live Event', value: 'RealEstateInvestingLogo.png'},
+  ]);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
 
   const CustomProgressBar = ({ visible }) => (
     <Modal style={{backgroundColor: 'transparent'}} onRequestClose={() => null} visible={visible}>
@@ -67,7 +77,9 @@ const AddEvent = ({ navigation, props }) => {
         kiosk_id: kiosk_id, 
         selectedDate: selectedDate, 
         tag: tag,
-        prints: prints
+        prints: prints,
+        logo: value
+
 
 }, {
   headers : {
@@ -137,18 +149,7 @@ const AddEvent = ({ navigation, props }) => {
   return (
     <SafeAreaProvider style={styles.container}>
           <CustomProgressBar visible={visible} />
-
-      <Image 
-    resizeMode='contain'
-    resizeMethod="scale"
-style={{    
-  height: 200,
-  alignSelf: "center",
-  flexDirection: "row",
-  justifyContent: "center",
-}}
-source={require('../../assets/events-transparent-1.png')}
- />      
+     
         <View
           style={{
             width: "100%",
@@ -230,7 +231,7 @@ source={require('../../assets/events-transparent-1.png')}
                 justifyContent: "center",
               }}
               keyboardType="default"
-              placeholder="Enter Event Location"
+              placeholder="Enter Event Location (for example: InterContinental Hotel Houston TX)"
               onChangeText={(text) => {
                 setLocation(text);
               }}
@@ -323,15 +324,75 @@ source={require('../../assets/events-transparent-1.png')}
                 justifyContent: "center",
               }}
               keyboardType="default"
-              placeholder="IFS TAG"
+              placeholder="IFS TAG (for example: 801)"
               onChangeText={(text) => {
                 setTag(text);
               } } />
 
-          </View><View style={[styles.dividerStyle]} /></> : <View></View> }
-          <View style={[styles.dividerStyle]} />
-</View>
+          </View><View style={[styles.dividerStyle]} />   
+       
+        <View style={[styles.dividerStyle]} />
+        </> : <View></View> } 
+        <View
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              height: 60,
+              marginTop: 0,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <TextInput.Icon
+              iconColor='#007AFF'
+              style={{
+                marginLeft: 38,
+                marginTop: 45,
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+              size={20}
+              icon="image" />
+  <DropDownPicker
+  dropDownContainerStyle={{
+    borderColor: "#ccc",
+    backgroundColor: "white",
+    borderWidth:0.5,
+    marginLeft: 45,
+    marginTop: 5,
+    width:'91%',
+    justifyContent: "center",
+  }}
+  style={{
+                backgroundColor: "white",
+                borderColor: "white",
+                marginLeft: 45,
+                marginTop: 5,
+                width:'91%',
+                justifyContent: "center",
+  }}
+      autoScroll={true}
+      itemSeparator={true}
+      itemSeparatorStyle={{
+        backgroundColor: "#ccc",
+        height:0.5
+      }}
+      open={open}
+      placeholder="Select Event Logo"
+      placeholderStyle={{fontSize: 18}}
+      textStyle={{fontSize: 18}}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+    />
+
+
+</View></View>
 <TouchableOpacity 
+          style={{marginTop:300,
+          }}
           onPress={()=> {
             preview()
           }
@@ -339,7 +400,6 @@ source={require('../../assets/events-transparent-1.png')}
         <View style={{
             height: 50, 
             width: 200, 
-            marginTop: 50,
             flexDirection: 'row',
             borderRadius: 20,
             backgroundColor: "#007AFF", 

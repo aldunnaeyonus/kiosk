@@ -2988,17 +2988,17 @@
     "@types/react" "*"
     "@types/react-native" "^0.70"
 
+"@types/react-native@*", "@types/react-native@^0.71.5":
+  version "0.71.5"
+  resolved "https://registry.npmjs.org/@types/react-native/-/react-native-0.71.5.tgz"
+  integrity sha512-Tp5druh7DGwNDvWYH09PCE++hbH4zYz0OOvGFb3/QFIFKXgfezaT/txJeKlBkbiqs45QJzllp9S0qo0WpWyijA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-native@^0.70":
   version "0.70.13"
   resolved "https://registry.npmjs.org/@types/react-native/-/react-native-0.70.13.tgz"
   integrity sha512-VnC/ny8Eynk3fvY4cnNKXpo/0zUhA2gO64RX51yzVofblOP6TR6jciga0kIjI4c+2eUyWNGrahmiolNm+QU6Cw==
-  dependencies:
-    "@types/react" "*"
-
-"@types/react-native@^0.71.5":
-  version "0.71.5"
-  resolved "https://registry.npmjs.org/@types/react-native/-/react-native-0.71.5.tgz"
-  integrity sha512-Tp5druh7DGwNDvWYH09PCE++hbH4zYz0OOvGFb3/QFIFKXgfezaT/txJeKlBkbiqs45QJzllp9S0qo0WpWyijA==
   dependencies:
     "@types/react" "*"
 
@@ -11430,6 +11430,11 @@ react-native-codegen@^0.71.5:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-dropdown-picker@^5.4.6:
+  version "5.4.6"
+  resolved "https://registry.npmjs.org/react-native-dropdown-picker/-/react-native-dropdown-picker-5.4.6.tgz"
+  integrity sha512-T1XBHbE++M6aRU3wFYw3MvcOuabhWZ29RK/Ivdls2r1ZkZ62iEBZknLUPeVLMX3x6iUxj4Zgr3X2DGlEGXeHsA==
+
 react-native-elements@^3.4.3:
   version "3.4.3"
   resolved "https://registry.npmjs.org/react-native-elements/-/react-native-elements-3.4.3.tgz"
@@ -11498,6 +11503,11 @@ react-native-paper-dates@^0.15.1:
   integrity sha512-bSXJmQs7wmNvN8yfPKRM3fn4dXvlyqb4DHA+fBTikDfX/nV8ijUaJ5cIm35k76CdkQjuJBArds1KbKmcD8racw==
   dependencies:
     color "^3.2.1"
+
+react-native-paper-dropdown@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.npmjs.org/react-native-paper-dropdown/-/react-native-paper-dropdown-1.0.7.tgz"
+  integrity sha512-St0rZFw5sC7mbXtFCOGsyEa0fIBaG6Cfz78RsjFNzTj+rKd1i9qlDY2O7eOa2zAUEnFlL+C7FXdXUY9RUNELNw==
 
 react-native-paper@*, react-native-paper@^5.6.0:
   version "5.6.0"
@@ -13441,7 +13451,7 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
-typescript@^4.9.4, "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", typescript@>=4.3:
+typescript@*, typescript@^4.9.4, "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", typescript@>=4.3:
   version "4.9.5"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
