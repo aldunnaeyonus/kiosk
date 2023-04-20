@@ -5,6 +5,9 @@
       location = "group:EventKiosk.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Pods/../../node_modules/react-native-local-network-permission/ios/RNLocalNetworkPermission.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

@@ -12,6 +12,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		46B2C201F3DF4561BE1F6181 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A52C7026134D49BA816BF7 /* noop-file.swift */; };
+		4D3182F1F14B6F2A2FFBFA41 /* libPods-EventKiosk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1CC16D10B1443E27E61F20 /* libPods-EventKiosk.a */; };
 		856ADB3529EF01DF00ED6609 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2529EF01DF00ED6609 /* Fontisto.ttf */; };
 		856ADB3629EF01DF00ED6609 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2629EF01DF00ED6609 /* Octicons.ttf */; };
 		856ADB3729EF01DF00ED6609 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2729EF01DF00ED6609 /* Feather.ttf */; };
@@ -29,10 +30,22 @@
 		856ADB4329EF01DF00ED6609 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB3329EF01DF00ED6609 /* SimpleLineIcons.ttf */; };
 		856ADB4429EF01DF00ED6609 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB3429EF01DF00ED6609 /* MaterialIcons.ttf */; };
 		856ADB4729EF023300ED6609 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB4629EF023300ED6609 /* main.jsbundle */; };
-		96905EF65AED1B983A6B3ABC /* libPods-EventKiosk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-EventKiosk.a */; };
+		858A361E29EF826F00B339DB /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858A361D29EF826E00B339DB /* Network.framework */; };
+		858A362129EF857000B339DB /* LocalNetworkPrivacy.h in Sources */ = {isa = PBXBuildFile; fileRef = 858A362029EF857000B339DB /* LocalNetworkPrivacy.h */; };
+		858A362329EF864A00B339DB /* LocalNetworkPrivacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 858A362229EF864A00B339DB /* LocalNetworkPrivacy.m */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		858A361929EF7C0300B339DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 858A361529EF7C0300B339DB /* RNLocalNetworkPermission.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNLocalNetworkPermission;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* EventKiosk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventKiosk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,9 +54,9 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = EventKiosk/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = EventKiosk/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = EventKiosk/main.m; sourceTree = "<group>"; };
-		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-EventKiosk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EventKiosk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C2E3173556A471DD304B334 /* Pods-EventKiosk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventKiosk.debug.xcconfig"; path = "Target Support Files/Pods-EventKiosk/Pods-EventKiosk.debug.xcconfig"; sourceTree = "<group>"; };
-		7A4D352CD337FB3A3BF06240 /* Pods-EventKiosk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventKiosk.release.xcconfig"; path = "Target Support Files/Pods-EventKiosk/Pods-EventKiosk.release.xcconfig"; sourceTree = "<group>"; };
+		2B1CC16D10B1443E27E61F20 /* libPods-EventKiosk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EventKiosk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C114B5FD6D755B4EC17699F /* Pods-EventKiosk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventKiosk.release.xcconfig"; path = "Target Support Files/Pods-EventKiosk/Pods-EventKiosk.release.xcconfig"; sourceTree = "<group>"; };
+		5E995D6BFF29C5E05A772296 /* Pods-EventKiosk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventKiosk.debug.xcconfig"; path = "Target Support Files/Pods-EventKiosk/Pods-EventKiosk.debug.xcconfig"; sourceTree = "<group>"; };
 		856ADB2529EF01DF00ED6609 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		856ADB2629EF01DF00ED6609 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		856ADB2729EF01DF00ED6609 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -61,6 +74,11 @@
 		856ADB3329EF01DF00ED6609 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		856ADB3429EF01DF00ED6609 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		856ADB4629EF023300ED6609 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = EventKiosk/main.jsbundle; sourceTree = "<group>"; };
+		858A360C29EF786900B339DB /* libRNLocalNetworkPermission.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNLocalNetworkPermission.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		858A361529EF7C0300B339DB /* RNLocalNetworkPermission.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNLocalNetworkPermission.xcodeproj; path = "../node_modules/react-native-local-network-permission/ios/RNLocalNetworkPermission.xcodeproj"; sourceTree = "<group>"; };
+		858A361D29EF826E00B339DB /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
+		858A362029EF857000B339DB /* LocalNetworkPrivacy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LocalNetworkPrivacy.h; path = EventKiosk/LocalNetworkPrivacy.h; sourceTree = "<group>"; };
+		858A362229EF864A00B339DB /* LocalNetworkPrivacy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = LocalNetworkPrivacy.m; path = EventKiosk/LocalNetworkPrivacy.m; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = EventKiosk/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		E6A52C7026134D49BA816BF7 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "EventKiosk/noop-file.swift"; sourceTree = "<group>"; };
@@ -73,7 +91,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96905EF65AED1B983A6B3ABC /* libPods-EventKiosk.a in Frameworks */,
+				4D3182F1F14B6F2A2FFBFA41 /* libPods-EventKiosk.a in Frameworks */,
+				858A361E29EF826F00B339DB /* Network.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,14 +103,16 @@
 			isa = PBXGroup;
 			children = (
 				BB2F792B24A3F905000567C9 /* Supporting */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				856ADB4629EF023300ED6609 /* main.jsbundle */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 				E6A52C7026134D49BA816BF7 /* noop-file.swift */,
+				858A362029EF857000B339DB /* LocalNetworkPrivacy.h */,
+				858A362229EF864A00B339DB /* LocalNetworkPrivacy.m */,
 			);
 			name = EventKiosk;
 			sourceTree = "<group>";
@@ -99,8 +120,10 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				858A361D29EF826E00B339DB /* Network.framework */,
+				858A360C29EF786900B339DB /* libRNLocalNetworkPermission.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-EventKiosk.a */,
+				2B1CC16D10B1443E27E61F20 /* libPods-EventKiosk.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -158,6 +181,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		858A361629EF7C0300B339DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				858A361A29EF7C0300B339DB /* libRNLocalNetworkPermission.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		92DBD88DE9BF7D494EA9DA96 /* EventKiosk */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,8 +210,8 @@
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6C2E3173556A471DD304B334 /* Pods-EventKiosk.debug.xcconfig */,
-				7A4D352CD337FB3A3BF06240 /* Pods-EventKiosk.release.xcconfig */,
+				5E995D6BFF29C5E05A772296 /* Pods-EventKiosk.debug.xcconfig */,
+				2C114B5FD6D755B4EC17699F /* Pods-EventKiosk.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -188,6 +219,7 @@
 		D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
+				858A361529EF7C0300B339DB /* RNLocalNetworkPermission.xcodeproj */,
 				92DBD88DE9BF7D494EA9DA96 /* EventKiosk */,
 			);
 			name = ExpoModulesProviders;
@@ -200,13 +232,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "EventKiosk" */;
 			buildPhases = (
-				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
+				BFDA3F308DDCCC5C2254B4E0 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
+				646AA1946E27E2E118B5A8D0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -242,12 +274,28 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 858A361629EF7C0300B339DB /* Products */;
+					ProjectRef = 858A361529EF7C0300B339DB /* RNLocalNetworkPermission.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* EventKiosk */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		858A361A29EF7C0300B339DB /* libRNLocalNetworkPermission.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNLocalNetworkPermission.a;
+			remoteRef = 858A361929EF7C0300B339DB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
@@ -256,12 +304,12 @@
 			files = (
 				856ADB3F29EF01DF00ED6609 /* FontAwesome5_Regular.ttf in Resources */,
 				856ADB3629EF01DF00ED6609 /* Octicons.ttf in Resources */,
+				856ADB4729EF023300ED6609 /* main.jsbundle in Resources */,
 				856ADB3929EF01DF00ED6609 /* FontAwesome5_Brands.ttf in Resources */,
 				856ADB3D29EF01DF00ED6609 /* Ionicons.ttf in Resources */,
 				856ADB4429EF01DF00ED6609 /* MaterialIcons.ttf in Resources */,
 				856ADB3E29EF01DF00ED6609 /* FontAwesome5_Solid.ttf in Resources */,
 				856ADB4329EF01DF00ED6609 /* SimpleLineIcons.ttf in Resources */,
-				856ADB4729EF023300ED6609 /* main.jsbundle in Resources */,
 				856ADB3829EF01DF00ED6609 /* Entypo.ttf in Resources */,
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				856ADB3B29EF01DF00ED6609 /* AntDesign.ttf in Resources */,
@@ -294,7 +342,27 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" $PROJECT_ROOT ios relative | tail -n 1)\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n\n";
 		};
-		08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */ = {
+		646AA1946E27E2E118B5A8D0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EventKiosk/Pods-EventKiosk-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EventKiosk/Pods-EventKiosk-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BFDA3F308DDCCC5C2254B4E0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -314,26 +382,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EventKiosk/Pods-EventKiosk-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EventKiosk/Pods-EventKiosk-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -365,6 +413,8 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
+				858A362329EF864A00B339DB /* LocalNetworkPrivacy.m in Sources */,
+				858A362129EF857000B339DB /* LocalNetworkPrivacy.h in Sources */,
 				46B2C201F3DF4561BE1F6181 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,12 +424,12 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C2E3173556A471DD304B334 /* Pods-EventKiosk.debug.xcconfig */;
+			baseConfigurationReference = 5E995D6BFF29C5E05A772296 /* Pods-EventKiosk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventKiosk/EventKiosk.entitlements;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -407,12 +457,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A4D352CD337FB3A3BF06240 /* Pods-EventKiosk.release.xcconfig */;
+			baseConfigurationReference = 2C114B5FD6D755B4EC17699F /* Pods-EventKiosk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventKiosk/EventKiosk.entitlements;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
 				INFOPLIST_FILE = EventKiosk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

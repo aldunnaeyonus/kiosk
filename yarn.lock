@@ -11465,6 +11465,11 @@ react-native-html-to-pdf@^0.12.0:
   resolved "https://registry.npmjs.org/react-native-html-to-pdf/-/react-native-html-to-pdf-0.12.0.tgz"
   integrity sha512-Yb5WO9SfF86s5Yv9PqXQ7fZDr9zZOJ+6jtweT9zFLraPNHWX7pSxe2dSkeg3cGiNrib65ZXGN6ksHymfYLFSSg==
 
+react-native-local-network-permission@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/react-native-local-network-permission/-/react-native-local-network-permission-1.0.1.tgz"
+  integrity sha512-zj11rdX8wAWvgmMf3Er7k+oaPTZYobGZZfp/t8lvZcwc48b/zCEdOCeIdnXXqfAzfr/io6OWUaqGFRjT7CWMKA==
+
 react-native-login-screen@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/react-native-login-screen/-/react-native-login-screen-5.0.0.tgz"
@@ -11646,7 +11651,7 @@ react-native-windows@>=0.62:
     whatwg-fetch "^3.0.0"
     ws "^6.2.2"
 
-react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.71 || 1000.0.0", react-native@^0.71.0, react-native@>=0.57, react-native@>=0.62.0, react-native@>=0.65.0, "react-native@>=0.8.0 || 0.8.0-rc || 0.8.0-rc.2 || 0.9.0-rc || 0.10.1", react-native@0.71.6:
+react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.71 || 1000.0.0", react-native@^0.41.2, react-native@^0.71.0, react-native@>=0.57, react-native@>=0.62.0, react-native@>=0.65.0, "react-native@>=0.8.0 || 0.8.0-rc || 0.8.0-rc.2 || 0.9.0-rc || 0.10.1", react-native@0.71.6:
   version "0.71.6"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.71.6.tgz"
   integrity sha512-gHrDj7qaAaiE41JwaFCh3AtvOqOLuRgZtHKzNiwxakG/wvPAYmG73ECfWHGxjxIx/QT17Hp37Da3ipCei/CayQ==

@@ -19,6 +19,7 @@ import { AlertNotificationRoot } from "react-native-alert-notification";
 import AppIntroSlider from 'react-native-app-intro-slider';
 import * as Print from 'expo-print';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { requestLocalNetworkAccess, checkLocalNetworkAccess } from "react-native-local-network-permission";
 FontAwesome.loadFont();
 
 export default function App() {
@@ -86,6 +87,9 @@ export default function App() {
         const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn") : window.localStorage.getItem("logedIn");
         setSignIn(stringToBoolean(value));
         await SplashScreen.hideAsync();
+        await checkLocalNetworkAccess();
+        await requestLocalNetworkAccess();
+
       }
     }
 
@@ -99,6 +103,7 @@ export default function App() {
   const onDone = async () => {
     await AsyncStorage.setItem("showRealApp", "true");
     setshowRealApp(true)
+
   }
 
   const renderItem = ({ item }) => {

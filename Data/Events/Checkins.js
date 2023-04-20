@@ -296,8 +296,8 @@ const Checkins = (props, navigation) => {
         </style>
       </head>
       <body id="body"">
-      <div style="font-size: 55vw; font-weight: bolder; width:'100%'; text-align: center;">${fname}<div>
-      <div style="font-size: 35vw;  width:'100%';  margin: 0 auto; text-align: center;">${lname}<div>
+      <div style="font-size: 45vw; font-weight: bolder; width:'90%'; text-align: center;">${fname}<div>
+      <div style="font-size: 35vw;  width:'90%';  margin: 0 auto; text-align: center;">${lname}<div>
       <div style="font-size: 25vw;  width:'100%';  margin: 0 auto; text-align: center;">${status}<div>
       </body>
     </html>
