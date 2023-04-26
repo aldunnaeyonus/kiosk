@@ -281,8 +281,8 @@ export default function App() {
                     headerBackTitleVisible: false,
                   }}
                 />
-                 <Stack.Screen
-            name="Edit Event"
+            <Stack.Screen
+            name="Edit Mode"
             component={EditEvents}
             options={{
               headerShown: true,
@@ -395,7 +395,7 @@ export default function App() {
             }}
           />
            <Stack.Screen
-            name="Edit Event"
+            name="Edit Mode"
             component={EditEvents}
             options={{
               headerShown: true,

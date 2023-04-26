@@ -27,7 +27,8 @@ const EventList = (props, navigation) => {
   const isFocused = useIsFocused();
   const [isLoding, setisLoding] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  
+  const [kiosk_is_ifs, setkiosk_is_ifs] = useState("0");
+
   const EmptyListMessage = ({ item }) => {
     return (
       // Flat List Item
@@ -75,12 +76,15 @@ const EventList = (props, navigation) => {
         Platform.OS !== "web"
           ? await AsyncStorage.getItem("kiosk_id")
           : window.localStorage.getItem("kiosk_id");
+          const kioskifs = Platform.OS !== "web" ? await AsyncStorage.getItem("kiosk_is_ifs") : window.localStorage.getItem("kiosk_is_ifs");
+
       const kiosk_comapny_name =
         Platform.OS !== "web"
           ? await AsyncStorage.getItem("kiosk_comapny_name")
           : window.localStorage.getItem("kiosk_comapny_name");
       setkiosk_ids(kiosk_id);
       setkiosk_name(kiosk_comapny_name);
+      setkiosk_is_ifs(""+kioskifs)
       props.navigation.setOptions({
         title: kiosk_comapny_name + " Events List",
       });
@@ -183,10 +187,10 @@ const EventList = (props, navigation) => {
               {
                 text: "Edit Mode",
                 onPress: () => {
-                  props.navigation.navigate("Edit Event", {
+                  props.navigation.navigate("Edit Mode", {
                     kiosk_id: item.kiosk_event_id,
                     kiosk_event: item.kiosk_event_name,
-                    mode: "NORMAL",
+                    ifs_mode: kiosk_is_ifs,
                   });
                 },
               },

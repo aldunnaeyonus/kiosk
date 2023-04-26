@@ -15,17 +15,14 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { DatePickerModal } from 'react-native-paper-dates';
 import moment from "moment";
 import { useIsFocused } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform } from "react-native";
 const { width: ScreenWidth } = Dimensions.get("screen");
 import axios from "axios";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import DropDownPicker from 'react-native-dropdown-picker';
-//kiosk_id
-
 FontAwesome.loadFont();
-const EditEvent = ({ navigation, props }) => {
+
+const EditEvents = ({ navigation, props, route }) => {
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [visible, setvisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
@@ -37,9 +34,6 @@ const EditEvent = ({ navigation, props }) => {
   const [location, setLocation] = useState("");
   const [tag, setTag] = useState("");
   const isFocused = useIsFocused();
-  const [kiosk_id, setkiosk_id] = useState("");
-  const [kiosk_logo, setkiosk_logo] = useState("");
-  const [kiosk_is_ifs, setkiosk_is_ifs] = useState("0");
   const [items, setItems] = useState([
     {label: 'Austin RENC', value: 'AustinRENCLogoLong.png'},
     {label: 'Austin RENC', value: 'DallasREIALogoLong.png'},
@@ -52,6 +46,26 @@ const EditEvent = ({ navigation, props }) => {
   const [value, setValue] = useState("");
   const [isLoding, setisLoding] = useState(true);
 
+  useEffect(() => {
+    setisLoding(true)
+    const fetchData = async () => {
+      fetch(
+        baseUrl + "/events/view.php?kiosk_id=" + route.params.kiosk_id
+      )
+        .then((response) => response.json())
+        .then(async (jsonData) => {
+            setisLoding(false)
+            settitle(jsonData[0].kiosk_event_name);
+            setLocation(jsonData[0].kiosk_event_location);
+            setTag(jsonData[0].kiosk_event_tag);
+            setPrints(jsonData[0].kiosk_event_print);
+            setValue(jsonData[0].kiosk_event_logo);
+            setSelectedDate(jsonData[0].kiosk_event_timestring)
+        });
+    };
+    fetchData();
+  }, [isFocused]);
+
   const CustomProgressBar = ({ visible }) => (
     <Modal style={{backgroundColor: 'transparent'}} onRequestClose={() => null} visible={visible}>
       <View style={{ flex: 1, backgroundColor: '#dcdcdc', alignItems: 'center', justifyContent: 'center' }}>
@@ -62,25 +76,6 @@ const EditEvent = ({ navigation, props }) => {
       </View>
     </Modal>
   );
-
-  useEffect(() => {
-    setisLoding(true)
-    const fetchData = async () => {
-      fetch( baseUrl + "/events/view.php?kiosk_id=" + props.route.params.kiosk_id )
-        .then((response) => response.json())
-        .then(async (jsonData) => {
-            setisLoding(false)
-            settitle(jsonData[0].kiosk_event_name);
-            setLocation(jsonData[0].kiosk_event_location);
-            setkiosk_id(props.route.params.kiosk_id)
-            setTag(jsonData[0].kiosk_event_tag);
-            setPrints(jsonData[0].kiosk_event_print);
-            setValue(jsonData[0].kiosk_event_logo);
-            setSelectedDate(jsonData[0].kiosk_event_timestring)
-        });
-    };
-    fetchData();
-  }, [isFocused]);
 
   const preview = () => {
     if ((title.length <= 0) || (location.length <= 0) || (selectedDate.length <= 0)){
@@ -95,7 +90,7 @@ const EditEvent = ({ navigation, props }) => {
         axios.post(baseUrl + '/events/edit.php', {
         title: title, 
         location: location, 
-        kiosk_id: kiosk_id, 
+        kiosk_id: route.params.kiosk_id, 
         selectedDate: selectedDate, 
         tag: tag,
         prints: prints,
@@ -121,30 +116,6 @@ const EditEvent = ({ navigation, props }) => {
     });
   }
       };
-
-      useEffect(() => {
-        props.navigation.setOptions({
-          headerTitle: props.route.params.kiosk_event,
-        });
-      });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const kiosk_is_ifs = Platform.OS !== "web" ? await AsyncStorage.getItem("kiosk_is_ifs") : window.localStorage.getItem("kiosk_is_ifs");
-        const kiosk_id = Platform.OS !== "web" ? await AsyncStorage.getItem("kiosk_id") : window.localStorage.getItem("kiosk_id");
-        const kiosk_logo = Platform.OS !== "web" ? await AsyncStorage.getItem("kiosk_logo") : window.localStorage.getItem("kiosk_logo");
-        setkiosk_logo("" + kiosk_logo);
-        setkiosk_id("" + kiosk_id);
-        setkiosk_is_ifs(""+kiosk_is_ifs)
-      } catch (error) {
-        setkiosk_logo("");
-        setkiosk_id("");
-        setkiosk_is_ifs("")
-      }
-    };
-    fetchData();
-  }, [isFocused]);
 
   const showDatePicker = () => {
     setDatePickerVisible(true);
@@ -311,7 +282,7 @@ const EditEvent = ({ navigation, props }) => {
             </View>
           </TouchableWithoutFeedback>
           <View style={[styles.dividerStyle]} />
-          { kiosk_is_ifs == "1" ? 
+          { route.params.ifs_mode == "1" ? 
           <><View
             style={{
               backgroundColor: "white",
@@ -456,4 +427,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditEvent;
+export default EditEvents;
