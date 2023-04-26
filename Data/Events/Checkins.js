@@ -19,7 +19,7 @@ import axios from "axios";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 MaterialCommunityIcons.loadFont();
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
-  
+
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [isFound, setisFound] = useState(true);
@@ -58,104 +58,106 @@ const Checkins = (props, navigation) => {
 
   useEffect(() => {
     props.navigation.setOptions({
-      headerLeft: () => (
-        props.route.params.mode === "NORMAL" ? 
-        <TouchableOpacity
-          onPress={() => {
-            Alert.alert(
-              "Exit Out",
-              "Are you sure you want to exit out of this Event [" +
-                props.route.params.kiosk_event +
-                "]\n\nThis will erase the duplicate email checker",
-              [
-                {
-                  text: "Cancel",
-                  onPress: () => console.log("Cancel Pressed"),
-                  style: "destructive",
-                },
-                {
-                  text: "Go back",
-                  onPress: () => {
-                    props.navigation.goBack(null);
+      headerLeft: () =>
+        props.route.params.mode === "NORMAL" ? (
+          <TouchableOpacity
+            onPress={() => {
+              Alert.alert(
+                "Exit Out",
+                "Are you sure you want to exit out of this Event [" +
+                  props.route.params.kiosk_event +
+                  "]\n\nThis will erase the duplicate email checker",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "destructive",
                   },
-                },
-              ],
-              { cancelable: false }
-            );
-          }}
-        >
-          <MaterialCommunityIcons
-            name="chevron-left"
-            size={40}
-            style={styles.moreIcon}
-          />
-        </TouchableOpacity>
-        :   <TouchableOpacity
-        delayLongPress={2000}
-        onLongPress={() => {
-          Alert.alert(
-            "Exit Out",
-            "Are you sure you want to exit out of this Event [" +
-              props.route.params.kiosk_event +
-              "]\n\nThis will erase the duplicate email checker",
-            [
-              {
-                text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "destructive",
-              },
-              {
-                text: "Go back",
-                onPress: () => {
-                  props.navigation.goBack(null);
-                },
-              },
-            ],
-            { cancelable: false }
-          );
-        }}
-      >
-         <MaterialCommunityIcons
-            name="chevron-left"
-            size={40}
-            style={styles.moreIconWhite}
-          />
-      </TouchableOpacity>
-      ),
-      headerRight: () => (
-          props.route.params.mode === "NORMAL" ? 
+                  {
+                    text: "Go back",
+                    onPress: () => {
+                      props.navigation.goBack(null);
+                    },
+                  },
+                ],
+                { cancelable: false }
+              );
+            }}
+          >
+            <MaterialCommunityIcons
+              name="chevron-left"
+              size={40}
+              style={styles.moreIcon}
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            delayLongPress={2000}
+            onLongPress={() => {
+              Alert.alert(
+                "Exit Out",
+                "Are you sure you want to exit out of this Event [" +
+                  props.route.params.kiosk_event +
+                  "]\n\nThis will erase the duplicate email checker",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "destructive",
+                  },
+                  {
+                    text: "Go back",
+                    onPress: () => {
+                      props.navigation.goBack(null);
+                    },
+                  },
+                ],
+                { cancelable: false }
+              );
+            }}
+          >
+            <MaterialCommunityIcons
+              name="chevron-left"
+              size={40}
+              style={styles.moreIconWhite}
+            />
+          </TouchableOpacity>
+        ),
+      headerRight: () =>
+        props.route.params.mode === "NORMAL" ? (
           <FontAwesome
-          style={{ paddingRight: 20 }}
-          backgroundColor="white"
-          borderRadius={17}
-          size={28}
-          color="black"
-          name={"file-archive-o"}
-          onPress={() => {
-            Alert.alert(
-              "Archive Event",
-              "Are you sure you want to Archive this Event [" +
-                props.route.params.kiosk_event +
-                "]\n\nThis will prevent attendees from checking in.",
-              [
-                {
-                  text: "Cancel",
-                  onPress: () => console.log("Cancel Pressed"),
-                  style: "destructive",
-                },
-                {
-                  text: "Archive Event",
-                  onPress: () => {
-                    closeEvent();
+            style={{ paddingRight: 20 }}
+            backgroundColor="white"
+            borderRadius={17}
+            size={28}
+            color="black"
+            name={"file-archive-o"}
+            onPress={() => {
+              Alert.alert(
+                "Archive Event",
+                "Are you sure you want to Archive this Event [" +
+                  props.route.params.kiosk_event +
+                  "]\n\nThis will prevent attendees from checking in.",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "destructive",
                   },
-                },
-              ],
-              { cancelable: false }
-            );
-          }}
-        />
-         : ""
-      ),
+                  {
+                    text: "Archive Event",
+                    onPress: () => {
+                      closeEvent();
+                    },
+                  },
+                ],
+                { cancelable: false }
+              );
+            }}
+          />
+        ) : (
+          ""
+        ),
     });
   }, [navigation]);
 
@@ -164,30 +166,36 @@ const Checkins = (props, navigation) => {
   }, [isFocused]);
 
   const searchFilterFunction = async (text) => {
-    if (text.length <= 0){
+    if (text.length <= 0) {
       setFilteredDataSource([]);
       setisFound(true);
-    }else{
-    await fetch(baseUrl + "/search/index.php?email=" + text+"&pin="+props.route.params.kiosk_owner)
-      .then((response) => response.json())
-      .then(async (jsonData) => {
-        const myData = []
-          .concat(jsonData)
-          .sort((a, b) => (a.name > b.name ? 1 : -1));
-        setFilteredDataSource(myData);
-        if (myData.length <= 0){
-          setisFound(false);
-        }else{
-        setisFound(true);
-        }
-      });
+    } else {
+      await fetch(
+        baseUrl +
+          "/search/index.php?email=" +
+          text +
+          "&pin=" +
+          props.route.params.kiosk_owner
+      )
+        .then((response) => response.json())
+        .then(async (jsonData) => {
+          const myData = []
+            .concat(jsonData)
+            .sort((a, b) => (a.name > b.name ? 1 : -1));
+          setFilteredDataSource(myData);
+          if (myData.length <= 0) {
+            setisFound(false);
+          } else {
+            setisFound(true);
+          }
+        });
     }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLogo(baseUrl+'/logos/'+props.route.params.event_logo)
+        setLogo(baseUrl + "/logos/" + props.route.params.event_logo);
         const kiosPrinterURL =
           Platform.OS !== "web"
             ? await AsyncStorage.getItem("printerURL")
@@ -200,7 +208,16 @@ const Checkins = (props, navigation) => {
     fetchData();
   }, [isFocused]);
 
-  const preview = (fname, lname, email, phone, kiosk_id, ifs_id, status) => {
+  const preview = (
+    fname,
+    lname,
+    email,
+    phone,
+    kiosk_id,
+    ifs_id,
+    status,
+    logo
+  ) => {
     if (addedEmails.includes(email)) {
       Alert.alert(
         "Duplicate Checkin",
@@ -219,7 +236,7 @@ const Checkins = (props, navigation) => {
           {
             text: "Re-Print Tag",
             onPress: () => {
-              print(Print.Orientation.landscape, fname, lname, status);
+              print(Print.Orientation.landscape, fname, lname, status, logo);
             },
           },
         ],
@@ -251,7 +268,7 @@ const Checkins = (props, navigation) => {
           setisFound(true);
           searchFilterFunction("");
           settextValue("");
-          print(Print.Orientation.landscape, fname, lname, status);
+          print(Print.Orientation.landscape, fname, lname, status, logo);
         })
         .catch((error) => {
           Toast.show({
@@ -265,41 +282,44 @@ const Checkins = (props, navigation) => {
     }
   };
 
-  const print = async (orientations, fname, lname, status) => {
+  const print = async (orientations, fname, lname, status, logo) => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     await Print.printAsync({
       html: `
-      <html>
+           <html>
       <head>
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
         <style>
-          @page {
-            margin: 0;
-          }
-          #body {
-            zoom:500%
-            height: '100%';
-            width: '100%';
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            align-items: center;
-            justify-content: center;
-          }
-          #content {
-            position: relative;
+        #body {
+          zoom: 5.5;
+          width: '100%';
+          height: '100%';
+          vertical-align: middle;
+          horizontal-align: center;
         }
-         #content img {
-            position: absolute;
-            top: 0px;
-            right: 0px;
+        .fname { 
+          font-size: 2.5em; 
+          font-weight: bolder; 
+          margin:-5;
+          text-align: center;
         }
-        </style>
+        .lname {
+          font-size: 1.5em; 
+          margin:-5;
+         text-align: center;
+        }
+        .status {
+          margin:-5;
+          font-size: 1em; 
+          text-align: center;
+        }
+      </style>
       </head>
-      <body id="body"">
-      <div style="font-size: 45vw; font-weight: bolder; width:'90%'; text-align: center;">${fname}<div>
-      <div style="font-size: 35vw;  width:'90%';  margin: 0 auto; text-align: center;">${lname}<div>
-      <div style="font-size: 25vw;  width:'100%';  margin: 0 auto; text-align: center;">${status}<div>
+      <body id="body">
+      <div class="fname">${fname}</div>
+      <div class="lname">${lname}</div>
+      <div class="status">${status}</div>
+      <div class="status"><img height="50em" src="${baseUrl}/logos/${logo}"></div>
       </body>
     </html>
       `,
@@ -319,7 +339,8 @@ const Checkins = (props, navigation) => {
             item.phone,
             props.route.params.kiosk_id,
             item.ifs_id,
-            item.status
+            item.status,
+            props.route.params.event_logo
           );
         }}
       >
@@ -400,19 +421,19 @@ const Checkins = (props, navigation) => {
 
   return (
     <View style={styles.container}>
-       <Image 
-    resizeMode='contain'
-    resizeMethod="auto"
-    style={{
-      width:'100%',
-      marginTop:10,
-      height:'10%',
-      alignSelf: "center",
-      flexDirection: "row",
-      justifyContent: "center",
-    }}
-    source={{uri: logo}}
- />      
+      <Image
+        resizeMode="contain"
+        resizeMethod="auto"
+        style={{
+          width: "100%",
+          marginTop: 10,
+          height: "10%",
+          alignSelf: "center",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+        source={{ uri: logo }}
+      />
 
       <TextInput
         style={styles.textInputStyle}
@@ -461,6 +482,7 @@ const Checkins = (props, navigation) => {
             props.navigation.navigate("Add Attendee", {
               kiosk_id: props.route.params.kiosk_id,
               email: textValue,
+              logo: props.route.params.event_logo,
             });
             addedEmails.push(textValue);
             setFilteredDataSource([]);

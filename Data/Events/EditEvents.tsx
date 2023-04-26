@@ -22,9 +22,10 @@ import axios from "axios";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import DropDownPicker from 'react-native-dropdown-picker';
+//kiosk_id
 
 FontAwesome.loadFont();
-const AddEvent = ({ navigation, props }) => {
+const EditEvent = ({ navigation, props }) => {
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [visible, setvisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
@@ -48,18 +49,38 @@ const AddEvent = ({ navigation, props }) => {
     {label: 'Big Dog Program', value: 'big-dog-logo2.png'},
   ]);
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState("");
+  const [isLoding, setisLoding] = useState(true);
 
   const CustomProgressBar = ({ visible }) => (
     <Modal style={{backgroundColor: 'transparent'}} onRequestClose={() => null} visible={visible}>
       <View style={{ flex: 1, backgroundColor: '#dcdcdc', alignItems: 'center', justifyContent: 'center' }}>
         <View style={{ borderRadius: 10, backgroundColor: 'white', padding: 25 }}>
-          <Text style={{ fontSize: 20, fontWeight: '200' }}>Creating Event</Text>
+          <Text style={{ fontSize: 20, fontWeight: '200' }}>Saving Event</Text>
           <ActivityIndicator size="large" />
         </View>
       </View>
     </Modal>
   );
+
+  useEffect(() => {
+    setisLoding(true)
+    const fetchData = async () => {
+      fetch( baseUrl + "/events/view.php?kiosk_id=" + props.route.params.kiosk_id )
+        .then((response) => response.json())
+        .then(async (jsonData) => {
+            setisLoding(false)
+            settitle(jsonData[0].kiosk_event_name);
+            setLocation(jsonData[0].kiosk_event_location);
+            setkiosk_id(props.route.params.kiosk_id)
+            setTag(jsonData[0].kiosk_event_tag);
+            setPrints(jsonData[0].kiosk_event_print);
+            setValue(jsonData[0].kiosk_event_logo);
+            setSelectedDate(jsonData[0].kiosk_event_timestring)
+        });
+    };
+    fetchData();
+  }, [isFocused]);
 
   const preview = () => {
     if ((title.length <= 0) || (location.length <= 0) || (selectedDate.length <= 0)){
@@ -71,7 +92,7 @@ const AddEvent = ({ navigation, props }) => {
       });
     }else{  
       setvisible(true)
-  axios.post(baseUrl + '/events/create.php', {
+        axios.post(baseUrl + '/events/edit.php', {
         title: title, 
         location: location, 
         kiosk_id: kiosk_id, 
@@ -79,12 +100,9 @@ const AddEvent = ({ navigation, props }) => {
         tag: tag,
         prints: prints,
         logo: value
-
-
 }, {
   headers : {
     'Content-Type': 'application/json;charset=utf-8',
-
   }
 })
         .then(response => {
@@ -103,6 +121,12 @@ const AddEvent = ({ navigation, props }) => {
     });
   }
       };
+
+      useEffect(() => {
+        props.navigation.setOptions({
+          headerTitle: props.route.params.kiosk_event,
+        });
+      });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,14 +161,6 @@ const AddEvent = ({ navigation, props }) => {
     },
     [setDatePickerVisible, selectedDate]
   );
-
-  useEffect(() => {
-    {
-    }
-    navigation.setOptions({
-      headerTitle: "Add New Event",
-    });
-  });
 
   return (
     <SafeAreaProvider style={styles.container}>
@@ -190,6 +206,7 @@ const AddEvent = ({ navigation, props }) => {
                 height: 60,
                 justifyContent: "center",
               }}
+              value={title}
               keyboardType="default"
               placeholder="Enter Event Title"
               onChangeText={(text) => {
@@ -230,6 +247,7 @@ const AddEvent = ({ navigation, props }) => {
                 fontSize: 18,
                 justifyContent: "center",
               }}
+              value={location}
               keyboardType="default"
               placeholder="Enter Event Location (for example: InterContinental Hotel Houston TX)"
               onChangeText={(text) => {
@@ -282,7 +300,7 @@ const AddEvent = ({ navigation, props }) => {
           locale="en"
           mode="single"
           validRange={{
-              startDate: new Date(),  // optional
+              startDate: new Date(moment(selectedDate).format('MMMM DD, YYYY'))  // optional
              }}
           saveLabel="Save Date"
           visible={datePickerVisible}
@@ -323,6 +341,7 @@ const AddEvent = ({ navigation, props }) => {
                 fontSize: 18,
                 justifyContent: "center",
               }}
+              value={tag}
               keyboardType="default"
               placeholder="IFS TAG (for example: 801)"
               onChangeText={(text) => {
@@ -414,7 +433,7 @@ const AddEvent = ({ navigation, props }) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     fontSize: 17,
-                }}> Create This Event </Text><FontAwesome name="send" size={15} style={styles.whiteIcon} />
+                }}> Save This Event </Text><FontAwesome name="send" size={15} style={styles.whiteIcon} />
        </View>
        </TouchableOpacity>
     </SafeAreaProvider>
@@ -437,4 +456,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddEvent;
+export default EditEvent;

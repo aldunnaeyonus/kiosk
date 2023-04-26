@@ -151,7 +151,7 @@ const EventList = (props, navigation) => {
           if (item.kiosk_event_status == "0") {
 
           Alert.alert(
-            "Kiosk Mode",
+            "Event Actions",
             "Choose a view mode:",
             [
               {
@@ -176,6 +176,16 @@ const EventList = (props, navigation) => {
                     kiosk_owner: item.kiosk_event_owner_id,
                     event_status: item.kiosk_event_status,
                     event_logo: item.kiosk_event_logo,
+                    mode: "NORMAL",
+                  });
+                },
+              },
+              {
+                text: "Edit Mode",
+                onPress: () => {
+                  props.navigation.navigate("Edit Event", {
+                    kiosk_id: item.kiosk_event_id,
+                    kiosk_event: item.kiosk_event_name,
                     mode: "NORMAL",
                   });
                 },

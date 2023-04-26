@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>6</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -50,6 +50,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_lnp._tcp.</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Event Kiosk Needs access to locak network to connect to local printers.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -100,11 +106,5 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>Event Kiosk Needs access to locak network to connect to local printers.</string>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_lnp._tcp.</string>
-	</array>
 </dict>
 </plist>

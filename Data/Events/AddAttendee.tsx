@@ -22,7 +22,7 @@ FontAwesome.loadFont();
 import * as Print from "expo-print";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
-const AddAttendee = ({ navigation, route }) => {
+const AddAttendee = ({ navigation, route, props }) => {
   const [fname, setfname] = useState("");
   const [lname, setlname] = useState("");
   const [email, setemail] = useState("");
@@ -66,33 +66,36 @@ const AddAttendee = ({ navigation, route }) => {
       <head>
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
         <style>
-          @page {
-            margin: 0;
-          }
-          #body {
-            zoom:500%
-            height: '100%';
-            width: '100%';
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            align-items: center;
-            justify-content: center;
-          }
-          #content {
-            position: relative;
+        #body {
+          zoom: 5.5;
+          width: '100%';
+          height: '100%';
+          vertical-align: middle;
+          horizontal-align: center;
         }
-         #content img {
-            position: absolute;
-            top: 0px;
-            right: 0px;
+        .fname { 
+          font-size: 2.5em; 
+          font-weight: bolder; 
+          margin:-5;
+          text-align: center;
         }
-        </style>
+        .lname {
+          font-size: 1.5em; 
+          margin:-5;
+         text-align: center;
+        }
+        .status {
+          margin:-5;
+          font-size: 1em; 
+          text-align: center;
+        }
+      </style>
       </head>
-      <body id="body"">
-      <div style="font-size: 45vw; font-weight: bolder; width:'90%'; text-align: center;">${fname}<div>
-      <div style="font-size: 35vw;  width:'90%';  margin: 0 auto; text-align: center;">${lname}<div>
-      <div style="font-size: 25vw;  width:'100%';  margin: 0 auto; text-align: center;">${status}<div>
+      <body id="body">
+      <div class="fname">${fname}</div>
+      <div class="lname">${lname}</div>
+      <div class="status">${status}</div>
+      <div class="status"><img height="50em" src="${baseUrl}/logos/${route.params.logo}"></div>
       </body>
     </html>
       `,

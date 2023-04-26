@@ -8,6 +8,7 @@ import SignIn from "./Data/Signin/SignIn";
 import Register from "./Data/Signin/Register";
 import EventLists from "./Data/Events/EventLists";
 import AddEvents from "./Data/Events/AddEvents";
+import EditEvents from "./Data/Events/EditEvents";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -280,6 +281,15 @@ export default function App() {
                     headerBackTitleVisible: false,
                   }}
                 />
+                 <Stack.Screen
+            name="Edit Event"
+            component={EditEvents}
+            options={{
+              headerShown: true,
+              headerBackTitleVisible: false,
+              headerTintColor: "#000000",
+            }}
+          />
         </Stack.Navigator>
         </AlertNotificationRoot>
       </NavigationContainer>
@@ -378,6 +388,15 @@ export default function App() {
           <Stack.Screen
             name="View Event Attendee List"
             component={ViewEventList}
+            options={{
+              headerShown: true,
+              headerBackTitleVisible: false,
+              headerTintColor: "#000000",
+            }}
+          />
+           <Stack.Screen
+            name="Edit Event"
+            component={EditEvents}
             options={{
               headerShown: true,
               headerBackTitleVisible: false,
