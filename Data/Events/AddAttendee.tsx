@@ -103,16 +103,12 @@ const AddAttendee = ({ navigation, route, props }) => {
           margin: -2rem -1rem 1rem -1rem;
           text-align: center;
         }
-        .status {
-          font-size: 5em; 
-          text-align: center;
-          margin: -2rem -1rem 1rem -1rem;
-        }
       </style>
       </head>
       <body class="body">
       <div class="fname">${fname}</div>
-      <div class="lname">${lname}<BR>${status}</div>
+      <div class="lname">${lname}<BR>
+      <span style="font-weight: lighter;">${status}</span></div>
       </body>
     </html>
       `,

@@ -321,16 +321,12 @@ const Checkins = (props, navigation) => {
           margin: -2rem -1rem 1rem -1rem;
           text-align: center;
         }
-        .status {
-          font-size: 5em; 
-          text-align: center;
-          margin: -2rem -1rem 1rem -1rem;
-        }
       </style>
       </head>
       <body class="body">
       <div class="fname">${fname}</div>
-      <div class="lname">${lname}<BR>${status}</div>
+      <div class="lname">${lname}<BR>
+      <span style="font-weight: lighter;">${status}</span></div>
       </body>
     </html>
       `,
@@ -520,13 +516,13 @@ const Checkins = (props, navigation) => {
         <View
           style={{
             height: 50,
-            width: "75%",
+            width: "50%",
             marginBottom: 30,
             marginTop: 20,
             flexDirection: "row",
             borderRadius: 100,
-            backgroundColor:'white',
-            borderWidth:2,
+            backgroundColor: "white",
+            borderWidth: 2,
             borderColor: "red",
             fontWeight: "bold",
             justifyContent: "center",
