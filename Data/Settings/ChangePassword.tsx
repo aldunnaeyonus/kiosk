@@ -84,7 +84,7 @@ const ChangePassword = ({ navigation, route }) => {
   return (
     <SafeAreaProvider style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
                             <CustomProgressBar visible={visible} />
-                            <ScrollView style={styles.container}>
+                            <ScrollView keyboardShouldPersistTaps="always" style={styles.container}>
 
       <View style={{ width: "100%" }}></View>
       <View

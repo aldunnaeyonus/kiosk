@@ -103,13 +103,15 @@ import {
     return (
       <View style={styles.container}>
         <TextInput
+                autoCapitalize="words"
           style={styles.textInputStyle}
           onChangeText={(text) => searchFilterFunction(text)}
           underlineColorAndroid="transparent"
           placeholder="Search by Attendee Name"
         />
         <FlatList
-         refreshing={isLoding}
+        keyboardShouldPersistTaps="always"
+        refreshing={isLoding}
           style={{ flex: 1 }}
           ListEmptyComponent={EmptyListMessage}
           data={filteredDataSource}

@@ -305,6 +305,7 @@ const EventList = (props, navigation) => {
     <View style={styles.container}>
       <TextInput
         style={styles.textInputStyle}
+        autoCapitalize="words"
         onChangeText={(text) => searchFilterFunction(text)}
         underlineColorAndroid="transparent"
         placeholder="Search "
@@ -330,6 +331,7 @@ const EventList = (props, navigation) => {
         />
       </View>
       <FlatList
+        keyboardShouldPersistTaps="always"
         style={{ flex: 1 }}
         ListEmptyComponent={EmptyListMessage}
         refreshing={isLoding}

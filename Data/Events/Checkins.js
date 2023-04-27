@@ -281,49 +281,61 @@ const Checkins = (props, navigation) => {
         });
     }
   };
-
+  /*
+      .fname { 
+        font-size: 15em; 
+        font-weight: bolder; 
+        text-align: center;
+      }
+      .lname {
+        font-size: 10em; 
+       text-align: center;
+      }
+      .status {
+        font-size: 5em; 
+        text-align: center;
+      }
+*/
   const print = async (orientations, fname, lname, status, logo) => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     await Print.printAsync({
       html: `
-           <html>
+      <html>
       <head>
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
         <style>
-        #body {
-          zoom: 5.5;
-          width: '100%';
-          height: '100%';
-          vertical-align: middle;
+        body {
+          width: 100%;
+          vertical-align: center;
+          margin: -1rem -1rem 1rem -1rem;
           horizontal-align: center;
         }
         .fname { 
-          font-size: 2.5em; 
+          font-size: 15em; 
           font-weight: bolder; 
-          margin:-5;
           text-align: center;
         }
         .lname {
-          font-size: 1.5em; 
-          margin:-5;
-         text-align: center;
+          font-size: 10em; 
+          font-weight: bold; 
+          margin: -2rem -1rem 1rem -1rem;
+          text-align: center;
         }
         .status {
-          margin:-5;
-          font-size: 1em; 
+          font-size: 5em; 
           text-align: center;
+          margin: -2rem -1rem 1rem -1rem;
         }
       </style>
       </head>
-      <body id="body">
+      <body class="body">
       <div class="fname">${fname}</div>
-      <div class="lname">${lname}</div>
-      <div class="status">${status}</div>
-      <div class="status"><img height="50em" src="${baseUrl}/logos/${logo}"></div>
+      <div class="lname">${lname}<BR>${status}</div>
       </body>
     </html>
       `,
       orientation: orientations,
+      useMarkupFormatter: true,
       printerUrl: url, // iOS only
     });
   };
@@ -398,22 +410,38 @@ const Checkins = (props, navigation) => {
               </Text>
             </View>
           </View>
-
-          <View
-            style={{
-              width: 90,
-              height: 40,
-              justifyContent: "center",
-              backgroundColor: "#2E8B57",
-              alignSelf: "center",
-              alignItems: "center",
-              borderRadius: 45,
+          <TouchableOpacity
+            onPress={() => {
+              preview(
+                item.fname,
+                item.lname,
+                item.email,
+                item.phone,
+                props.route.params.kiosk_id,
+                item.ifs_id,
+                item.status,
+                props.route.params.event_logo
+              );
             }}
           >
-            <Text style={{ color: "white", fontSize: 15, fontWeight: "bold" }}>
-              Check In
-            </Text>
-          </View>
+            <View
+              style={{
+                width: 90,
+                height: 40,
+                justifyContent: "center",
+                backgroundColor: "#2E8B57",
+                alignSelf: "center",
+                alignItems: "center",
+                borderRadius: 45,
+              }}
+            >
+              <Text
+                style={{ color: "white", fontSize: 15, fontWeight: "bold" }}
+              >
+                Check In
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     );
@@ -436,6 +464,7 @@ const Checkins = (props, navigation) => {
       />
 
       <TextInput
+        autoCapitalize="words"
         style={styles.textInputStyle}
         onChangeText={(text) => {
           searchFilterFunction(text);
@@ -448,8 +477,8 @@ const Checkins = (props, navigation) => {
       />
       <View
         style={{
-          height: 60,
-          width: "75%",
+          height: 80,
+          width: "90%",
           marginTop: -20,
           flexDirection: "row",
           borderRadius: 100,
@@ -470,58 +499,57 @@ const Checkins = (props, navigation) => {
           }}
         >
           Enter an email address or first and last name.{"\n"}If you are a guest
-          or your data can not be found, type in your email and you will be
-          guided on how to register.
+          or your data can not be found, touch the red "Add An Attendee" button
+          below to enter your information and print your name tag.
         </Text>
       </View>
-      {isFound ? (
-        <View></View>
-      ) : (
-        <TouchableOpacity
-          onPress={() => {
-            props.navigation.navigate("Add Attendee", {
-              kiosk_id: props.route.params.kiosk_id,
-              email: textValue,
-              logo: props.route.params.event_logo,
-            });
-            addedEmails.push(textValue);
-            setFilteredDataSource([]);
-            setisFound(true);
-            searchFilterFunction("");
-            settextValue("");
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate("Add Attendee", {
+            kiosk_id: props.route.params.kiosk_id,
+            email: textValue,
+            logo: props.route.params.event_logo,
+          });
+          addedEmails.push(textValue);
+          setFilteredDataSource([]);
+          setisFound(true);
+          searchFilterFunction("");
+          settextValue("");
+        }}
+      >
+        <View
+          style={{
+            height: 50,
+            width: "75%",
+            marginBottom: 30,
+            marginTop: 20,
+            flexDirection: "row",
+            borderRadius: 100,
+            backgroundColor:'white',
+            borderWidth:2,
+            borderColor: "red",
+            fontWeight: "bold",
+            justifyContent: "center",
+            alignItems: "center",
+            alignSelf: "center",
           }}
         >
-          <View
+          <Text
             style={{
-              height: 50,
-              width: "75%",
-              marginBottom: 30,
-              marginTop: 30,
-              flexDirection: "row",
-              borderRadius: 100,
-              backgroundColor: "red",
+              color: "red",
               fontWeight: "bold",
               justifyContent: "center",
               alignItems: "center",
-              alignSelf: "center",
+              fontSize: 20,
             }}
           >
-            <Text
-              style={{
-                color: "white",
-                fontWeight: "bold",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: 20,
-              }}
-            >
-              Add An Attendee
-            </Text>
-          </View>
-        </TouchableOpacity>
-      )}
+            Add An Attendee
+          </Text>
+        </View>
+      </TouchableOpacity>
 
       <FlatList
+        keyboardShouldPersistTaps="always"
         style={{ flex: 1 }}
         data={filteredDataSource}
         renderItem={({ item }) => <Item item={item} />}
@@ -572,7 +600,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   moreIcon: {
-    marginLeft: -5,
+    marginLeft: 5,
     justifyContent: "center",
   },
   moreIconWhite: {

@@ -120,7 +120,8 @@ const previewAction = () => {
 
   return (
     <SafeAreaProvider>
-      <ScrollView style={styles.container}>
+      <ScrollView keyboardShouldPersistTaps="always"
+ style={styles.container}>
         <View style={{ width: "100%" }}>
           <View>
             <InfoText text="Account" />

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Platform,
   ActivityIndicator,
-  Modal
+  Modal,
 } from "react-native";
 import InteractiveTextInput from "react-native-text-input-interactive";
 import { TextInput } from "react-native-paper";
@@ -33,10 +33,25 @@ const AddAttendee = ({ navigation, route, props }) => {
   const [visible, setvisible] = useState(false);
 
   const CustomProgressBar = ({ visible }) => (
-    <Modal style={{backgroundColor: 'transparent'}} onRequestClose={() => null} visible={visible}>
-      <View style={{ flex: 1, backgroundColor: '#dcdcdc', alignItems: 'center', justifyContent: 'center' }}>
-        <View style={{ borderRadius: 10, backgroundColor: 'white', padding: 25 }}>
-          <Text style={{ fontSize: 20, fontWeight: '200' }}>Creating Event</Text>
+    <Modal
+      style={{ backgroundColor: "transparent" }}
+      onRequestClose={() => null}
+      visible={visible}
+    >
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#dcdcdc",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <View
+          style={{ borderRadius: 10, backgroundColor: "white", padding: 25 }}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "200" }}>
+            Creating Event
+          </Text>
           <ActivityIndicator size="large" />
         </View>
       </View>
@@ -58,7 +73,12 @@ const AddAttendee = ({ navigation, route, props }) => {
     fetchData();
   }, [isFocused]);
 
-  const print = async (orientations: any, fname: any, lname: any, status: any) => {
+  const print = async (
+    orientations: any,
+    fname: any,
+    lname: any,
+    status: any
+  ) => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     await Print.printAsync({
       html: `
@@ -66,45 +86,51 @@ const AddAttendee = ({ navigation, route, props }) => {
       <head>
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
         <style>
-        #body {
-          zoom: 5.5;
-          width: '100%';
-          height: '100%';
-          vertical-align: middle;
+        body {
+          width: 100%;
+          vertical-align: center;
+          margin: -1rem -1rem 1rem -1rem;
           horizontal-align: center;
         }
         .fname { 
-          font-size: 2.5em; 
+          font-size: 15em; 
           font-weight: bolder; 
-          margin:-5;
           text-align: center;
         }
         .lname {
-          font-size: 1.5em; 
-          margin:-5;
-         text-align: center;
+          font-size: 10em; 
+          font-weight: bold; 
+          margin: -2rem -1rem 1rem -1rem;
+          text-align: center;
         }
         .status {
-          margin:-5;
-          font-size: 1em; 
+          font-size: 5em; 
           text-align: center;
+          margin: -2rem -1rem 1rem -1rem;
         }
       </style>
       </head>
-      <body id="body">
+      <body class="body">
       <div class="fname">${fname}</div>
-      <div class="lname">${lname}</div>
-      <div class="status">${status}</div>
-      <div class="status"><img height="50em" src="${baseUrl}/logos/${route.params.logo}"></div>
+      <div class="lname">${lname}<BR>${status}</div>
       </body>
     </html>
       `,
       orientation: orientations,
+      useMarkupFormatter: true,
       printerUrl: url, // iOS only
     });
   };
 
-  const preview = (fname: any, lname: any, email: any, phone: any, kiosk_id: any, ifs_id: any, status: any) => {
+  const preview = (
+    fname: any,
+    lname: any,
+    email: any,
+    phone: any,
+    kiosk_id: any,
+    ifs_id: any,
+    status: any
+  ) => {
     if (fname.length <= 0 || lname.length <= 0 || email.length <= 0) {
       Dialog.show({
         type: ALERT_TYPE.WARNING,
@@ -113,7 +139,7 @@ const AddAttendee = ({ navigation, route, props }) => {
         autoClose: 5000, // or time in ms by default 5000
       });
     } else {
-      setvisible(true)
+      setvisible(true);
       axios
         .post(
           baseUrl + "/events/checkin.php",
@@ -132,12 +158,12 @@ const AddAttendee = ({ navigation, route, props }) => {
           }
         )
         .then((response) => {
-          setvisible(false)
+          setvisible(false);
           print(Print.Orientation.landscape, fname, lname, status);
           navigation.goBack(null);
         })
         .catch((error) => {
-          setvisible(false)
+          setvisible(false);
           Toast.show({
             onPress() {},
             type: ALERT_TYPE.WARNING,
@@ -149,7 +175,6 @@ const AddAttendee = ({ navigation, route, props }) => {
     }
   };
 
-
   useEffect(() => {
     {
     }
@@ -160,7 +185,7 @@ const AddAttendee = ({ navigation, route, props }) => {
 
   return (
     <SafeAreaProvider style={styles.container}>
-                <CustomProgressBar visible={visible} />
+      <CustomProgressBar visible={visible} />
       <ScrollView>
         <View
           style={{
@@ -180,7 +205,7 @@ const AddAttendee = ({ navigation, route, props }) => {
             }}
           >
             <TextInput.Icon
-                          iconColor='#007AFF'
+              iconColor="#007AFF"
               style={{
                 marginLeft: 38,
                 marginTop: 45,
@@ -221,7 +246,7 @@ const AddAttendee = ({ navigation, route, props }) => {
             }}
           >
             <TextInput.Icon
-                          iconColor='#007AFF'
+              iconColor="#007AFF"
               style={{
                 marginLeft: 38,
                 marginTop: 45,
@@ -262,7 +287,7 @@ const AddAttendee = ({ navigation, route, props }) => {
             }}
           >
             <TextInput.Icon
-                          iconColor='#007AFF'
+              iconColor="#007AFF"
               style={{
                 marginLeft: 38,
                 marginTop: 45,
@@ -302,7 +327,7 @@ const AddAttendee = ({ navigation, route, props }) => {
             }}
           >
             <TextInput.Icon
-                          iconColor='#007AFF'
+              iconColor="#007AFF"
               style={{
                 marginLeft: 38,
                 marginTop: 45,
@@ -365,7 +390,10 @@ const AddAttendee = ({ navigation, route, props }) => {
                 alignItems: "center",
                 fontSize: 17,
               }}
-            >{" "} Create User & Chek In {" "} </Text>
+            >
+              {" "}
+              Create User & Chek In{" "}
+            </Text>
             <FontAwesome name="check" size={15} style={styles.whiteIcon} />
           </View>
         </TouchableOpacity>

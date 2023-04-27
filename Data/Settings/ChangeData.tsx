@@ -131,7 +131,7 @@ const ChangeData = ({ navigation, route }) => {
 
   return (
     <SafeAreaProvider style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
-            <ScrollView style={styles.container}>
+            <ScrollView keyboardShouldPersistTaps="always" style={styles.container}>
      <CustomProgressBar visible={visible} />
       <View
         style={{
