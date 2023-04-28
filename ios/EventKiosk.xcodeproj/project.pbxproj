@@ -13,7 +13,7 @@
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		46B2C201F3DF4561BE1F6181 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A52C7026134D49BA816BF7 /* noop-file.swift */; };
 		4D3182F1F14B6F2A2FFBFA41 /* libPods-EventKiosk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1CC16D10B1443E27E61F20 /* libPods-EventKiosk.a */; };
-		854FD58F29FB2217008DB233 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB4629EF023300ED6609 /* main.jsbundle */; };
+		854FD59229FBE920008DB233 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB4629EF023300ED6609 /* main.jsbundle */; };
 		856ADB3529EF01DF00ED6609 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2529EF01DF00ED6609 /* Fontisto.ttf */; };
 		856ADB3629EF01DF00ED6609 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2629EF01DF00ED6609 /* Octicons.ttf */; };
 		856ADB3729EF01DF00ED6609 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2729EF01DF00ED6609 /* Feather.ttf */; };
@@ -306,8 +306,8 @@
 				856ADB3629EF01DF00ED6609 /* Octicons.ttf in Resources */,
 				856ADB3929EF01DF00ED6609 /* FontAwesome5_Brands.ttf in Resources */,
 				856ADB3D29EF01DF00ED6609 /* Ionicons.ttf in Resources */,
+				854FD59229FBE920008DB233 /* main.jsbundle in Resources */,
 				856ADB4429EF01DF00ED6609 /* MaterialIcons.ttf in Resources */,
-				854FD58F29FB2217008DB233 /* main.jsbundle in Resources */,
 				856ADB3E29EF01DF00ED6609 /* FontAwesome5_Solid.ttf in Resources */,
 				856ADB4329EF01DF00ED6609 /* SimpleLineIcons.ttf in Resources */,
 				856ADB3829EF01DF00ED6609 /* Entypo.ttf in Resources */,
@@ -429,7 +429,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventKiosk/EventKiosk.entitlements;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -462,7 +462,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventKiosk/EventKiosk.entitlements;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
 				INFOPLIST_FILE = EventKiosk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

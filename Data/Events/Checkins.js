@@ -311,14 +311,14 @@ const Checkins = (props, navigation) => {
           horizontal-align: center;
         }
         .fname { 
-          font-size: 15em; 
+          font-size: 5em; 
           font-weight: bolder; 
           text-align: center;
         }
         .lname {
-          font-size: 10em; 
+          font-size: 3em; 
           font-weight: bold; 
-          margin: -2rem -1rem 1rem -1rem;
+          margin: -1rem -1rem 1rem -1rem;
           text-align: center;
         }
       </style>
@@ -331,6 +331,8 @@ const Checkins = (props, navigation) => {
     </html>
       `,
       orientation: orientations,
+      width:325.03937008,
+      height:226.77165354,
       useMarkupFormatter: true,
       printerUrl: url, // iOS only
     });
