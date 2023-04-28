@@ -81,16 +81,16 @@ const AddAttendee = ({ navigation, route, props }) => {
   ) => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     await Print.printAsync({
-      html: `
-      <html>
+      html: `<html>
       <head>
-        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
-        body {
-          width: 100%;
+        html,body {
+          width:325.03937008px;
+          height:226.77165354px;
           vertical-align: center;
-          margin: -1rem -1rem 1rem -1rem;
           horizontal-align: center;
+          margin: .5rem .5rem .5rem .5rem;
         }
         .fname { 
           font-size: 5em; 
@@ -100,22 +100,27 @@ const AddAttendee = ({ navigation, route, props }) => {
         .lname {
           font-size: 3em; 
           font-weight: bold; 
-          margin: -1rem -1rem 1rem -1rem;
+          margin: -1rem 0rem 0rem 0rem;
           text-align: center;
-        }
+          }
+        .status {
+          font-size: 2em; 
+          font-weight: lighter; 
+          margin: -0.5rem 0rem 0rem 0rem;
+          text-align: center;
+          }
       </style>
       </head>
       <body class="body">
       <div class="fname">${fname}</div>
-      <div class="lname">${lname}<BR>
-      <span style="font-weight: lighter;">${status}</span></div>
-      <BR><BR><BR>
+      <div class="lname">${lname}</div>
+      <div class="status">${status}</div>
+      <BR><BR>
       <div class="fname">${fname}</div>
-      <div class="lname">${lname}<BR>
-      <span style="font-weight: lighter;">${status}</span></div>
+      <div class="lname">${lname}</div>
+      <div class="status">${status}</div>
       </body>
-    </html>
-      `,
+      </html>`,
       orientation: orientations,
       width:325.03937008,
       height:226.77165354,
@@ -132,16 +137,16 @@ const AddAttendee = ({ navigation, route, props }) => {
   ) => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     await Print.printAsync({
-      html: `
-      <html>
+      html: `<html>
       <head>
-        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
-        body {
-          width: 100%;
+        html,body {
+          width:325.03937008px;
+          height:226.77165354px;
           vertical-align: center;
-          margin: -1rem -1rem 1rem -1rem;
           horizontal-align: center;
+          margin: .5rem .5rem .5rem .5rem;
         }
         .fname { 
           font-size: 5em; 
@@ -151,18 +156,23 @@ const AddAttendee = ({ navigation, route, props }) => {
         .lname {
           font-size: 3em; 
           font-weight: bold; 
-          margin: -1rem -1rem 1rem -1rem;
+          margin: -1rem 0rem 0rem 0rem;
           text-align: center;
-        }
+          }
+        .status {
+          font-size: 2em; 
+          font-weight: lighter; 
+          margin: -0.5rem 0rem 0rem 0rem;
+          text-align: center;
+          }
       </style>
       </head>
       <body class="body">
       <div class="fname">${fname}</div>
-      <div class="lname">${lname}<BR>
-      <span style="font-weight: lighter;">${status}</span></div>
+      <div class="lname">${lname}</div>
+      <div class="status">${status}</div>
       </body>
-    </html>
-      `,
+      </html>`,
       orientation: orientations,
       width:325.03937008,
       height:226.77165354,

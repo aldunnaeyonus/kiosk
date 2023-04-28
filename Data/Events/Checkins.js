@@ -30,74 +30,6 @@ const Checkins = (props, navigation) => {
   const [addedEmails, setaddedEmails] = useState([]);
   const baseUrl = "https://dunn-carabali.com/kiosk";
 
-  function html1(fname, lname, status) {
-    return `<html>
-<head>
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
-  <style>
-  body {
-    width: 100%;
-    vertical-align: center;
-    margin: -1rem -1rem 1rem -1rem;
-    horizontal-align: center;
-  }
-  .fname { 
-    font-size: 5em; 
-    font-weight: bolder; 
-    text-align: center;
-  }
-  .lname {
-    font-size: 3em; 
-    font-weight: bold; 
-    margin: -1rem -1rem 1rem -1rem;
-    text-align: center;
-  }
-</style>
-</head>
-<body class="body">
-<div class="fname">${fname}</div>
-<div class="lname">${lname}<BR>
-<span style="font-weight: lighter;">${status}</span></div>
-</body>
-</html>`;
-  }
-
-  function html2(fname, lname, status) {
-    return `<html>
-      <head>
-        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
-        <style>
-        body {
-          width: 100%;
-          vertical-align: center;
-          margin: -1rem -1rem 1rem -1rem;
-          horizontal-align: center;
-        }
-        .fname { 
-          font-size: 5em; 
-          font-weight: bolder; 
-          text-align: center;
-        }
-        .lname {
-          font-size: 3em; 
-          font-weight: bold; 
-          margin: -1rem -1rem 1rem -1rem;
-          text-align: center;
-        }
-      </style>
-      </head>
-      <body class="body">
-      <div class="fname">${fname}</div>
-      <div class="lname">${lname}<BR>
-      <span style="font-weight: lighter;">${status}</span></div>
-      <BR><BR><BR>
-      <div class="fname">${fname}</div>
-      <div class="lname">${lname}<BR>
-      <span style="font-weight: lighter;">${status}</span></div>
-      </body>
-    </html>`;
-  }
-
   const closeEvent = () => {
     axios
       .post(
@@ -305,9 +237,9 @@ const Checkins = (props, navigation) => {
           {
             text: "Re-Print Tag",
             onPress: () => {
-              if (parseInt(props.route.params.prints) > 1){
+              if (parseInt(props.route.params.prints) > 1) {
                 print2(Print.Orientation.landscape, fname, lname, status, logo);
-              }else{
+              } else {
                 print(Print.Orientation.landscape, fname, lname, status, logo);
               }
             },
@@ -341,9 +273,9 @@ const Checkins = (props, navigation) => {
           setisFound(true);
           searchFilterFunction("");
           settextValue("");
-          if (parseInt(props.route.params.prints) > 1){
+          if (parseInt(props.route.params.prints) > 1) {
             print2(Print.Orientation.landscape, fname, lname, status, logo);
-          }else{
+          } else {
             print(Print.Orientation.landscape, fname, lname, status, logo);
           }
         })
@@ -374,42 +306,50 @@ const Checkins = (props, navigation) => {
       }
 */
   //const sleep = ms => new Promise(r => setTimeout(r, ms));
-
+//1.1 = 79.2
+//3.5 = 252
   const print2 = async (orientations, fname, lname, status, logo) => {
     await Print.printAsync({
-      html:`<html>
-    <head>
-      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
-      <style>
-      body {
-        width: 100%;
-        vertical-align: center;
-        margin: -1rem -1rem 1rem -1rem;
-        horizontal-align: center;
-      }
-      .fname { 
-        font-size: 5em; 
-        font-weight: bolder; 
-        text-align: center;
-      }
-      .lname {
-        font-size: 3em; 
-        font-weight: bold; 
-        margin: -1rem -1rem 1rem -1rem;
-        text-align: center;
-      }
-    </style>
-    </head>
-    <body class="body">
-    <div class="fname">${fname}</div>
-    <div class="lname">${lname}<BR>
-    <span style="font-weight: lighter;">${status}</span></div>
-    <BR><BR><BR>
-    <div class="fname">${fname}</div>
-    <div class="lname">${lname}<BR>
-    <span style="font-weight: lighter;">${status}</span></div>
-    </body>
-    </html>`,
+      html: `<html>
+      <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
+        <style>
+        html,body {
+          width:325.03937008px;
+          height:226.77165354px;
+          vertical-align: center;
+          horizontal-align: center;
+          margin: .5rem .5rem .5rem .5rem;
+        }
+        .fname { 
+          font-size: 5em; 
+          font-weight: bolder; 
+          text-align: center;
+        }
+        .lname {
+          font-size: 3em; 
+          font-weight: bold; 
+          margin: -1rem 0rem 0rem 0rem;
+          text-align: center;
+          }
+        .status {
+          font-size: 2em; 
+          font-weight: lighter; 
+          margin: -0.5rem 0rem 0rem 0rem;
+          text-align: center;
+          }
+      </style>
+      </head>
+      <body class="body">
+      <div class="fname">${fname}</div>
+      <div class="lname">${lname}</div>
+      <div class="status">${status}</div>
+      <BR><BR>
+      <div class="fname">${fname}</div>
+      <div class="lname">${lname}</div>
+      <div class="status">${status}</div>
+      </body>
+      </html>`,
       orientation: orientations,
       width: 325.03937008,
       height: 226.77165354,
@@ -420,35 +360,42 @@ const Checkins = (props, navigation) => {
 
   const print = async (orientations, fname, lname, status, logo) => {
     await Print.printAsync({
-      html:`<html>
-    <head>
-      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
-      <style>
-      body {
-        width: 100%;
-        vertical-align: center;
-        margin: -1rem -1rem 1rem -1rem;
-        horizontal-align: center;
-      }
-      .fname { 
-        font-size: 5em; 
-        font-weight: bolder; 
-        text-align: center;
-      }
-      .lname {
-        font-size: 3em; 
-        font-weight: bold; 
-        margin: -1rem -1rem 1rem -1rem;
-        text-align: center;
-      }
-    </style>
-    </head>
-    <body class="body">
-    <div class="fname">${fname}</div>
-    <div class="lname">${lname}<BR>
-    <span style="font-weight: lighter;">${status}</span></div>
-    </body>
-    </html>`,
+      html: `<html>
+      <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
+        <style>
+        html,body {
+          width:325.03937008px;
+          height:226.77165354px;
+          vertical-align: center;
+          horizontal-align: center;
+          margin: .5rem .5rem .5rem .5rem;
+        }
+        .fname { 
+          font-size: 5em; 
+          font-weight: bolder; 
+          text-align: center;
+        }
+        .lname {
+          font-size: 3em; 
+          font-weight: bold; 
+          margin: -1rem 0rem 0rem 0rem;
+          text-align: center;
+          }
+        .status {
+          font-size: 2em; 
+          font-weight: lighter; 
+          margin: -0.5rem 0rem 0rem 0rem;
+          text-align: center;
+          }
+      </style>
+      </head>
+      <body class="body">
+      <div class="fname">${fname}</div>
+      <div class="lname">${lname}</div>
+      <div class="status">${status}</div>
+      </body>
+      </html>`,
       orientation: orientations,
       width: 325.03937008,
       height: 226.77165354,
