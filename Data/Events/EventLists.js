@@ -167,6 +167,7 @@ const EventList = (props, navigation) => {
                     kiosk_owner: item.kiosk_event_owner_id,
                     event_status: item.kiosk_event_status,
                     event_logo: item.kiosk_event_logo,
+                    prints: item.kiosk_event_print,
                     mode: "KIOSK",
                   });
                 },
@@ -180,6 +181,7 @@ const EventList = (props, navigation) => {
                     kiosk_owner: item.kiosk_event_owner_id,
                     event_status: item.kiosk_event_status,
                     event_logo: item.kiosk_event_logo,
+                    prints: item.kiosk_event_print,
                     mode: "NORMAL",
                   });
                 },

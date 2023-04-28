@@ -32,7 +32,7 @@ const AddEvent = ({ navigation, props }) => {
   );
   const baseUrl = "https://dunn-carabali.com/kiosk";
   const [title, settitle] = useState("");
-  const [prints, setPrints] = useState("0");
+  const [prints, setPrints] = useState("1");
   const [location, setLocation] = useState("");
   const [tag, setTag] = useState("");
   const isFocused = useIsFocused();
@@ -329,10 +329,47 @@ const AddEvent = ({ navigation, props }) => {
                 setTag(text);
               } } />
 
-          </View><View style={[styles.dividerStyle]} />   
-       
+          </View>       
         <View style={[styles.dividerStyle]} />
-        </> : <View></View> } 
+        </> :  <View style={[styles.dividerStyle]} /> } 
+        <View
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              height: 60,
+              marginTop: 0,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <TextInput.Icon
+              iconColor='#007AFF'
+              style={{
+                marginLeft: 38,
+                marginTop: 45,
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+              size={20}
+              icon="tag-outline" />
+            <InteractiveTextInput
+              maxLength={33}
+              textInputStyle={{
+                backgroundColor: "white",
+                marginLeft: 38,
+                height: 60,
+                fontSize: 18,
+                justifyContent: "center",
+              }}
+              value="1"
+              keyboardType="numeric"
+              placeholder="Print Number of Name Tags"
+              onChangeText={(text) => {
+                setPrints(text);
+              } } />
+
+          </View>       
+        <View style={[styles.dividerStyle]} />
         <View
             style={{
               backgroundColor: "white",

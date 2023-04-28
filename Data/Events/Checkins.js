@@ -29,6 +29,75 @@ const Checkins = (props, navigation) => {
   const [textValue, settextValue] = useState("");
   const [addedEmails, setaddedEmails] = useState([]);
   const baseUrl = "https://dunn-carabali.com/kiosk";
+
+  function html1(fname, lname, status) {
+    return `<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
+  <style>
+  body {
+    width: 100%;
+    vertical-align: center;
+    margin: -1rem -1rem 1rem -1rem;
+    horizontal-align: center;
+  }
+  .fname { 
+    font-size: 5em; 
+    font-weight: bolder; 
+    text-align: center;
+  }
+  .lname {
+    font-size: 3em; 
+    font-weight: bold; 
+    margin: -1rem -1rem 1rem -1rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body class="body">
+<div class="fname">${fname}</div>
+<div class="lname">${lname}<BR>
+<span style="font-weight: lighter;">${status}</span></div>
+</body>
+</html>`;
+  }
+
+  function html2(fname, lname, status) {
+    return `<html>
+      <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
+        <style>
+        body {
+          width: 100%;
+          vertical-align: center;
+          margin: -1rem -1rem 1rem -1rem;
+          horizontal-align: center;
+        }
+        .fname { 
+          font-size: 5em; 
+          font-weight: bolder; 
+          text-align: center;
+        }
+        .lname {
+          font-size: 3em; 
+          font-weight: bold; 
+          margin: -1rem -1rem 1rem -1rem;
+          text-align: center;
+        }
+      </style>
+      </head>
+      <body class="body">
+      <div class="fname">${fname}</div>
+      <div class="lname">${lname}<BR>
+      <span style="font-weight: lighter;">${status}</span></div>
+      <BR><BR><BR>
+      <div class="fname">${fname}</div>
+      <div class="lname">${lname}<BR>
+      <span style="font-weight: lighter;">${status}</span></div>
+      </body>
+    </html>`;
+  }
+
   const closeEvent = () => {
     axios
       .post(
@@ -236,7 +305,11 @@ const Checkins = (props, navigation) => {
           {
             text: "Re-Print Tag",
             onPress: () => {
-              print(Print.Orientation.landscape, fname, lname, status, logo);
+              if (parseInt(props.route.params.prints) > 1){
+                print2(Print.Orientation.landscape, fname, lname, status, logo);
+              }else{
+                print(Print.Orientation.landscape, fname, lname, status, logo);
+              }
             },
           },
         ],
@@ -268,7 +341,11 @@ const Checkins = (props, navigation) => {
           setisFound(true);
           searchFilterFunction("");
           settextValue("");
-          print(Print.Orientation.landscape, fname, lname, status, logo);
+          if (parseInt(props.route.params.prints) > 1){
+            print2(Print.Orientation.landscape, fname, lname, status, logo);
+          }else{
+            print(Print.Orientation.landscape, fname, lname, status, logo);
+          }
         })
         .catch((error) => {
           Toast.show({
@@ -296,43 +373,85 @@ const Checkins = (props, navigation) => {
         text-align: center;
       }
 */
-  const print = async (orientations, fname, lname, status, logo) => {
-    // On iOS/android prints the given html. On web prints the HTML from the current page.
+  //const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  const print2 = async (orientations, fname, lname, status, logo) => {
     await Print.printAsync({
-      html: `
-      <html>
-      <head>
-        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
-        <style>
-        body {
-          width: 100%;
-          vertical-align: center;
-          margin: -1rem -1rem 1rem -1rem;
-          horizontal-align: center;
-        }
-        .fname { 
-          font-size: 5em; 
-          font-weight: bolder; 
-          text-align: center;
-        }
-        .lname {
-          font-size: 3em; 
-          font-weight: bold; 
-          margin: -1rem -1rem 1rem -1rem;
-          text-align: center;
-        }
-      </style>
-      </head>
-      <body class="body">
-      <div class="fname">${fname}</div>
-      <div class="lname">${lname}<BR>
-      <span style="font-weight: lighter;">${status}</span></div>
-      </body>
-    </html>
-      `,
+      html:`<html>
+    <head>
+      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
+      <style>
+      body {
+        width: 100%;
+        vertical-align: center;
+        margin: -1rem -1rem 1rem -1rem;
+        horizontal-align: center;
+      }
+      .fname { 
+        font-size: 5em; 
+        font-weight: bolder; 
+        text-align: center;
+      }
+      .lname {
+        font-size: 3em; 
+        font-weight: bold; 
+        margin: -1rem -1rem 1rem -1rem;
+        text-align: center;
+      }
+    </style>
+    </head>
+    <body class="body">
+    <div class="fname">${fname}</div>
+    <div class="lname">${lname}<BR>
+    <span style="font-weight: lighter;">${status}</span></div>
+    <BR><BR><BR>
+    <div class="fname">${fname}</div>
+    <div class="lname">${lname}<BR>
+    <span style="font-weight: lighter;">${status}</span></div>
+    </body>
+    </html>`,
       orientation: orientations,
-      width:325.03937008,
-      height:226.77165354,
+      width: 325.03937008,
+      height: 226.77165354,
+      useMarkupFormatter: true,
+      printerUrl: url, // iOS only
+    });
+  };
+
+  const print = async (orientations, fname, lname, status, logo) => {
+    await Print.printAsync({
+      html:`<html>
+    <head>
+      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
+      <style>
+      body {
+        width: 100%;
+        vertical-align: center;
+        margin: -1rem -1rem 1rem -1rem;
+        horizontal-align: center;
+      }
+      .fname { 
+        font-size: 5em; 
+        font-weight: bolder; 
+        text-align: center;
+      }
+      .lname {
+        font-size: 3em; 
+        font-weight: bold; 
+        margin: -1rem -1rem 1rem -1rem;
+        text-align: center;
+      }
+    </style>
+    </head>
+    <body class="body">
+    <div class="fname">${fname}</div>
+    <div class="lname">${lname}<BR>
+    <span style="font-weight: lighter;">${status}</span></div>
+    </body>
+    </html>`,
+      orientation: orientations,
+      width: 325.03937008,
+      height: 226.77165354,
       useMarkupFormatter: true,
       printerUrl: url, // iOS only
     });
@@ -507,6 +626,7 @@ const Checkins = (props, navigation) => {
             kiosk_id: props.route.params.kiosk_id,
             email: textValue,
             logo: props.route.params.event_logo,
+            prints: props.route.params.prints,
           });
           addedEmails.push(textValue);
           setFilteredDataSource([]);
