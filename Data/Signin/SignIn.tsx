@@ -8,7 +8,7 @@ interface Props {
   navigation: any;
 }
 
-const baseUrl = "https://dunn-carabali.com/kiosk";
+const baseUrl = "https://bigdogtools.com/kiosk";
 export default class SignIn extends Component<Props> {
   emails: any;
   passwords: any;

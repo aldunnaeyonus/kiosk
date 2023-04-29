@@ -76,6 +76,10 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
+        if (await AsyncStorage.getItem("labelWidth") == null){
+        await AsyncStorage.setItem("labelWidth", "325.03937008");
+        await AsyncStorage.setItem("labelHeight", "226.77165354");
+        }
         const showSlide = await AsyncStorage.getItem("showRealApp");
         setshowRealApp(showSlide)
         const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn") : window.localStorage.getItem("logedIn");

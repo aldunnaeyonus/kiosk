@@ -9,7 +9,7 @@ import {
   import { useIsFocused } from "@react-navigation/native";
   import FontAwesome from "@expo/vector-icons/FontAwesome";
   FontAwesome.loadFont();
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const baseUrl = "https://bigdogtools.com/kiosk";
   import { ListItem } from '@rneui/themed'
   import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
 

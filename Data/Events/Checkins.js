@@ -18,7 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 MaterialCommunityIcons.loadFont();
-import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -28,7 +28,9 @@ const Checkins = (props, navigation) => {
   const [logo, setLogo] = useState("");
   const [textValue, settextValue] = useState("");
   const [addedEmails, setaddedEmails] = useState([]);
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const baseUrl = "https://bigdogtools.com/kiosk";
+  const [labelWidth, setlabelWidth] = useState(325.03937008);
+  const [labelHeight, setlabelHeight] = useState(226.77165354);
 
   const closeEvent = () => {
     axios
@@ -202,6 +204,14 @@ const Checkins = (props, navigation) => {
             ? await AsyncStorage.getItem("printerURL")
             : window.localStorage.getItem("printerURL");
         setURL(kiosPrinterURL);
+        const labelwidth = Platform.OS !== "web"
+        ? await AsyncStorage.getItem("labelWidth")
+        : window.localStorage.getItem("labelWidth");
+        const labelheight = Platform.OS !== "web"
+        ? await AsyncStorage.getItem("labelHeight")
+        : window.localStorage.getItem("labelHeight");
+    setlabelWidth(Number(labelwidth));
+    setlabelHeight(Number(labelheight));
       } catch (error) {
         setURL("");
       }
@@ -268,7 +278,7 @@ const Checkins = (props, navigation) => {
         )
         .then((response) => {
           addedEmails.push(email);
-
+          setaddedEmails(addedEmails);
           setFilteredDataSource([]);
           setisFound(true);
           searchFilterFunction("");
@@ -315,8 +325,8 @@ const Checkins = (props, navigation) => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:325.03937008px;
-          height:226.77165354px;
+          width:${labelWidth}px;
+          height:${labelHeight}px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -351,8 +361,8 @@ const Checkins = (props, navigation) => {
       </body>
       </html>`,
       orientation: orientations,
-      width: 325.03937008,
-      height: 226.77165354,
+      width:labelWidth,
+      height:labelHeight,
       useMarkupFormatter: true,
       printerUrl: url, // iOS only
     });
@@ -365,8 +375,8 @@ const Checkins = (props, navigation) => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:325.03937008px;
-          height:226.77165354px;
+          width:${labelWidth}px;
+          height:${labelHeight}px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -397,8 +407,8 @@ const Checkins = (props, navigation) => {
       </body>
       </html>`,
       orientation: orientations,
-      width: 325.03937008,
-      height: 226.77165354,
+      width:labelWidth,
+      height:labelHeight,
       useMarkupFormatter: true,
       printerUrl: url, // iOS only
     });

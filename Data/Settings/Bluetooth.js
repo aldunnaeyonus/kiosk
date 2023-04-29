@@ -9,13 +9,14 @@ import InfoText from "../extras/InfoText";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 
-  const Bluetooth = (props, navigation) => {
+  const Bluetooth = (props) => {
 
   const [selectedPrinter, setSelectedPrinter] = useState();
   const [title, settitle] = useState("");
   const [url, setURL] = useState("");
+  const [paper, setPaper] = useState("2.36 x 3.39");
   const isFocused = useIsFocused();
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const baseUrl = "https://bigdogtools.com/kiosk";
 
   const logout = async () => {
     await AsyncStorage.removeItem("printerURL");
@@ -46,6 +47,9 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
     });
   };
 
+  const paperSize = useCallback(() => {
+    props.navigation.navigate("Change Password", { title: "Change Account Password", kios_id: props.route.params.kiosk_id });
+  }, []);
 
   const changePassword = useCallback(() => {
     props.navigation.navigate("Change Password", { title: "Change Account Password", kios_id: props.route.params.kiosk_id });
@@ -94,12 +98,15 @@ const previewAction = () => {
       try {
         const kiosPrinterURL = Platform.OS !== "web" ? await AsyncStorage.getItem("printerURL") : window.localStorage.getItem("printerURL");
         const kiosPrinterTitle = Platform.OS !== "web" ? await AsyncStorage.getItem("printerName") : window.localStorage.getItem("printerName");
+        const kiospaperSize = Platform.OS !== "web" ? await AsyncStorage.getItem("paperSize") : window.localStorage.getItem("PaperSize");
         settitle(kiosPrinterTitle);
         setURL(kiosPrinterURL);
+        setPaper(kiospaperSize);
         setSelectedPrinter(kiosPrinterURL);
       } catch (error) {
         settitle("");
         setURL("");
+        setPaper("");
       }
     };
     fetchData();
@@ -257,7 +264,30 @@ const previewAction = () => {
                 </ListItem><View style={[styles.dividerTableStyle]} /></>
                   : ""
                   }
-
+<ListItem
+                  containerStyle={{ paddingVertical: 5 }}
+                  key="3"
+                  onPress={paperSize}
+                >
+                  <Icon
+                    type="ionicon"
+                    name="paper"
+                    size={20}
+                    color="white"
+                    containerStyle={{
+                      backgroundColor: "#007AFF",
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }} />
+                  <ListItem.Content>
+                    <ListItem.Title>{`Label Paper Size: ${paper}`}</ListItem.Title>
+                  </ListItem.Content>
+                  <ListItem.Chevron />
+                </ListItem>
+                <View style={[styles.dividerTableStyle]} />
             <InfoText text="More" />
             <View style={[styles.dividerTableStyle]} />
             <View>

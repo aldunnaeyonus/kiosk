@@ -24,13 +24,13 @@ import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import DropDownPicker from 'react-native-dropdown-picker';
 
 FontAwesome.loadFont();
-const AddEvent = ({ navigation, props }) => {
+const AddEvent = ({ navigation }) => {
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [visible, setvisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
     moment(new Date()).format("MMMM DD, YYYY")
   );
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const baseUrl = "https://bigdogtools.com/kiosk";
   const [title, settitle] = useState("");
   const [prints, setPrints] = useState("1");
   const [location, setLocation] = useState("");

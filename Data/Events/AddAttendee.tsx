@@ -22,15 +22,17 @@ FontAwesome.loadFont();
 import * as Print from "expo-print";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
-const AddAttendee = ({ navigation, route, props }) => {
+const AddAttendee = ({ navigation, route }) => {
   const [fname, setfname] = useState("");
   const [lname, setlname] = useState("");
   const [email, setemail] = useState("");
   const [phone, setphone] = useState("");
   const isFocused = useIsFocused();
   const [url, setURL] = useState("");
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const baseUrl = "https://bigdogtools.com/kiosk";
   const [visible, setvisible] = useState(false);
+  const [labelWidth, setlabelWidth] = useState(325.03937008);
+  const [labelHeight, setlabelHeight] = useState(226.77165354);
 
   const CustomProgressBar = ({ visible }) => (
     <Modal
@@ -65,7 +67,15 @@ const AddAttendee = ({ navigation, route, props }) => {
           Platform.OS !== "web"
             ? await AsyncStorage.getItem("printerURL")
             : window.localStorage.getItem("printerURL");
+            const labelwidth = Platform.OS !== "web"
+            ? await AsyncStorage.getItem("labelWidth")
+            : window.localStorage.getItem("labelWidth");
+            const labelheight = Platform.OS !== "web"
+            ? await AsyncStorage.getItem("labelHeight")
+            : window.localStorage.getItem("labelHeight");
         setURL("" + kiosPrinterURL);
+        setlabelWidth(Number(labelwidth));
+        setlabelHeight(Number(labelheight));
       } catch (error) {
         setURL("");
       }
@@ -86,8 +96,8 @@ const AddAttendee = ({ navigation, route, props }) => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:325.03937008px;
-          height:226.77165354px;
+          width:${labelWidth}px;
+          height:${labelHeight}px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -122,8 +132,8 @@ const AddAttendee = ({ navigation, route, props }) => {
       </body>
       </html>`,
       orientation: orientations,
-      width:325.03937008,
-      height:226.77165354,
+      width:labelWidth,
+      height:labelHeight,
       useMarkupFormatter: true,
       printerUrl: url, // iOS only
     });
@@ -142,8 +152,8 @@ const AddAttendee = ({ navigation, route, props }) => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:325.03937008px;
-          height:226.77165354px;
+          width:${labelWidth}px;
+          height:${labelHeight}px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -174,8 +184,8 @@ const AddAttendee = ({ navigation, route, props }) => {
       </body>
       </html>`,
       orientation: orientations,
-      width:325.03937008,
-      height:226.77165354,
+      width:labelWidth,
+      height:labelHeight,
       useMarkupFormatter: true,
       printerUrl: url, // iOS only
     });

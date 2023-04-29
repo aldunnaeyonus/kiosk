@@ -15,9 +15,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 FontAwesome.loadFont();
 import SegmentedControlTab from "react-native-segmented-control-tab";
-const baseUrl = "https://dunn-carabali.com/kiosk";
+const baseUrl = "https://bigdogtools.com/kiosk";
 
-const EventList = (props, navigation) => {
+const EventList = (props) => {
   const [search, setSearch] = useState("");
   const [active, setActive] = useState(0);
   const [kiosk_ids, setkiosk_ids] = useState(0);

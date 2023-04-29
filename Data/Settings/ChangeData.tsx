@@ -13,7 +13,7 @@ const ChangeData = ({ navigation, route }) => {
   const [myEmail, setMyEmail] = useState("");
   const [myName, setMyName] = useState("");
   const [myMobile, setmyMobile] = useState("");
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const baseUrl = "https://bigdogtools.com/kiosk";
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   const [visible, setvisible] = useState(false);
