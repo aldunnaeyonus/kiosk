@@ -192,6 +192,7 @@ const EventList = (props) => {
                   props.navigation.navigate("Edit Mode", {
                     kiosk_id: item.kiosk_event_id,
                     kiosk_event: item.kiosk_event_name,
+                    kiosk_owner: item.kiosk_event_owner_id,
                     ifs_mode: kiosk_is_ifs,
                   });
                 },

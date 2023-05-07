@@ -239,7 +239,7 @@ const previewAction = () => {
             {
             Platform.OS === 'ios' ? 
             <>
-            <InfoText text="Printers" /><View style={[styles.dividerTableStyle]} /><ListItem
+            <InfoText text="Printers & Paper" /><View style={[styles.dividerTableStyle]} /><ListItem
                   containerStyle={{ paddingVertical: 5 }}
                   key="3"
                   onPress={selectPrinter}
@@ -267,11 +267,11 @@ const previewAction = () => {
 <ListItem
                   containerStyle={{ paddingVertical: 5 }}
                   key="3"
-                  onPress={paperSize}
+                  onPress={{}}
                 >
                   <Icon
                     type="ionicon"
-                    name="paper"
+                    name="expand-outline"
                     size={20}
                     color="white"
                     containerStyle={{
@@ -283,12 +283,12 @@ const previewAction = () => {
                       justifyContent: "center",
                     }} />
                   <ListItem.Content>
-                    <ListItem.Title>{`Label Paper Size: ${paper}`}</ListItem.Title>
+                    <ListItem.Title>Label Paper Size</ListItem.Title>
                   </ListItem.Content>
                   <ListItem.Chevron />
                 </ListItem>
                 <View style={[styles.dividerTableStyle]} />
-            <InfoText text="More" />
+            <InfoText text="Policies" />
             <View style={[styles.dividerTableStyle]} />
             <View>
             <ListItem

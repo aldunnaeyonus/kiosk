@@ -13,7 +13,6 @@
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		46B2C201F3DF4561BE1F6181 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A52C7026134D49BA816BF7 /* noop-file.swift */; };
 		4D3182F1F14B6F2A2FFBFA41 /* libPods-EventKiosk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1CC16D10B1443E27E61F20 /* libPods-EventKiosk.a */; };
-		854FD59929FD5FC4008DB233 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB4629EF023300ED6609 /* main.jsbundle */; };
 		856ADB3529EF01DF00ED6609 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2529EF01DF00ED6609 /* Fontisto.ttf */; };
 		856ADB3629EF01DF00ED6609 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2629EF01DF00ED6609 /* Octicons.ttf */; };
 		856ADB3729EF01DF00ED6609 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB2729EF01DF00ED6609 /* Feather.ttf */; };
@@ -30,6 +29,7 @@
 		856ADB4229EF01DF00ED6609 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB3229EF01DF00ED6609 /* EvilIcons.ttf */; };
 		856ADB4329EF01DF00ED6609 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB3329EF01DF00ED6609 /* SimpleLineIcons.ttf */; };
 		856ADB4429EF01DF00ED6609 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB3429EF01DF00ED6609 /* MaterialIcons.ttf */; };
+		857632A929FEA37D00F5E42F /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 856ADB4629EF023300ED6609 /* main.jsbundle */; };
 		858A361E29EF826F00B339DB /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858A361D29EF826E00B339DB /* Network.framework */; };
 		858A362129EF857000B339DB /* LocalNetworkPrivacy.h in Sources */ = {isa = PBXBuildFile; fileRef = 858A362029EF857000B339DB /* LocalNetworkPrivacy.h */; };
 		858A362329EF864A00B339DB /* LocalNetworkPrivacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 858A362229EF864A00B339DB /* LocalNetworkPrivacy.m */; };
@@ -304,8 +304,8 @@
 			files = (
 				856ADB3F29EF01DF00ED6609 /* FontAwesome5_Regular.ttf in Resources */,
 				856ADB3629EF01DF00ED6609 /* Octicons.ttf in Resources */,
+				857632A929FEA37D00F5E42F /* main.jsbundle in Resources */,
 				856ADB3929EF01DF00ED6609 /* FontAwesome5_Brands.ttf in Resources */,
-				854FD59929FD5FC4008DB233 /* main.jsbundle in Resources */,
 				856ADB3D29EF01DF00ED6609 /* Ionicons.ttf in Resources */,
 				856ADB4429EF01DF00ED6609 /* MaterialIcons.ttf in Resources */,
 				856ADB3E29EF01DF00ED6609 /* FontAwesome5_Solid.ttf in Resources */,
@@ -429,7 +429,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventKiosk/EventKiosk.entitlements;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -462,7 +462,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = EventKiosk/EventKiosk.entitlements;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
 				INFOPLIST_FILE = EventKiosk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

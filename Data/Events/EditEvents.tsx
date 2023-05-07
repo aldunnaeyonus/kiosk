@@ -30,21 +30,19 @@ const EditEvents = ({ navigation, route }) => {
   );
   const baseUrl = "https://bigdogtools.com/kiosk";
   const [title, settitle] = useState("");
-  const [prints, setPrints] = useState("0");
   const [location, setLocation] = useState("");
   const [tag, setTag] = useState("");
   const isFocused = useIsFocused();
-  const [items, setItems] = useState([
-    {label: 'Austin RENC', value: 'AustinRENCLogoLong.png'},
-    {label: 'Austin RENC', value: 'DallasREIALogoLong.png'},
-    {label: 'Houston RENC', value: 'HoustonREIALogoLong.png'},
-    {label: 'San Antonio RENC', value: 'SanAntonioRENCLogoLong.png'},
-    {label: 'Big Live Event', value: 'RealEstateInvestingLogo.png'},
-    {label: 'Big Dog Program', value: 'big-dog-logo2.png'},
-  ]);
+  const [items, setItems] = useState([{}]);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [isLoding, setisLoding] = useState(true);
+  const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
+  const [valuePrints, setValuePrints] = useState("");
+  const [tags, setTags] = useState([{}]);
+  const [prints, setPrints] = useState([{label: "Print 1 Name Tag", value: "1"}, {label: "Print 2 Name Tags", value: "2"}]);
+
 
   useEffect(() => {
     setisLoding(true)
@@ -58,9 +56,20 @@ const EditEvents = ({ navigation, route }) => {
             settitle(jsonData[0].kiosk_event_name);
             setLocation(jsonData[0].kiosk_event_location);
             setTag(jsonData[0].kiosk_event_tag);
-            setPrints(jsonData[0].kiosk_event_print);
+            setValuePrints(jsonData[0].kiosk_event_print);
             setValue(jsonData[0].kiosk_event_logo);
             setSelectedDate(jsonData[0].kiosk_event_timestring)
+        });
+        fetch(baseUrl + "/fetch/index.php?type=logos&kiosk_id=" + route.params.kiosk_owner)
+        .then((response) => response.json())
+        .then(async (jsonData) => {
+          setItems(jsonData.map((dataItem: { name: any; value: any; }) =>({ label: dataItem.name, value: dataItem.value })));
+        });
+
+        fetch(baseUrl + "/fetch/index.php?type=tags&kiosk_id=" + route.params.kiosk_owner)
+        .then((response) => response.json())
+        .then(async (jsonData) => {
+          setTags(jsonData.map((dataItem: { name: any; value: any; }) =>({ label: dataItem.name, value: dataItem.value })));
         });
     };
     fetchData();
@@ -229,8 +238,6 @@ const EditEvents = ({ navigation, route }) => {
           </View>
           <View style={[styles.dividerStyle]} />
 
-          
-
           <TouchableWithoutFeedback
             onPress={async () => {
               showDatePicker();
@@ -282,12 +289,13 @@ const EditEvents = ({ navigation, route }) => {
             </View>
           </TouchableWithoutFeedback>
           <View style={[styles.dividerStyle]} />
-          { route.params.ifs_mode == "1" ? 
-          <><View
+          
+        <View
             style={{
               backgroundColor: "white",
               width: "100%",
               height: 60,
+              zIndex:11,
               marginTop: 0,
               flexDirection: "row",
               justifyContent: "space-between",
@@ -302,61 +310,42 @@ const EditEvents = ({ navigation, route }) => {
                 justifyContent: "space-between",
               }}
               size={20}
-              icon="tag-outline" />
-            <InteractiveTextInput
-              maxLength={33}
-              textInputStyle={{
-                backgroundColor: "white",
-                marginLeft: 38,
-                height: 60,
-                fontSize: 18,
-                justifyContent: "center",
-              }}
-              value={tag}
-              keyboardType="default"
-              placeholder="IFS TAG (for example: 801)"
-              onChangeText={(text) => {
-                setTag(text);
-              } } />
-
-          </View>       
-        <View style={[styles.dividerStyle]} />
-        </> :  <View style={[styles.dividerStyle]} /> } 
-        <View
-            style={{
+              icon="numeric-1-box-outline"
+          />
+           <DropDownPicker
+            dropDownContainerStyle={{
+              borderColor: "#ccc",
               backgroundColor: "white",
-              width: "100%",
-              height: 60,
-              marginTop: 0,
-              flexDirection: "row",
-              justifyContent: "space-between",
+              borderWidth: 0.5,
+              marginLeft: 45,
+              marginTop: 5,
+              width: "91%",
+              justifyContent: "center",
             }}
-          >
-            <TextInput.Icon
-              iconColor='#007AFF'
-              style={{
-                marginLeft: 38,
-                marginTop: 45,
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-              size={20}
-              icon="tag-outline" />
-            <InteractiveTextInput
-              maxLength={33}
-              textInputStyle={{
-                backgroundColor: "white",
-                marginLeft: 38,
-                height: 60,
-                fontSize: 18,
-                justifyContent: "center",
-              }}
-              value={prints}
-              keyboardType="numeric"
-              placeholder="Print Number of Name Tags"
-              onChangeText={(text) => {
-                setPrints(text);
-              } } />
+            style={{
+              backgroundColor: "white",
+              borderColor: "white",
+              marginLeft: 45,
+              marginTop: 5,
+              width: "91%",
+              justifyContent: "center",
+            }}
+            autoScroll={true}
+            itemSeparator={true}
+            itemSeparatorStyle={{
+              backgroundColor: "#ccc",
+              height: 0.5,
+            }}
+            open={open3}
+            placeholder="Select Print Quantity"
+            placeholderStyle={{ fontSize: 18 }}
+            textStyle={{ fontSize: 18 }}
+            value={valuePrints}
+            items={prints}
+            setOpen={setOpen3}
+            setValue={setValuePrints}
+            setItems={setPrints}
+          />
 
           </View>       
         <View style={[styles.dividerStyle]} />
@@ -364,6 +353,7 @@ const EditEvents = ({ navigation, route }) => {
             style={{
               backgroundColor: "white",
               width: "100%",
+              zIndex:10,
               height: 60,
               marginTop: 0,
               flexDirection: "row",
@@ -414,9 +404,70 @@ const EditEvents = ({ navigation, route }) => {
       setValue={setValue}
       setItems={setItems}
     />
+</View>
+<View style={[styles.dividerStyle]} />
 
+{ route.params.ifs_mode == "1" ? 
+          <><View
+            style={{
+              backgroundColor: "white",
+              width: "100%",
+              height: 60,
+              marginTop: 0,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <TextInput.Icon
+              iconColor='#007AFF'
+              style={{
+                marginLeft: 38,
+                marginTop: 45,
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+              size={20}
+                icon="tag-search-outline"
+              />
+            <DropDownPicker
+                dropDownContainerStyle={{
+                  borderColor: "#ccc",
+                  backgroundColor: "white",
+                  borderWidth: 0.5,
+                  marginLeft: 45,
+                  marginTop: 5,
+                  width: "91%",
+                  justifyContent: "center",
+                }}
+                style={{
+                  backgroundColor: "white",
+                  borderColor: "white",
+                  marginLeft: 45,
+                  marginTop: 5,
+                  width: "91%",
+                  justifyContent: "center",
+                }}
+                autoScroll={true}
+                itemSeparator={true}
+                itemSeparatorStyle={{
+                  backgroundColor: "#ccc",
+                  height: 0.5,
+                }}
+                open={open2}
+                placeholder="Select Event Tag"
+                placeholderStyle={{ fontSize: 18 }}
+                textStyle={{ fontSize: 18 }}
+                value={tag}
+                items={tags}
+                setOpen={setOpen2}
+                setValue={setTag}
+                setItems={setTags}
+              />
 
-</View></View>
+          </View>       
+        <View style={[styles.dividerStyle]} />
+        </> :  <View style={[styles.dividerStyle]} /> } 
+</View>
 <TouchableOpacity 
           style={{marginTop:300,
           }}
