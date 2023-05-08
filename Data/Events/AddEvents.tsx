@@ -187,6 +187,7 @@ const AddEvent = ({ navigation }) => {
           justifyContent: "center",
         }}
       >
+        
         <View
           style={{
             backgroundColor: "white",
@@ -500,6 +501,8 @@ const AddEvent = ({ navigation }) => {
         ) : (
           <View/>
         )}
+                <View style={[styles.dividerTableStyle]} />
+
       </View>
       <TouchableOpacity
         style={{ marginTop: 300 }}
@@ -550,6 +553,14 @@ const styles = StyleSheet.create({
   dividerStyle: {
     height: 0.5,
     width: ScreenWidth * 0.9,
+    backgroundColor: "#ccc",
+  },
+  dividerTableStyle: {
+    height: 0.5,
+    marginTop: 10,
+    marginBottom: 10,
+    width: ScreenWidth * 1,
+    alignSelf: "center",
     backgroundColor: "#ccc",
   },
 });

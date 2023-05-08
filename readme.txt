@@ -6,7 +6,7 @@ Build Web
 Build RUn iOS
     npx expo run:ios
     react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
-    node node_modules/react-native/local-cli/cli.js bundle --entry-file='index.js' --bundle-output='./ios/EventKiosk/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'
+    node node_modules/react-native/local-cli/cli.js bundle --entry-file='index.js' --bundle-output='./ios/BigDogTags/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'
     react-native run-ios --configuration Release
     
 PODs

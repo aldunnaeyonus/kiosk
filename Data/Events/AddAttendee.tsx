@@ -31,8 +31,8 @@ const AddAttendee = ({ navigation, route }) => {
   const [url, setURL] = useState("");
   const baseUrl = "https://bigdogtools.com/kiosk";
   const [visible, setvisible] = useState(false);
-  const [labelWidth, setlabelWidth] = useState(325.03937008);
-  const [labelHeight, setlabelHeight] = useState(226.77165354);
+  const [labelWidth, setlabelWidth] = useState(252);
+  const [labelHeight, setlabelHeight] = useState(172.79999999999998);
 
   const CustomProgressBar = ({ visible }) => (
     <Modal
@@ -133,6 +133,12 @@ const AddAttendee = ({ navigation, route }) => {
       </html>`,
       orientation: orientations,
       width:labelWidth,
+      margins: {
+        left: 1,
+        top: 1,
+        right: 1,
+        bottom: 1,
+      },
       height:labelHeight,
       useMarkupFormatter: true,
       printerUrl: url, // iOS only
@@ -185,6 +191,12 @@ const AddAttendee = ({ navigation, route }) => {
       </html>`,
       orientation: orientations,
       width:labelWidth,
+      margins: {
+        left: 1,
+        top: 1,
+        right: 1,
+        bottom: 1,
+      },
       height:labelHeight,
       useMarkupFormatter: true,
       printerUrl: url, // iOS only

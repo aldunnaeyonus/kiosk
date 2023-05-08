@@ -321,7 +321,7 @@ const ChangeData = ({ navigation, route }) => {
           style={{
             fontSize: 13,
             color: "#5A5A5A",
-            height: 60,
+            height: 80,
             textAlign: "center",
             marginTop: 20,
             marginLeft: 20,

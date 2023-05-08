@@ -149,7 +149,7 @@ import {
       height: 60,
       borderWidth: 1,
       paddingLeft: 20,
-      width: "60%",
+      width: "90%",
       alignSelf: "center",
       marginTop: 10,
       marginBottom: 30,
