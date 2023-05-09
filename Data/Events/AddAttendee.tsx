@@ -61,6 +61,8 @@ const AddAttendee = ({ navigation, route }) => {
   );
 
   useEffect(() => {
+    setlabelWidth(252);
+    setlabelHeight(172.79999999999998);
     const fetchData = async () => {
       try {
         const kiosPrinterURL =

@@ -60,6 +60,8 @@ const Checkins = (props, navigation) => {
   };
 
   useEffect(() => {
+    setlabelWidth(252);
+    setlabelHeight(172.79999999999998);
     props.navigation.setOptions({
       headerLeft: () =>
         props.route.params.mode === "NORMAL" ? (
