@@ -105,7 +105,7 @@ const AddAttendee = ({ navigation, route }) => {
           margin: .5rem .5rem .5rem .5rem;
         }
         .fname { 
-          font-size: 5em; 
+          font-size: 4em; 
           font-weight: bolder; 
           text-align: center;
         }
@@ -167,7 +167,7 @@ const AddAttendee = ({ navigation, route }) => {
           margin: .5rem .5rem .5rem .5rem;
         }
         .fname { 
-          font-size: 5em; 
+          font-size: 4em; 
           font-weight: bolder; 
           text-align: center;
         }
