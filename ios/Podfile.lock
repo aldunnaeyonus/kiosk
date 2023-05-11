@@ -17,9 +17,9 @@ PODS:
     - React-Core
     - React-RCTAppDelegate
     - ReactCommon/turbomodule/core
-  - ExpoWebBrowser (12.1.1):
+  - ExpoPrint (12.3.0):
     - ExpoModulesCore
-  - EXPrint (12.2.1):
+  - ExpoWebBrowser (12.1.1):
     - ExpoModulesCore
   - EXSharing (11.2.2):
     - ExpoModulesCore
@@ -437,8 +437,8 @@ DEPENDENCIES:
   - Expo (from `../node_modules/expo`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
+  - ExpoPrint (from `../node_modules/expo-print/ios`)
   - ExpoWebBrowser (from `../node_modules/expo-web-browser/ios`)
-  - EXPrint (from `../node_modules/expo-print/ios`)
   - EXSharing (from `../node_modules/expo-sharing/ios`)
   - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -510,10 +510,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core"
+  ExpoPrint:
+    :path: "../node_modules/expo-print/ios"
   ExpoWebBrowser:
     :path: "../node_modules/expo-web-browser/ios"
-  EXPrint:
-    :path: "../node_modules/expo-print/ios"
   EXSharing:
     :path: "../node_modules/expo-sharing/ios"
   EXSplashScreen:
@@ -613,8 +613,8 @@ SPEC CHECKSUMS:
   Expo: b1457fbd549c00d17b62c402bc98c8229aace6d8
   ExpoKeepAwake: 69f5f627670d62318410392d03e0b5db0f85759a
   ExpoModulesCore: 653958063a301098b541ae4dfed1ac0b98db607b
+  ExpoPrint: 92311a7545d66959c6f3884e085bf336ba6c7c48
   ExpoWebBrowser: 033d34c478d9986da2f1679729041423837626e0
-  EXPrint: 7f4c9435f522c8efaaa945a1ace51f7c4211b0f2
   EXSharing: 09839ace249f61bfa13c50c6a28256c31d260355
   EXSplashScreen: 0e0a9ba0cf7553094e93213099bd7b42e6e237e9
   FBLazyVector: a89a0525bc7ca174675045c2b492b5280d5a2470
