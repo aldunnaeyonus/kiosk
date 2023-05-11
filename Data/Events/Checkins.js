@@ -188,12 +188,12 @@ const Checkins = (props, navigation) => {
             .concat(jsonData)
             .sort((a, b) => (a.name > b.name ? 1 : -1));
           setFilteredDataSource(myData);
-          if (myData.length <= 0) {
-            setisFound(false);
-          } else {
-            setisFound(true);
-          }
         });
+        if (text.length >= 5) {
+          setisFound(false);
+        }else{
+          setisFound(true);
+        }
     }
   };
 
@@ -565,7 +565,7 @@ const Checkins = (props, navigation) => {
       />
       <View
         style={{
-          height: 80,
+          height: 100,
           width: "90%",
           marginTop: -20,
           flexDirection: "row",
@@ -586,11 +586,11 @@ const Checkins = (props, navigation) => {
             textAlign: "center",
           }}
         >
-          Enter an email address or first and last name.{"\n"}If you are a guest
-          or your data can not be found, touch the red "Add An Attendee" button
+          Enter an email address or the first and last name of the attendee.{"\n"}If your data can not be found, touch the red "Add An Attendee" button
           below to enter your information and print your name tag.
         </Text>
       </View>
+
       <TouchableOpacity
         onPress={() => {
           props.navigation.navigate("Add Attendee", {
@@ -598,6 +598,7 @@ const Checkins = (props, navigation) => {
             email: textValue,
             logo: props.route.params.event_logo,
             prints: props.route.params.prints,
+            searchText: textValue,
           });
           addedEmails.push(textValue);
           setFilteredDataSource([]);
@@ -606,6 +607,8 @@ const Checkins = (props, navigation) => {
           settextValue("");
         }}
       >
+{ 
+    (!isFound) ?
         <View
           style={{
             height: 50,
@@ -635,10 +638,12 @@ const Checkins = (props, navigation) => {
             Add An Attendee
           </Text>
         </View>
+        : "" }
       </TouchableOpacity>
 
       <FlatList
         keyboardShouldPersistTaps="always"
+        keyExtractor={item => item.email}
         style={{ flex: 1 }}
         data={filteredDataSource}
         renderItem={({ item }) => <Item item={item} />}

@@ -52,7 +52,7 @@ const AddAttendee = ({ navigation, route }) => {
           style={{ borderRadius: 10, backgroundColor: "white", padding: 25 }}
         >
           <Text style={{ fontSize: 20, fontWeight: "200" }}>
-            Creating Event
+            Adding Attendee
           </Text>
           <ActivityIndicator size="large" />
         </View>
@@ -63,6 +63,19 @@ const AddAttendee = ({ navigation, route }) => {
   useEffect(() => {
     setlabelWidth(252);
     setlabelHeight(172.79999999999998);
+
+      if (route.params.searchText.includes("@")){
+          setemail(route.params.searchText);
+      }else if (/^\d+$/.test(route.params.searchText)){
+        setphone(route.params.searchText);
+      }else if (route.params.searchText.includes(" ")){
+        const words = route.params.searchText.split(' ');
+        setfname(words[0]);
+        setlname(words[1]);
+      }else {
+        setfname(route.params.searchText);
+      }
+
     const fetchData = async () => {
       try {
         const kiosPrinterURL =
@@ -314,6 +327,7 @@ const AddAttendee = ({ navigation, route }) => {
                 height: 60,
                 justifyContent: "center",
               }}
+              defaultValue={fname}
               keyboardType="default"
               placeholder="First Name"
               onChangeText={(text) => {
@@ -355,6 +369,7 @@ const AddAttendee = ({ navigation, route }) => {
                 height: 60,
                 justifyContent: "center",
               }}
+              defaultValue={lname}
               keyboardType="default"
               placeholder="Last Name"
               onChangeText={(text) => {
@@ -394,6 +409,7 @@ const AddAttendee = ({ navigation, route }) => {
                 fontSize: 18,
                 justifyContent: "center",
               }}
+              defaultValue={email}
               keyboardType="email-address"
               placeholder="Email Address"
               onChangeText={(text) => {
@@ -433,6 +449,7 @@ const AddAttendee = ({ navigation, route }) => {
                 fontSize: 18,
                 justifyContent: "center",
               }}
+              defaultValue={phone}
               keyboardType="phone-pad"
               placeholder="Phone Number"
               onChangeText={(text) => {
@@ -479,7 +496,7 @@ const AddAttendee = ({ navigation, route }) => {
               }}
             >
               {" "}
-              Create User & Chek In{" "}
+              Add Attendee & Chekin{" "}
             </Text>
             <FontAwesome name="check" size={15} style={styles.whiteIcon} />
           </View>
