@@ -250,9 +250,9 @@ const Checkins = (props, navigation) => {
             text: "Re-Print Tag",
             onPress: () => {
               if (parseInt(props.route.params.prints) > 1) {
-                print2(Print.Orientation.landscape, fname, lname, status, logo);
+                print2(fname, lname, status, logo);
               } else {
-                print(Print.Orientation.landscape, fname, lname, status, logo);
+                print(fname, lname, status, logo);
               }
             },
           },
@@ -286,9 +286,9 @@ const Checkins = (props, navigation) => {
           searchFilterFunction("");
           settextValue("");
           if (parseInt(props.route.params.prints) > 1) {
-            print2(Print.Orientation.landscape, fname, lname, status, logo);
+            print2(fname, lname, status, logo);
           } else {
-            print(Print.Orientation.landscape, fname, lname, status, logo);
+            print(fname, lname, status, logo);
           }
         })
         .catch((error) => {
@@ -320,7 +320,7 @@ const Checkins = (props, navigation) => {
   //const sleep = ms => new Promise(r => setTimeout(r, ms));
 //1.1 = 79.2
 //3.5 = 252
-  const print2 = async (orientations, fname, lname, status, logo) => {
+  const print2 = async (fname, lname, status, logo) => {
     await Print.printAsync({
       html: `<html>
       <head>
@@ -362,7 +362,7 @@ const Checkins = (props, navigation) => {
       <div class="status">${status}</div>
       </body>
       </html>`,
-      orientation: orientations,
+      orientation: 'landscape',
       width:labelWidth,
       margins: {
         left: 1,
@@ -372,11 +372,19 @@ const Checkins = (props, navigation) => {
       },
       height:labelHeight,
       useMarkupFormatter: true,
-      printerUrl: url, // iOS only
+    })
+    .catch((error) => {
+      Toast.show({
+        onPress() {},
+        type: ALERT_TYPE.WARNING,
+        title: "Connection Failed",
+        textBody: "Server Connection Error: " + error,
+        autoClose: 5000, // or time in ms by default 5000
+      });
     });
   };
 
-  const print = async (orientations, fname, lname, status, logo) => {
+  const print = async (fname, lname, status, logo) => {
     await Print.printAsync({
       html: `<html>
       <head>
@@ -414,7 +422,7 @@ const Checkins = (props, navigation) => {
       <div class="status">${status}</div>
       </body>
       </html>`,
-      orientation: orientations,
+      orientation: 'landscape',
       width:labelWidth,
       margins: {
         left: 1,
@@ -424,7 +432,15 @@ const Checkins = (props, navigation) => {
       },
       height:labelHeight,
       useMarkupFormatter: true,
-      printerUrl: url, // iOS only
+    })
+    .catch((error) => {
+      Toast.show({
+        onPress() {},
+        type: ALERT_TYPE.WARNING,
+        title: "Connection Failed",
+        textBody: "Server Connection Error: " + error,
+        autoClose: 5000, // or time in ms by default 5000
+      });
     });
   };
 
@@ -526,7 +542,7 @@ const Checkins = (props, navigation) => {
               <Text
                 style={{ color: "white", fontSize: 15, fontWeight: "bold" }}
               >
-                Check In
+                Checkin
               </Text>
             </View>
           </TouchableOpacity>
@@ -563,33 +579,6 @@ const Checkins = (props, navigation) => {
         placeholder="Search by Email or Name"
         value={textValue}
       />
-      <View
-        style={{
-          height: 100,
-          width: "90%",
-          marginTop: -20,
-          flexDirection: "row",
-          borderRadius: 100,
-          fontWeight: "bold",
-          justifyContent: "center",
-          alignItems: "center",
-          alignSelf: "center",
-        }}
-      >
-        <Text
-          style={{
-            color: "gray",
-            justifyContent: "center",
-            alignSelf: "center",
-            alignItems: "center",
-            fontSize: 15,
-            textAlign: "center",
-          }}
-        >
-          Enter an email address or the first and last name of the attendee.{"\n"}If your data can not be found, touch the red "Add An Attendee" button
-          below to enter your information and print your name tag.
-        </Text>
-      </View>
 
       <TouchableOpacity
         onPress={() => {
@@ -642,8 +631,36 @@ const Checkins = (props, navigation) => {
       </TouchableOpacity>
 
       <FlatList
+        ListEmptyComponent={
+          <View
+          style={{
+            height: '100%',
+            width: "90%",
+            marginTop: 20,
+            flexDirection: "row",
+            borderRadius: 100,
+            fontWeight: "bold",
+            justifyContent: "center",
+            alignItems: "center",
+            alignSelf: "center",
+          }}
+        >
+          <Text
+            style={{
+              color: "black",
+              justifyContent: "center",
+              alignSelf: "center",
+              alignItems: "center",
+              fontSize: 20,
+              textAlign: "center",
+            }}
+          >
+            1. Enter an email address or the first and last name of the attendee in the search bar above.{"\n\n"}2. Find the attendee name.{"\n\n"}3. Touch the green checkin button next to the attendee name.{"\n\n"}4. On the Popup, Press Print the Print Button.{"\n\n\n"}If your information can not be found, touch the red "Add An Attendee" button
+            that will show after you begin typing to enter your information and print your name tag.
+          </Text>
+        </View>
+      }
         keyboardShouldPersistTaps="always"
-        keyExtractor={item => item.email}
         style={{ flex: 1 }}
         data={filteredDataSource}
         renderItem={({ item }) => <Item item={item} />}

@@ -89,8 +89,6 @@ const AddAttendee = ({ navigation, route }) => {
             ? await AsyncStorage.getItem("labelHeight")
             : window.localStorage.getItem("labelHeight");
         setURL("" + kiosPrinterURL);
-        setlabelWidth(Number(labelwidth));
-        setlabelHeight(Number(labelheight));
       } catch (error) {
         setURL("");
       }
@@ -99,7 +97,6 @@ const AddAttendee = ({ navigation, route }) => {
   }, [isFocused]);
 
   const print2 = async (
-    orientations: any,
     fname: any,
     lname: any,
     status: any
@@ -146,7 +143,7 @@ const AddAttendee = ({ navigation, route }) => {
       <div class="status">${status}</div>
       </body>
       </html>`,
-      orientation: orientations,
+      orientation: 'landscape',
       width:labelWidth,
       margins: {
         left: 1,
@@ -156,12 +153,10 @@ const AddAttendee = ({ navigation, route }) => {
       },
       height:labelHeight,
       useMarkupFormatter: true,
-      printerUrl: url, // iOS only
     });
   };
 
   const print = async (
-    orientations: any,
     fname: any,
     lname: any,
     status: any
@@ -204,7 +199,7 @@ const AddAttendee = ({ navigation, route }) => {
       <div class="status">${status}</div>
       </body>
       </html>`,
-      orientation: orientations,
+      orientation: 'landscape',
       width:labelWidth,
       margins: {
         left: 1,
@@ -214,7 +209,6 @@ const AddAttendee = ({ navigation, route }) => {
       },
       height:labelHeight,
       useMarkupFormatter: true,
-      printerUrl: url, // iOS only
     });
   };
 
@@ -256,9 +250,9 @@ const AddAttendee = ({ navigation, route }) => {
         .then((response) => {
           setvisible(false);
           if (parseInt(route.params.prints) > 1){
-            print2(Print.Orientation.landscape, fname, lname, status);
+            print2(fname, lname, status);
           }else{
-            print(Print.Orientation.landscape, fname, lname, status);
+            print(fname, lname, status);
           }
           navigation.goBack(null);
         })

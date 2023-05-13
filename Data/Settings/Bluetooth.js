@@ -48,7 +48,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
   };
 
   const paperSize = useCallback(() => {
-    props.navigation.navigate("Change Password", { title: "Change Account Password", kios_id: props.route.params.kiosk_id });
+
   }, []);
 
   const changePassword = useCallback(() => {
@@ -120,6 +120,7 @@ const previewAction = () => {
     const printer = await Print.selectPrinterAsync(); // iOS only
     await AsyncStorage.setItem("printerURL", printer.url);
     await AsyncStorage.setItem("printerName", printer.name);
+    console.log(printer.url);
     settitle(printer.name);
     setURL(printer.url);
     setSelectedPrinter(printer);
