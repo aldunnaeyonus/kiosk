@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import { View, StyleSheet, Platform, Dimensions, ScrollView, Alert } from 'react-native';
+import { View, StyleSheet, Platform, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 const { width: ScreenWidth } = Dimensions.get("screen");
@@ -7,7 +7,8 @@ import { ListItem, Icon } from "@rneui/themed";
 import InfoText from "../extras/InfoText";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import DropDownPicker from "react-native-dropdown-picker";
-
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+MaterialCommunityIcons.loadFont();
 
   const Bluetooth = (props) => {
 
@@ -15,9 +16,9 @@ import DropDownPicker from "react-native-dropdown-picker";
   const [url, setURL] = useState("");
   const isFocused = useIsFocused();
   const baseUrl = "https://bigdogtools.com/kiosk";
-  const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "10"}, {label: "DK-2205 W62 RB", value: "20"}, {label: "DK-1209 W62xH29", value: "8"}, {label: "DK-1202 W62xH100", value: "9"}]);
+  const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "10"}, {label: "DK-2205 W62 RB", value: "20"}]);
   const [open, setOpen] = useState(false);
-  const [valuepaper, setValuepaper] = useState("10");
+  const [valuepaper, setValuepaper] = useState("");
 
   const logout = async () => {
     await AsyncStorage.removeItem("printerURL");
@@ -91,10 +92,39 @@ const previewAction = () => {
   }, []);
 
   useEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+        onPress={async () => {
+          await AsyncStorage.setItem("BrotherPrinterLabel", valuepaper)
+
+                  props.navigation.goBack(null);
+        }}
+      >
+        <MaterialCommunityIcons
+          name="chevron-left"
+          size={40}
+          style={styles.moreIcon}
+        />
+      </TouchableOpacity>
+      ),
+    });
+  });
+
+  useEffect(() => {
     async function fetchData(){
       try {
         const kiosPrinterURL = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP");
         const kiosPrinterTitle = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterName") : window.localStorage.getItem("BrotherPrinterName");
+          
+        if (await AsyncStorage.getItem("BrotherPrinterLabel") == null){
+        await AsyncStorage.setItem("BrotherPrinterLabel", "10")
+        setValuepaper("10");
+        }else{
+          const BrotherPrinterLabel = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterLabel") : window.localStorage.getItem("BrotherPrinterLabel");
+          setValuepaper(BrotherPrinterLabel);
+        }
+
         settitle(kiosPrinterTitle);
         setURL(kiosPrinterURL);
       } catch (error) {
@@ -103,16 +133,14 @@ const previewAction = () => {
       }
     };
     fetchData();
-  }, [isFocused]);
+  }, []);
 
   const selectPrinter = async () => {
     props.navigation.navigate("Select Printer");
   };
 
   return (
-    <SafeAreaProvider>
-      <ScrollView keyboardShouldPersistTaps="always" style={styles.container}>
-        <View style={{ width: "100%" }}>
+    <SafeAreaProvider style={{ backgroundColor:'white' }}>
           <View>
             <InfoText text="Account" />
             <View>
@@ -245,7 +273,7 @@ const previewAction = () => {
                 </ListItem>
                 <View style={[styles.dividerTableStyleShort]} />
                 <ListItem
-                  containerStyle={{ paddingVertical: 5, height:60 }}
+                  containerStyle={{ paddingVertical: 5}}
                   key="9"
                   onPress={selectPrinter}
                 >
@@ -263,54 +291,37 @@ const previewAction = () => {
                       justifyContent: "center",
                     }} />
                   <ListItem.Content>
-                    <ListItem.Title>
-                    <View
-          style={{
-            backgroundColor: "white",
-            width: "100%",
-            zIndex:100,
-            height: 60,
-            marginTop: 0,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
+                   
           <DropDownPicker
             dropDownContainerStyle={{
-              zIndex:100,
-              borderColor: "#ccc",
+              borderColor: "#000",
               backgroundColor: "white",
-              borderWidth: 0.5,
-              marginLeft: -10,
-              marginTop: 5,
+              borderWidth: 1.5,
               justifyContent: "center",
             }}
             style={{
-              zIndex:100,
               backgroundColor: "white",
               borderColor: "white",
               marginLeft: -10,
-              marginTop: 5,
+              marginTop: -5,
               justifyContent: "center",
             }}
             autoScroll={true}
             itemSeparator={true}
             itemSeparatorStyle={{
-              backgroundColor: "#ccc",
+              backgroundColor: "#000",
               height: 0.5,
             }}
             open={open}
             placeholder="Select Paper Size"
-            placeholderStyle={{ fontSize: 18 }}
-            textStyle={{ fontSize: 18 }}
+            placeholderStyle={{ fontSize: 17 }}
+            textStyle={{ fontSize: 17 }}
             value={valuepaper}
             items={paper}
             setOpen={setOpen}
             setValue={setValuepaper}
             setItems={setPaper}
           />
-                 </View>     
-                      </ListItem.Title>
                   </ListItem.Content>
                 </ListItem>
 
@@ -369,9 +380,7 @@ const previewAction = () => {
             </ListItem>            
             <View style={[styles.dividerTableStyle]} />
             </View>
-          </View>
         </View>
-      </ScrollView>
     </SafeAreaProvider>
 
   );

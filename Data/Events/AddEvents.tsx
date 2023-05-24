@@ -346,9 +346,9 @@ const AddEvent = ({ navigation }) => {
           />
            <DropDownPicker
             dropDownContainerStyle={{
-              borderColor: "#ccc",
+              borderColor: "#000",
               backgroundColor: "white",
-              borderWidth: 0.5,
+              borderWidth: 1.5,
               marginLeft: 45,
               marginTop: 5,
               width: "91%",
@@ -365,7 +365,7 @@ const AddEvent = ({ navigation }) => {
             autoScroll={true}
             itemSeparator={true}
             itemSeparatorStyle={{
-              backgroundColor: "#ccc",
+              backgroundColor: "#000",
               height: 0.5,
             }}
             open={open3}
@@ -404,9 +404,9 @@ const AddEvent = ({ navigation }) => {
           />
           <DropDownPicker
             dropDownContainerStyle={{
-              borderColor: "#ccc",
+              borderColor: "#000",
               backgroundColor: "white",
-              borderWidth: 0.5,
+              borderWidth: 1.5,
               marginLeft: 45,
               marginTop: 5,
               width: "91%",
@@ -423,7 +423,7 @@ const AddEvent = ({ navigation }) => {
             autoScroll={true}
             itemSeparator={true}
             itemSeparatorStyle={{
-              backgroundColor: "#ccc",
+              backgroundColor: "#000",
               height: 0.5,
             }}
             open={open}
@@ -464,9 +464,9 @@ const AddEvent = ({ navigation }) => {
               />
               <DropDownPicker
                 dropDownContainerStyle={{
-                  borderColor: "#ccc",
+                  borderColor: "#000",
                   backgroundColor: "white",
-                  borderWidth: 0.5,
+                  borderWidth: 1.5,
                   marginLeft: 45,
                   marginTop: 5,
                   width: "91%",
@@ -483,7 +483,7 @@ const AddEvent = ({ navigation }) => {
                 autoScroll={true}
                 itemSeparator={true}
                 itemSeparatorStyle={{
-                  backgroundColor: "#ccc",
+                  backgroundColor: "#000",
                   height: 0.5,
                 }}
                 open={open2}
