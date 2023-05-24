@@ -16,6 +16,8 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 FontAwesome.loadFont();
 import SegmentedControlTab from "react-native-segmented-control-tab";
 const baseUrl = "https://bigdogtools.com/kiosk";
+import { pingPrinter, discoverPrinters } from 'react-native-brother-printers';
+import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
 
 const EventList = (props) => {
   const [search, setSearch] = useState("");
@@ -31,8 +33,8 @@ const EventList = (props) => {
 
   const EmptyListMessage = ({ item }) => {
     return (
-      // Flat List Item
       <Image
+        key={item}
         style={{
           flex: 1,
           width: 400,
@@ -57,21 +59,16 @@ const EventList = (props) => {
     )
       .then((response) => response.json())
       .then(async (jsonData) => {
-        const myData = []
-          .concat(jsonData)
-          .sort((a, b) =>
-            a.kiosk_event_timestamp > b.kiosk_event_timestamp ? 1 : -1
-          );
         setisLoding(false)
-        setFilteredDataSource(myData);
-        setMasterDataSource(myData);
+        setFilteredDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
+        setMasterDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
       });
   };
 
   useEffect(() => {
     setisLoding(true)
     setActive(selectedIndex == 0 ? "0" : "1");
-    const fetchData = async () => {
+    async function fetchData () {
       const kiosk_id =
         Platform.OS !== "web"
           ? await AsyncStorage.getItem("kiosk_id")
@@ -97,18 +94,43 @@ const EventList = (props) => {
       )
         .then((response) => response.json())
         .then(async (jsonData) => {
-          const myData = []
-            .concat(jsonData)
-            .sort((a, b) =>
-              a.kiosk_event_timestamp > b.kiosk_event_timestamp ? 1 : -1
-            );
             setisLoding(false)
-          setFilteredDataSource(myData);
-          setMasterDataSource(myData);
+            setFilteredDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
+            setMasterDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
         });
     };
     fetchData();
   }, [isFocused]);
+
+  useEffect(() => {
+    async function fetchData () {
+        try {
+        if (await AsyncStorage.getItem("BrotherPrinterIP") != null){
+          discoverPrinters({}).then(async () => {
+            console.log("Discover Successful");
+            pingPrinter(Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP"))
+            .then((error) => {
+              console.log(error);
+            }).catch((err) => {
+            });
+          }).catch(() => {
+            console.log("Discover failed")
+          });
+        }else{
+          Dialog.show({
+            onPress() {},
+            type: ALERT_TYPE.WARNING,
+            title: "Failed to Connect",
+            textBody: "The selected Printer's IP Address could not be accessed, please go to the Select A Printer in the settings menu and search for a new printer.",
+            autoClose: 5000, // or time in ms by default 5000
+          });
+        }
+      } catch (error) {
+      }
+    };
+    fetchData();
+  }, []);
+
 
   useEffect(() => {
     props.navigation.setOptions({

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -21,6 +21,9 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 FontAwesome.loadFont();
 import * as Print from "expo-print";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
+import {printImage} from 'react-native-brother-printers';
+import ViewShot, {captureRef, releaseCapture} from "react-native-view-shot";
+
 
 const AddAttendee = ({ navigation, route }) => {
   const [fname, setfname] = useState("");
@@ -28,11 +31,10 @@ const AddAttendee = ({ navigation, route }) => {
   const [email, setemail] = useState("");
   const [phone, setphone] = useState("");
   const isFocused = useIsFocused();
-  const [url, setURL] = useState("");
   const baseUrl = "https://bigdogtools.com/kiosk";
   const [visible, setvisible] = useState(false);
-  const [labelWidth, setlabelWidth] = useState(252);
-  const [labelHeight, setlabelHeight] = useState(172.79999999999998);
+  const [printer, setPrinter] = useState("");
+  const ref = useRef();
 
   const CustomProgressBar = ({ visible }) => (
     <Modal
@@ -61,9 +63,6 @@ const AddAttendee = ({ navigation, route }) => {
   );
 
   useEffect(() => {
-    setlabelWidth(252);
-    setlabelHeight(172.79999999999998);
-
       if (route.params.searchText.includes("@")){
           setemail(route.params.searchText);
       }else if (/^\d+$/.test(route.params.searchText)){
@@ -78,28 +77,36 @@ const AddAttendee = ({ navigation, route }) => {
 
     const fetchData = async () => {
       try {
-        const kiosPrinterURL =
-          Platform.OS !== "web"
-            ? await AsyncStorage.getItem("printerURL")
-            : window.localStorage.getItem("printerURL");
-            const labelwidth = Platform.OS !== "web"
-            ? await AsyncStorage.getItem("labelWidth")
-            : window.localStorage.getItem("labelWidth");
-            const labelheight = Platform.OS !== "web"
-            ? await AsyncStorage.getItem("labelHeight")
-            : window.localStorage.getItem("labelHeight");
-        setURL("" + kiosPrinterURL);
+        const BrotherPrinter = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinter") : window.localStorage.getItem("BrotherPrinter");
+        setPrinter(JSON.parse(""+BrotherPrinter));
       } catch (error) {
-        setURL("");
+        setPrinter("");
       }
     };
     fetchData();
   }, [isFocused]);
 
+  function onCapture() {
+    captureRef(ref, {
+      format: "png",
+      quality: 0.9
+    }).then(
+      uri => {
+        printImage(printer, uri, {autoCut: true, labelSize: 20}).then((response) =>  {
+          console.log("Printing", response);
+          releaseCapture(uri);
+        }).catch((response) => {
+          console.log("Printing failed", response)
+          releaseCapture(uri);
+        });  
+      }, 
+      error => console.log("Printing failed", error));
+  }
+
   const print2 = async (
-    fname: any,
-    lname: any,
-    status: any
+    fnamey,
+    lname,
+    status
   ) => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     await Print.printAsync({
@@ -108,8 +115,8 @@ const AddAttendee = ({ navigation, route }) => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:${labelWidth}px;
-          height:${labelHeight}px;
+          width:0px;
+          height:0px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -144,22 +151,22 @@ const AddAttendee = ({ navigation, route }) => {
       </body>
       </html>`,
       orientation: 'landscape',
-      width:labelWidth,
+      width:0,
       margins: {
         left: 1,
         top: 1,
         right: 1,
         bottom: 1,
       },
-      height:labelHeight,
+      height:0,
       useMarkupFormatter: true,
     });
   };
 
   const print = async (
-    fname: any,
-    lname: any,
-    status: any
+    fname,
+    lname,
+    status
   ) => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     await Print.printAsync({
@@ -168,8 +175,8 @@ const AddAttendee = ({ navigation, route }) => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:${labelWidth}px;
-          height:${labelHeight}px;
+          width:0px;
+          height:0px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -200,26 +207,26 @@ const AddAttendee = ({ navigation, route }) => {
       </body>
       </html>`,
       orientation: 'landscape',
-      width:labelWidth,
+      width:0,
       margins: {
         left: 1,
         top: 1,
         right: 1,
         bottom: 1,
       },
-      height:labelHeight,
+      height:0,
       useMarkupFormatter: true,
     });
   };
 
   const preview = (
-    fname: any,
-    lname: any,
-    email: any,
-    phone: any,
-    kiosk_id: any,
-    ifs_id: any,
-    status: any
+    fname,
+    lname,
+    email,
+    phone,
+    kiosk_id,
+    ifs_id,
+    status
   ) => {
     if (fname.length <= 0 || lname.length <= 0 || email.length <= 0) {
       Dialog.show({
@@ -250,9 +257,13 @@ const AddAttendee = ({ navigation, route }) => {
         .then((response) => {
           setvisible(false);
           if (parseInt(route.params.prints) > 1){
-            print2(fname, lname, status);
+            //print2(fname, lname, status);
+            onCapture()
+            onCapture()
+
           }else{
-            print(fname, lname, status);
+            //print(fname, lname, status);
+            onCapture()
           }
           navigation.goBack(null);
         })
@@ -493,6 +504,14 @@ const AddAttendee = ({ navigation, route }) => {
               Add Attendee & Chekin{" "}
             </Text>
             <FontAwesome name="check" size={15} style={styles.whiteIcon} />
+            <ViewShot style={{ position: "absolute", left: -1000, justifyContent: 'center', alignItems: 'center'}} ref={ref} options={{format: 'png', quality: 0.9}}>
+            <Text style={{fontSize: 15, flex: 1, textAlign: 'center', fontWeight: 'bold',}}>
+            {fname}
+            </Text>
+            <Text style={{fontSize: 13, flex: 1, marginTop: 5, textAlign: 'center', fontWeight: '500'}}>
+            {lname}
+            </Text>
+            </ViewShot>
           </View>
         </TouchableOpacity>
       </ScrollView>

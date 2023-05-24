@@ -9,7 +9,7 @@ import {
   Alert,
   Platform,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 FontAwesome.loadFont();
@@ -19,18 +19,19 @@ import axios from "axios";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 MaterialCommunityIcons.loadFont();
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
+import ViewShot, {captureRef, releaseCapture} from "react-native-view-shot";
+import {printImage} from 'react-native-brother-printers';
 
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [isFound, setisFound] = useState(true);
   const isFocused = useIsFocused();
-  const [url, setURL] = useState("");
   const [logo, setLogo] = useState("");
   const [textValue, settextValue] = useState("");
   const [addedEmails, setaddedEmails] = useState([]);
   const baseUrl = "https://bigdogtools.com/kiosk";
-  const [labelWidth, setlabelWidth] = useState(252);
-  const [labelHeight, setlabelHeight] = useState(172.79999999999998);
+  const ref = useRef();
+  const [printer, setPrinter] = useState();
 
   const closeEvent = () => {
     axios
@@ -60,8 +61,6 @@ const Checkins = (props, navigation) => {
   };
 
   useEffect(() => {
-    setlabelWidth(252);
-    setlabelHeight(172.79999999999998);
     props.navigation.setOptions({
       headerLeft: () =>
         props.route.params.mode === "NORMAL" ? (
@@ -166,11 +165,24 @@ const Checkins = (props, navigation) => {
     });
   }, [navigation]);
 
-  useEffect(() => {
-    setisFound(true);
-  }, [isFocused]);
+  function onCapture() {
+    captureRef(ref, {
+      format: "png",
+      quality: 0.9
+    }).then(
+      uri => {
+        printImage(printer, uri, {autoCut: true, labelSize: 20}).then((response) =>  {
+          console.log("Printing", response);
+          releaseCapture(uri);
+        }).catch((response) => {
+          console.log("Printing failed", response)
+          releaseCapture(uri);
+        });  
+      }, 
+      error => console.log("Printing failed", error));
+  }
 
-  const searchFilterFunction = async (text) => {
+    const searchFilterFunction = async (text) => {
     if (text.length <= 0) {
       setFilteredDataSource([]);
       setisFound(true);
@@ -198,27 +210,23 @@ const Checkins = (props, navigation) => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData (){
       try {
         setLogo(baseUrl + "/logos/" + props.route.params.event_logo);
-        const kiosPrinterURL =
+        const BrotherPrinter =
           Platform.OS !== "web"
-            ? await AsyncStorage.getItem("printerURL")
-            : window.localStorage.getItem("printerURL");
-        setURL(kiosPrinterURL);
-        const labelwidth = Platform.OS !== "web"
-        ? await AsyncStorage.getItem("labelWidth")
-        : window.localStorage.getItem("labelWidth");
-        const labelheight = Platform.OS !== "web"
-        ? await AsyncStorage.getItem("labelHeight")
-        : window.localStorage.getItem("labelHeight");
-    setlabelWidth(Number(labelwidth));
-    setlabelHeight(Number(labelheight));
+            ? await AsyncStorage.getItem("BrotherPrinter")
+            : window.localStorage.getItem("BrotherPrinter");
+    setPrinter(JSON.parse(BrotherPrinter));
       } catch (error) {
-        setURL("");
+        setPrinter("");
       }
     };
     fetchData();
+  }, [isFocused]);
+
+  useEffect(() => {
+    setisFound(true);
   }, [isFocused]);
 
   const preview = (
@@ -250,9 +258,12 @@ const Checkins = (props, navigation) => {
             text: "Re-Print Tag",
             onPress: () => {
               if (parseInt(props.route.params.prints) > 1) {
-                print2(fname, lname, status, logo);
+                //print2(fname, lname, status, logo);
+                onCapture()
+                onCapture()
               } else {
-                print(fname, lname, status, logo);
+                //print(fname, lname, status, logo);
+                onCapture()
               }
             },
           },
@@ -286,9 +297,12 @@ const Checkins = (props, navigation) => {
           searchFilterFunction("");
           settextValue("");
           if (parseInt(props.route.params.prints) > 1) {
-            print2(fname, lname, status, logo);
+            //print2(fname, lname, status, logo);
+            onCapture()
+            onCapture()
           } else {
-            print(fname, lname, status, logo);
+            //print(fname, lname, status, logo);
+            onCapture()
           }
         })
         .catch((error) => {
@@ -302,24 +316,7 @@ const Checkins = (props, navigation) => {
         });
     }
   };
-  /*
-      .fname { 
-        font-size: 15em; 
-        font-weight: bolder; 
-        text-align: center;
-      }
-      .lname {
-        font-size: 10em; 
-       text-align: center;
-      }
-      .status {
-        font-size: 5em; 
-        text-align: center;
-      }
-*/
-  //const sleep = ms => new Promise(r => setTimeout(r, ms));
-//1.1 = 79.2
-//3.5 = 252
+
   const print2 = async (fname, lname, status, logo) => {
     await Print.printAsync({
       html: `<html>
@@ -327,8 +324,8 @@ const Checkins = (props, navigation) => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:${labelWidth}px;
-          height:${labelHeight}px;
+          width:0px;
+          height:0px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -363,14 +360,14 @@ const Checkins = (props, navigation) => {
       </body>
       </html>`,
       orientation: 'landscape',
-      width:labelWidth,
+      width:0,
       margins: {
         left: 1,
         top: 1,
         right: 1,
         bottom: 1,
       },
-      height:labelHeight,
+      height:0,
       useMarkupFormatter: true,
     })
     .catch((error) => {
@@ -391,8 +388,8 @@ const Checkins = (props, navigation) => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:${labelWidth}px;
-          height:${labelHeight}px;
+          width:0px;
+          height:0px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -423,14 +420,14 @@ const Checkins = (props, navigation) => {
       </body>
       </html>`,
       orientation: 'landscape',
-      width:labelWidth,
+      width:0,
       margins: {
         left: 1,
         top: 1,
         right: 1,
         bottom: 1,
       },
-      height:labelHeight,
+      height:0,
       useMarkupFormatter: true,
     })
     .catch((error) => {
@@ -461,6 +458,15 @@ const Checkins = (props, navigation) => {
         }}
       >
         <View style={styles.listItem}>
+        <ViewShot style={{ position: "absolute", left: -1000, justifyContent: 'center', alignItems: 'center'}} ref={ref} options={{format: 'png', quality: 0.9}}>
+        <Text style={{fontSize: 15, flex: 1, textAlign: 'center', fontWeight: 'bold',}}>
+            {item.fname}
+          </Text>
+          <Text style={{fontSize: 13, flex: 1, marginTop: 5, textAlign: 'center', fontWeight: '500'}}>
+          {item.lname}
+          </Text>
+      </ViewShot>
+
           <View style={{ alignItems: "flex-start", marginStart: 15, flex: 1 }}>
             <View
               style={{
@@ -516,7 +522,7 @@ const Checkins = (props, navigation) => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              preview(
+             preview(
                 item.fname,
                 item.lname,
                 item.email,

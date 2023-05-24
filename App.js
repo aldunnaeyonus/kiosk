@@ -7,6 +7,7 @@ import Bluetooth from "./Data/Settings/Bluetooth";
 import SignIn from "./Data/Signin/SignIn";
 import Register from "./Data/Signin/Register";
 import EventLists from "./Data/Events/EventLists";
+import BrotherPrinters from "./Data/Settings/BrotherPrinters";
 import AddEvents from "./Data/Events/AddEvents";
 import EditEvents from "./Data/Events/EditEvents";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -52,8 +53,8 @@ export default function App() {
   const slides = [
     {
       key: '1',
-      title: 'Selecting A Printer',
-      text: 'By selecting a Printer no, the app will allow for silent printing when printing badges.\nSo users will not receive annoying pop-ups when printing badges.',
+      title: 'Brother Printer Integration',
+      text: 'The App uses the Brother SDK to allow silent printing when printing badges.\nSo users will not receive annoying pop-ups.',
       image: require('./assets/pos-printer.png'),
       backgroundColor: '#0E86D4',
     },
@@ -119,7 +120,7 @@ export default function App() {
         <Image source={item.image} style={styles.image} />
         <Text style={styles.text}>{item.text}</Text>
         {
-          item.key == "1" ? 
+          item.key == "5" ? 
           <TouchableOpacity
           onPress={async () => {
             const printer = await Print.selectPrinterAsync(); // iOS only
@@ -294,6 +295,15 @@ export default function App() {
               headerTintColor: "#000000",
             }}
           />
+          <Stack.Screen
+            name="Select Printer"
+            component={BrotherPrinters}
+            options={{
+              headerShown: true,
+              headerBackTitleVisible: false,
+              headerTintColor: "#000000",
+            }}
+          />  
         </Stack.Navigator>
         </AlertNotificationRoot>
       </NavigationContainer>
@@ -407,6 +417,16 @@ export default function App() {
               headerTintColor: "#000000",
             }}
           />
+
+<Stack.Screen
+            name="Select Printer"
+            component={BrotherPrinters}
+            options={{
+              headerShown: true,
+              headerBackTitleVisible: false,
+              headerTintColor: "#000000",
+            }}
+          />  
         </Stack.Navigator>
         </AlertNotificationRoot>
       </NavigationContainer>

@@ -33,7 +33,7 @@
 		8508F8342A09281700FD5622 /* LocalNetworkAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508F8312A09281700FD5622 /* LocalNetworkAuthorization.swift */; };
 		8508F8362A0928D600FD5622 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8508F8352A0928D600FD5622 /* main.jsbundle */; };
 		8508F8382A0928FB00FD5622 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8508F8372A0928FA00FD5622 /* Network.framework */; };
-		85158BF52A0D4EC30089C85F /* BigDogTags-Bridging-Header.m in Sources */ = {isa = PBXBuildFile; fileRef = 85158BF42A0D4EC30089C85F /* BigDogTags-Bridging-Header.m */; };
+		85158BF52A0D4EC30089C85F /* BigDogTags-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 85158BF42A0D4EC30089C85F /* BigDogTags-Bridging-Header.h */; };
 		85158BF72A0D506E0089C85F /* libExpoModulesCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85158BF62A0D506E0089C85F /* libExpoModulesCore.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
@@ -69,7 +69,7 @@
 		8508F8352A0928D600FD5622 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = BigDogTags/main.jsbundle; sourceTree = "<group>"; };
 		8508F8372A0928FA00FD5622 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		85158BF22A0D4B8E0089C85F /* libExpoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libExpoPrint.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		85158BF42A0D4EC30089C85F /* BigDogTags-Bridging-Header.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "BigDogTags-Bridging-Header.m"; path = "BigDogTags/BigDogTags-Bridging-Header.m"; sourceTree = "<group>"; };
+		85158BF42A0D4EC30089C85F /* BigDogTags-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "BigDogTags-Bridging-Header.h"; path = "BigDogTags/BigDogTags-Bridging-Header.h"; sourceTree = "<group>"; };
 		85158BF62A0D506E0089C85F /* libExpoModulesCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libExpoModulesCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92AB0402B2634581A0A0FB1A /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "BigDogTags/noop-file.swift"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = BigDogTags/SplashScreen.storyboard; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 				92AB0402B2634581A0A0FB1A /* noop-file.swift */,
-				85158BF42A0D4EC30089C85F /* BigDogTags-Bridging-Header.m */,
+				85158BF42A0D4EC30089C85F /* BigDogTags-Bridging-Header.h */,
 			);
 			name = BigDogTags;
 			sourceTree = "<group>";
@@ -346,10 +346,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BigDogTags/Pods-BigDogTags-frameworks.sh",
+				"${PODS_ROOT}/BRLMPrinterKit/BRLMPrinterKit/BRLMPrinterKit.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BRLMPrinterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,11 +368,19 @@
 				"${PODS_ROOT}/Target Support Files/Pods-BigDogTags/Pods-BigDogTags-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+				"${PODS_ROOT}/../../node_modules/react-native-brother-printers/ios/ReactNativeBrotherPrinters.xcodeproj/xcuserdata/averydurrant.xcuserdatad/xcschemes/xcschememanagement.plist",
+				"${PODS_ROOT}/../../node_modules/react-native-brother-printers/ios/ReactNativeBrotherPrinters.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist",
+				"${PODS_ROOT}/../../node_modules/react-native-brother-printers/ios/Resources/PrinterList.plist",
+				"${PODS_ROOT}/../../node_modules/react-native-brother-printers/ios/Resources/PrintSettings.plist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/xcschememanagement.plist",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IDEWorkspaceChecks.plist",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PrinterList.plist",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PrintSettings.plist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -407,7 +417,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				8508F8342A09281700FD5622 /* LocalNetworkAuthorization.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				85158BF52A0D4EC30089C85F /* BigDogTags-Bridging-Header.m in Sources */,
+				85158BF52A0D4EC30089C85F /* BigDogTags-Bridging-Header.h in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
 				259BA19FA3224911BECDED1E /* noop-file.swift in Sources */,
 			);

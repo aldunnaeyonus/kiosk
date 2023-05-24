@@ -1,22 +1,23 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import { View, StyleSheet, Platform, Dimensions, ScrollView, Alert } from 'react-native';
-import * as Print from 'expo-print';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 const { width: ScreenWidth } = Dimensions.get("screen");
 import { ListItem, Icon } from "@rneui/themed";
 import InfoText from "../extras/InfoText";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import DropDownPicker from "react-native-dropdown-picker";
 
 
   const Bluetooth = (props) => {
 
-  const [selectedPrinter, setSelectedPrinter] = useState();
   const [title, settitle] = useState("");
   const [url, setURL] = useState("");
-  const [paper, setPaper] = useState("2.36 x 3.39");
   const isFocused = useIsFocused();
   const baseUrl = "https://bigdogtools.com/kiosk";
+  const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "10"}, {label: "DK-2205 W62 RB", value: "20"}, {label: "DK-1209 W62xH29", value: "8"}, {label: "DK-1202 W62xH100", value: "9"}]);
+  const [open, setOpen] = useState(false);
+  const [valuepaper, setValuepaper] = useState("10");
 
   const logout = async () => {
     await AsyncStorage.removeItem("printerURL");
@@ -46,10 +47,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
       name: "Terms & Use",
     });
   };
-
-  const paperSize = useCallback(() => {
-
-  }, []);
 
   const changePassword = useCallback(() => {
     props.navigation.navigate("Change Password", { title: "Change Account Password", kios_id: props.route.params.kiosk_id });
@@ -94,42 +91,27 @@ const previewAction = () => {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchData(){
       try {
-        const kiosPrinterURL = Platform.OS !== "web" ? await AsyncStorage.getItem("printerURL") : window.localStorage.getItem("printerURL");
-        const kiosPrinterTitle = Platform.OS !== "web" ? await AsyncStorage.getItem("printerName") : window.localStorage.getItem("printerName");
-        const kiospaperSize = Platform.OS !== "web" ? await AsyncStorage.getItem("paperSize") : window.localStorage.getItem("PaperSize");
+        const kiosPrinterURL = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP");
+        const kiosPrinterTitle = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterName") : window.localStorage.getItem("BrotherPrinterName");
         settitle(kiosPrinterTitle);
         setURL(kiosPrinterURL);
-        setPaper(kiospaperSize);
-        setSelectedPrinter(kiosPrinterURL);
       } catch (error) {
         settitle("");
         setURL("");
-        setPaper("");
       }
     };
     fetchData();
   }, [isFocused]);
 
-
   const selectPrinter = async () => {
-    settitle("");
-    setURL("");
-    setSelectedPrinter("");
-    const printer = await Print.selectPrinterAsync(); // iOS only
-    await AsyncStorage.setItem("printerURL", printer.url);
-    await AsyncStorage.setItem("printerName", printer.name);
-    console.log(printer.url);
-    settitle(printer.name);
-    setURL(printer.url);
-    setSelectedPrinter(printer);
+    props.navigation.navigate("Select Printer");
   };
 
   return (
     <SafeAreaProvider>
-      <ScrollView keyboardShouldPersistTaps="always"
- style={styles.container}>
+      <ScrollView keyboardShouldPersistTaps="always" style={styles.container}>
         <View style={{ width: "100%" }}>
           <View>
             <InfoText text="Account" />
@@ -237,10 +219,8 @@ const previewAction = () => {
               <View style={[styles.dividerTableStyle]} />
             </View>
 
-            {
-            Platform.OS === 'ios' ? 
-            <>
-            <InfoText text="Printers & Paper" /><View style={[styles.dividerTableStyle]} /><ListItem
+            <InfoText text="Printers & Paper Size" /><View style={[styles.dividerTableStyle]} />
+            <ListItem
                   containerStyle={{ paddingVertical: 5 }}
                   key="3"
                   onPress={selectPrinter}
@@ -259,20 +239,19 @@ const previewAction = () => {
                       justifyContent: "center",
                     }} />
                   <ListItem.Content>
-                    <ListItem.Title>{title != null ? `Selected Printer: ${title}` : 'Select Printer'}</ListItem.Title>
+                    <ListItem.Title>{url != null ? `Selected Printer: ${title} at IP: ${url}` : `Select Printer`}</ListItem.Title>
                   </ListItem.Content>
                   <ListItem.Chevron />
-                </ListItem><View style={[styles.dividerTableStyle]} /></>
-                  : ""
-                  }
-<ListItem
-                  containerStyle={{ paddingVertical: 5 }}
-                  key="3"
-                  onPress={{}}
+                </ListItem>
+                <View style={[styles.dividerTableStyleShort]} />
+                <ListItem
+                  containerStyle={{ paddingVertical: 5, height:60 }}
+                  key="9"
+                  onPress={selectPrinter}
                 >
                   <Icon
                     type="ionicon"
-                    name="expand-outline"
+                    name="document"
                     size={20}
                     color="white"
                     containerStyle={{
@@ -284,14 +263,61 @@ const previewAction = () => {
                       justifyContent: "center",
                     }} />
                   <ListItem.Content>
-                    <ListItem.Title>Label Paper Size</ListItem.Title>
+                    <ListItem.Title>
+                    <View
+          style={{
+            backgroundColor: "white",
+            width: "100%",
+            zIndex:100,
+            height: 60,
+            marginTop: 0,
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <DropDownPicker
+            dropDownContainerStyle={{
+              zIndex:100,
+              borderColor: "#ccc",
+              backgroundColor: "white",
+              borderWidth: 0.5,
+              marginLeft: -10,
+              marginTop: 5,
+              justifyContent: "center",
+            }}
+            style={{
+              zIndex:100,
+              backgroundColor: "white",
+              borderColor: "white",
+              marginLeft: -10,
+              marginTop: 5,
+              justifyContent: "center",
+            }}
+            autoScroll={true}
+            itemSeparator={true}
+            itemSeparatorStyle={{
+              backgroundColor: "#ccc",
+              height: 0.5,
+            }}
+            open={open}
+            placeholder="Select Paper Size"
+            placeholderStyle={{ fontSize: 18 }}
+            textStyle={{ fontSize: 18 }}
+            value={valuepaper}
+            items={paper}
+            setOpen={setOpen}
+            setValue={setValuepaper}
+            setItems={setPaper}
+          />
+                 </View>     
+                      </ListItem.Title>
                   </ListItem.Content>
-                  <ListItem.Chevron />
                 </ListItem>
+
                 <View style={[styles.dividerTableStyle]} />
-            <InfoText text="Policies" />
+            <InfoText style={{zIndex:-1}} text="Policies" />
             <View style={[styles.dividerTableStyle]} />
-            <View>
+            <View style={{zIndex:-1}}>
             <ListItem
               containerStyle={{ paddingVertical: 5 }}
               key="6"
@@ -361,6 +387,7 @@ const styles = StyleSheet.create({
     borderColor: "#ECECEC",
   },
   dividerStyle: {
+    zIndex:-1,
     height: 0.5,
     marginTop: 0,
     marginBottom: -20,
@@ -370,6 +397,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ccc",
   },
   dividerTableStyle: {
+    zIndex:-1,
     height: 0.5,
     marginTop: 10,
     marginBottom: 10,
@@ -378,6 +406,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ccc",
   },
   dividerTableStyleShort: {
+    zIndex:-2,
     height: 0.5,
     marginTop: 10,
     marginBottom: 10,
@@ -440,12 +469,3 @@ const styles = StyleSheet.create({
   },
 });
 export default Bluetooth;
-/*
-    <View >
-          <Button title="Select printer" onPress={selectPrinter} />
-          <View  />
-          {selectedPrinter ? (
-            <Text >{`Selected printer: ${title} via ${url}`}</Text>
-          ) : undefined}
-    </View>
-    */

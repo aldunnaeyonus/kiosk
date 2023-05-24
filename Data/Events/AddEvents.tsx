@@ -551,11 +551,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   dividerStyle: {
+    zIndex:-1,
     height: 0.5,
     width: ScreenWidth * 0.9,
     backgroundColor: "#ccc",
   },
   dividerTableStyle: {
+    zIndex:-1,
     height: 0.5,
     marginTop: 10,
     marginBottom: 10,

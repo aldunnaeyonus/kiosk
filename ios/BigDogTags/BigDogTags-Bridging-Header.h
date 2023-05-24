@@ -6,6 +6,10 @@
 //
 
 
-#import "AppDelegate.h"
-#import "LocalNetworkPrivacy.h"
+  // Import the React Native code we want to use.
+#import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 
+  // For Expo Core unimodules.
+#import <ExpoModulesCore/EXExportedModule.h>
+#import <ExpoModulesCore/EXModuleRegistryConsumer.h>
