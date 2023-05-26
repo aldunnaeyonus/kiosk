@@ -19,8 +19,8 @@ import axios from "axios";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 MaterialCommunityIcons.loadFont();
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
-import ViewShot, {captureRef, releaseCapture} from "react-native-view-shot";
-import {printImage} from 'react-native-brother-printers';
+import ViewShot, { captureRef, releaseCapture } from "react-native-view-shot";
+import { printImage } from "react-native-brother-printers";
 
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -168,21 +168,24 @@ const Checkins = (props, navigation) => {
   function onCapture() {
     captureRef(ref, {
       format: "png",
-      quality: 0.9
+      quality: 0.9,
     }).then(
-      uri => {
-        printImage(printer, uri, {autoCut: true, labelSize: 20}).then((response) =>  {
-          console.log("Printing", response);
-          releaseCapture(uri);
-        }).catch((response) => {
-          console.log("Printing failed", response)
-          releaseCapture(uri);
-        });  
-      }, 
-      error => console.log("Printing failed", error));
+      async (uri) => {
+        printImage(printer, uri, { autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel")) })
+          .then((response) => {
+            console.log("Printing", response);
+            releaseCapture(uri);
+          })
+          .catch((response) => {
+            console.log("Printing failed", response);
+            releaseCapture(uri);
+          });
+      },
+      (error) => console.log("Printing failed", error)
+    );
   }
 
-    const searchFilterFunction = async (text) => {
+  const searchFilterFunction = async (text) => {
     if (text.length <= 0) {
       setFilteredDataSource([]);
       setisFound(true);
@@ -201,27 +204,27 @@ const Checkins = (props, navigation) => {
             .sort((a, b) => (a.name > b.name ? 1 : -1));
           setFilteredDataSource(myData);
         });
-        if (text.length >= 5) {
-          setisFound(false);
-        }else{
-          setisFound(true);
-        }
+      if (text.length >= 5) {
+        setisFound(false);
+      } else {
+        setisFound(true);
+      }
     }
   };
 
   useEffect(() => {
-    async function fetchData (){
+    async function fetchData() {
       try {
         setLogo(baseUrl + "/logos/" + props.route.params.event_logo);
         const BrotherPrinter =
           Platform.OS !== "web"
             ? await AsyncStorage.getItem("BrotherPrinter")
             : window.localStorage.getItem("BrotherPrinter");
-    setPrinter(JSON.parse(BrotherPrinter));
+        setPrinter(JSON.parse(BrotherPrinter));
       } catch (error) {
         setPrinter("");
       }
-    };
+    }
     fetchData();
   }, [isFocused]);
 
@@ -259,11 +262,11 @@ const Checkins = (props, navigation) => {
             onPress: () => {
               if (parseInt(props.route.params.prints) > 1) {
                 //print2(fname, lname, status, logo);
-                onCapture()
-                onCapture()
+                onCapture();
+                onCapture();
               } else {
                 //print(fname, lname, status, logo);
-                onCapture()
+                onCapture();
               }
             },
           },
@@ -289,20 +292,14 @@ const Checkins = (props, navigation) => {
             },
           }
         )
-        .then((response) => {
-          addedEmails.push(email);
-          setaddedEmails(addedEmails);
-          setFilteredDataSource([]);
-          setisFound(true);
-          searchFilterFunction("");
-          settextValue("");
+        .then(async (jsonData) => {
           if (parseInt(props.route.params.prints) > 1) {
             //print2(fname, lname, status, logo);
-            onCapture()
-            onCapture()
+            onCapture();
+            onCapture();
           } else {
             //print(fname, lname, status, logo);
-            onCapture()
+            onCapture();
           }
         })
         .catch((error) => {
@@ -359,18 +356,17 @@ const Checkins = (props, navigation) => {
       <div class="status">${status}</div>
       </body>
       </html>`,
-      orientation: 'landscape',
-      width:0,
+      orientation: "landscape",
+      width: 0,
       margins: {
         left: 1,
         top: 1,
         right: 1,
         bottom: 1,
       },
-      height:0,
+      height: 0,
       useMarkupFormatter: true,
-    })
-    .catch((error) => {
+    }).catch((error) => {
       Toast.show({
         onPress() {},
         type: ALERT_TYPE.WARNING,
@@ -419,18 +415,17 @@ const Checkins = (props, navigation) => {
       <div class="status">${status}</div>
       </body>
       </html>`,
-      orientation: 'landscape',
-      width:0,
+      orientation: "landscape",
+      width: 0,
       margins: {
         left: 1,
         top: 1,
         right: 1,
         bottom: 1,
       },
-      height:0,
+      height: 0,
       useMarkupFormatter: true,
-    })
-    .catch((error) => {
+    }).catch((error) => {
       Toast.show({
         onPress() {},
         type: ALERT_TYPE.WARNING,
@@ -458,14 +453,38 @@ const Checkins = (props, navigation) => {
         }}
       >
         <View style={styles.listItem}>
-        <ViewShot style={{ position: "absolute", left: -1000, justifyContent: 'center', alignItems: 'center'}} ref={ref} options={{format: 'png', quality: 0.9}}>
-        <Text style={{fontSize: 15, flex: 1, textAlign: 'center', fontWeight: 'bold',}}>
-            {item.fname}
-          </Text>
-          <Text style={{fontSize: 13, flex: 1, marginTop: 5, textAlign: 'center', fontWeight: '500'}}>
-          {item.lname}
-          </Text>
-      </ViewShot>
+          <ViewShot
+            style={{
+              position: "absolute",
+              left: -1000,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            ref={ref}
+            options={{ format: "png", quality: 0.9 }}
+          >
+            <Text
+              style={{
+                fontSize: 15,
+                flex: 1,
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
+              {item.fname}
+            </Text>
+            <Text
+              style={{
+                fontSize: 13,
+                flex: 1,
+                marginTop: 5,
+                textAlign: "center",
+                fontWeight: "500",
+              }}
+            >
+              {item.lname}
+            </Text>
+          </ViewShot>
 
           <View style={{ alignItems: "flex-start", marginStart: 15, flex: 1 }}>
             <View
@@ -522,7 +541,7 @@ const Checkins = (props, navigation) => {
           </View>
           <TouchableOpacity
             onPress={() => {
-             preview(
+              preview(
                 item.fname,
                 item.lname,
                 item.email,
@@ -602,70 +621,73 @@ const Checkins = (props, navigation) => {
           settextValue("");
         }}
       >
-{ 
-    (!isFound) ?
-        <View
-          style={{
-            height: 50,
-            width: "50%",
-            marginBottom: 30,
-            marginTop: 20,
-            flexDirection: "row",
-            borderRadius: 100,
-            backgroundColor: "white",
-            borderWidth: 2,
-            borderColor: "red",
-            fontWeight: "bold",
-            justifyContent: "center",
-            alignItems: "center",
-            alignSelf: "center",
-          }}
-        >
-          <Text
+        {!isFound ? (
+          <View
             style={{
-              color: "red",
+              height: 50,
+              width: "50%",
+              marginBottom: 30,
+              marginTop: 20,
+              flexDirection: "row",
+              borderRadius: 100,
+              backgroundColor: "white",
+              borderWidth: 2,
+              borderColor: "red",
               fontWeight: "bold",
               justifyContent: "center",
               alignItems: "center",
-              fontSize: 20,
+              alignSelf: "center",
             }}
           >
-            Add An Attendee
-          </Text>
-        </View>
-        : "" }
+            <Text
+              style={{
+                color: "red",
+                fontWeight: "bold",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: 20,
+              }}
+            >
+              Add An Attendee
+            </Text>
+          </View>
+        ) : (
+          ""
+        )}
       </TouchableOpacity>
 
       <FlatList
         ListEmptyComponent={
           <View
-          style={{
-            height: '100%',
-            width: "90%",
-            marginTop: 20,
-            flexDirection: "row",
-            borderRadius: 100,
-            fontWeight: "bold",
-            justifyContent: "center",
-            alignItems: "center",
-            alignSelf: "center",
-          }}
-        >
-          <Text
             style={{
-              color: "black",
+              height: "100%",
+              width: "90%",
+              marginTop: 20,
+              flexDirection: "row",
+              borderRadius: 100,
+              fontWeight: "bold",
               justifyContent: "center",
-              alignSelf: "center",
               alignItems: "center",
-              fontSize: 20,
-              textAlign: "center",
+              alignSelf: "center",
             }}
           >
-            1. Enter an email address or the first and last name of the attendee in the search bar above.{"\n\n"}2. Find the attendee name.{"\n\n"}3. Touch the green checkin button next to the attendee name.{"\n\n"}4. On the Popup, Press Print the Print Button.{"\n\n\n"}If your information can not be found, touch the red "Add An Attendee" button
-            that will show after you begin typing to enter your information and print your name tag.
-          </Text>
-        </View>
-      }
+            <Text
+              style={{
+                color: "black",
+                justifyContent: "center",
+                alignSelf: "center",
+                alignItems: "center",
+                fontSize: 20,
+                textAlign: "center",
+              }}
+            >
+              1. Enter an email address or the first and last name of the
+              attendee in the search bar above.{"\n\n"}2. Find your name.{"\n\n"}3. Touch the green checkin button next to the
+              attendee name.{"\n\n"}4. Grab your printed name tag.{"\n\n\n"}Note: If your information can not be found, touch the
+              red "Add An Attendee" button that will show after you begin typing. And on the next screen enter your information and print your name tag.
+            </Text>
+          </View>
+        }
         keyboardShouldPersistTaps="always"
         style={{ flex: 1 }}
         data={filteredDataSource}

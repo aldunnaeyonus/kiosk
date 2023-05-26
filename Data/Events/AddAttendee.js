@@ -91,8 +91,8 @@ const AddAttendee = ({ navigation, route }) => {
       format: "png",
       quality: 0.9
     }).then(
-      uri => {
-        printImage(printer, uri, {autoCut: true, labelSize: 20}).then((response) =>  {
+      async uri => {
+        printImage(printer, uri, {autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))}).then((response) =>  {
           console.log("Printing", response);
           releaseCapture(uri);
         }).catch((response) => {
@@ -254,7 +254,7 @@ const AddAttendee = ({ navigation, route }) => {
             },
           }
         )
-        .then((response) => {
+        .then(async (jsonData) => {
           setvisible(false);
           if (parseInt(route.params.prints) > 1){
             //print2(fname, lname, status);
@@ -269,13 +269,15 @@ const AddAttendee = ({ navigation, route }) => {
         })
         .catch((error) => {
           setvisible(false);
-          Toast.show({
-            onPress() {},
-            type: ALERT_TYPE.WARNING,
-            title: "Connection Failed",
-            textBody: "Server Connection Error: " + error,
-            autoClose: 5000, // or time in ms by default 5000
-          });
+          if (parseInt(route.params.prints) > 1){
+            //print2(fname, lname, status);
+            onCapture()
+            onCapture()
+
+          }else{
+            //print(fname, lname, status);
+            onCapture()
+          }
         });
     }
   };
@@ -481,11 +483,11 @@ const AddAttendee = ({ navigation, route }) => {
           <View
             style={{
               height: 50,
-              width: 300,
+              width: '40%',
               marginTop: 50,
               flexDirection: "row",
               borderRadius: 20,
-              backgroundColor: "#007AFF",
+              backgroundColor: "green",
               justifyContent: "center",
               alignItems: "center",
               alignSelf: "center",
@@ -501,9 +503,8 @@ const AddAttendee = ({ navigation, route }) => {
               }}
             >
               {" "}
-              Add Attendee & Chekin{" "}
+              Checkin and Grab Name Tag{" "}
             </Text>
-            <FontAwesome name="check" size={15} style={styles.whiteIcon} />
             <ViewShot style={{ position: "absolute", left: -1000, justifyContent: 'center', alignItems: 'center'}} ref={ref} options={{format: 'png', quality: 0.9}}>
             <Text style={{fontSize: 15, flex: 1, textAlign: 'center', fontWeight: 'bold',}}>
             {fname}

@@ -102,7 +102,7 @@ const AddEvent = ({ navigation }) => {
             },
           }
         )
-        .then((response) => {
+        .then(async (jsonData) => {
           setvisible(false);
           navigation.goBack(null);
         })

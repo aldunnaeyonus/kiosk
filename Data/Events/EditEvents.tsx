@@ -102,15 +102,15 @@ const EditEvents = ({ navigation, route }) => {
         kiosk_id: route.params.kiosk_id, 
         selectedDate: selectedDate, 
         tag: tag,
-        prints: prints,
+        prints: valuePrints,
         logo: value
 }, {
   headers : {
     'Content-Type': 'application/json;charset=utf-8',
   }
 })
-        .then(response => {
-          setvisible(false)
+.then(async (jsonData) => {
+      setvisible(false)
           navigation.goBack(null)
       })
       .catch(error => {

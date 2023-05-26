@@ -133,7 +133,7 @@ const previewAction = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [isFocused]);
 
   const selectPrinter = async () => {
     props.navigation.navigate("Select Printer");
