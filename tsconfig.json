@@ -9,6 +9,10 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
+  "typeRoots": [
+    "../node_modules/@types",
+    "../@types"
+  ],
   "include": ["Data/**/*"],
   "exclude": ["node_modules"]
 }

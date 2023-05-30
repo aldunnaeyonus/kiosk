@@ -31,10 +31,10 @@
 		8508F82F2A09280E00FD5622 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8508F81F2A09280E00FD5622 /* MaterialIcons.ttf */; };
 		8508F8332A09281700FD5622 /* LocalNetworkPrivacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8508F8302A09281700FD5622 /* LocalNetworkPrivacy.m */; };
 		8508F8342A09281700FD5622 /* LocalNetworkAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8508F8312A09281700FD5622 /* LocalNetworkAuthorization.swift */; };
-		8508F8362A0928D600FD5622 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8508F8352A0928D600FD5622 /* main.jsbundle */; };
 		8508F8382A0928FB00FD5622 /* Network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8508F8372A0928FA00FD5622 /* Network.framework */; };
 		85158BF52A0D4EC30089C85F /* BigDogTags-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 85158BF42A0D4EC30089C85F /* BigDogTags-Bridging-Header.h */; };
 		85158BF72A0D506E0089C85F /* libExpoModulesCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85158BF62A0D506E0089C85F /* libExpoModulesCore.a */; };
+		857D17FF2A21A260009D94EF /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8508F8352A0928D600FD5622 /* main.jsbundle */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 /* End PBXBuildFile section */
@@ -71,6 +71,7 @@
 		85158BF22A0D4B8E0089C85F /* libExpoPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libExpoPrint.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		85158BF42A0D4EC30089C85F /* BigDogTags-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "BigDogTags-Bridging-Header.h"; path = "BigDogTags/BigDogTags-Bridging-Header.h"; sourceTree = "<group>"; };
 		85158BF62A0D506E0089C85F /* libExpoModulesCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libExpoModulesCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8586F7602A22F156007D24F1 /* BRLMPrinterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BRLMPrinterKit.framework; path = Pods/BRLMPrinterKit/BRLMPrinterKit/BRLMPrinterKit.framework; sourceTree = "<group>"; };
 		92AB0402B2634581A0A0FB1A /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "BigDogTags/noop-file.swift"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = BigDogTags/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8586F7602A22F156007D24F1 /* BRLMPrinterKit.framework */,
 				85158BF62A0D506E0089C85F /* libExpoModulesCore.a */,
 				85158BF22A0D4B8E0089C85F /* libExpoPrint.a */,
 				8508F8372A0928FA00FD5622 /* Network.framework */,
@@ -280,7 +282,7 @@
 				8508F82A2A09280E00FD5622 /* FontAwesome5_Regular.ttf in Resources */,
 				8508F8212A09280E00FD5622 /* Octicons.ttf in Resources */,
 				8508F8242A09280E00FD5622 /* FontAwesome5_Brands.ttf in Resources */,
-				8508F8362A0928D600FD5622 /* main.jsbundle in Resources */,
+				857D17FF2A21A260009D94EF /* main.jsbundle in Resources */,
 				8508F8282A09280E00FD5622 /* Ionicons.ttf in Resources */,
 				8508F82F2A09280E00FD5622 /* MaterialIcons.ttf in Resources */,
 				8508F8292A09280E00FD5622 /* FontAwesome5_Solid.ttf in Resources */,
@@ -433,9 +435,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BigDogTags/BigDogTags.entitlements;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/BRLMPrinterKit/BRLMPrinterKit",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
@@ -470,8 +476,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = BigDogTags/BigDogTags.entitlements;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/BRLMPrinterKit/BRLMPrinterKit",
+				);
 				INFOPLIST_FILE = BigDogTags/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

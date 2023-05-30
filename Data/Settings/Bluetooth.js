@@ -11,7 +11,6 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 MaterialCommunityIcons.loadFont();
 
   const Bluetooth = (props) => {
-
   const [title, settitle] = useState("");
   const [url, setURL] = useState("");
   const isFocused = useIsFocused();
@@ -19,6 +18,7 @@ MaterialCommunityIcons.loadFont();
   const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "10"}, {label: "DK-2205 W62 RB", value: "20"}]);
   const [open, setOpen] = useState(false);
   const [valuepaper, setValuepaper] = useState("");
+  const [checks, setChecked] = useState(false);
 
   const logout = async () => {
     await AsyncStorage.removeItem("printerURL");
@@ -116,7 +116,7 @@ const previewAction = () => {
       try {
         const kiosPrinterURL = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP");
         const kiosPrinterTitle = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterName") : window.localStorage.getItem("BrotherPrinterName");
-          
+
         if (await AsyncStorage.getItem("BrotherPrinterLabel") == null){
         await AsyncStorage.setItem("BrotherPrinterLabel", "10")
         setValuepaper("10");
@@ -124,7 +124,14 @@ const previewAction = () => {
           const BrotherPrinterLabel = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterLabel") : window.localStorage.getItem("BrotherPrinterLabel");
           setValuepaper(BrotherPrinterLabel);
         }
-
+        console.log(await AsyncStorage.getItem("useAirPrint"));
+        if (await AsyncStorage.getItem("useAirPrint") == null){
+          await AsyncStorage.setItem("useAirPrint", JSON.stringify(false))
+          setChecked(JSON.stringify(false));
+        }else{
+          const useAirPrint = Platform.OS !== "web" ? await AsyncStorage.getItem("useAirPrint") : window.localStorage.getItem("useAirPrint");
+          setChecked(JSON.parse(useAirPrint));
+        }
         settitle(kiosPrinterTitle);
         setURL(kiosPrinterURL);
       } catch (error) {
@@ -247,7 +254,46 @@ const previewAction = () => {
               <View style={[styles.dividerTableStyle]} />
             </View>
 
-            <InfoText text="Printers & Paper Size" /><View style={[styles.dividerTableStyle]} />
+            <InfoText text="Printers & Paper Size" />
+            <View style={[styles.dividerTableStyle]} />
+
+            <ListItem
+                  containerStyle={{ paddingVertical: 5 }}
+                  key="11"
+                  onPress={async ()=> {
+                    checks == true ? setChecked(false) : setChecked(true);
+                    await AsyncStorage.setItem("useAirPrint", JSON.stringify(checks == true ? false : true))
+                  }}
+                >
+                  <Icon
+                    type="ionicon"
+                    name="albums-outline"
+                    size={20}
+                    color="white"
+                    containerStyle={{
+                      backgroundColor: "#007AFF",
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }} />
+                  <ListItem.Content>
+                    <ListItem.Title>iOS Airprint / Direct Print</ListItem.Title>
+                  </ListItem.Content>
+                  <ListItem.CheckBox right 
+                  checkedTitle='Using iOS AirPrint' 
+                  title='Using Direct Print' 
+                  checked={checks} 
+                  onIconPress={async ()=> {
+                    checks == true ? setChecked(false) : setChecked(true);
+                    await AsyncStorage.setItem("useAirPrint", JSON.stringify(checks == true ? false : true))
+                  }} 
+                  iconRight={true}
+                  />
+                </ListItem>
+                <View style={[styles.dividerTableStyleShort]} />
+            
             <ListItem
                   containerStyle={{ paddingVertical: 5 }}
                   key="3"

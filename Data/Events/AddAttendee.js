@@ -34,7 +34,9 @@ const AddAttendee = ({ navigation, route }) => {
   const baseUrl = "https://bigdogtools.com/kiosk";
   const [visible, setvisible] = useState(false);
   const [printer, setPrinter] = useState("");
-  const ref = useRef();
+  const capref = useRef();
+  const [labelWidth, setlabelWidth] = useState(252);
+  const [labelHeight, setlabelHeight] = useState(172.79999999999998);
 
   const CustomProgressBar = ({ visible }) => (
     <Modal
@@ -86,37 +88,51 @@ const AddAttendee = ({ navigation, route }) => {
     fetchData();
   }, [isFocused]);
 
-  function onCapture() {
-    captureRef(ref, {
+  async function onCapture(fname, lname, status) {
+    captureRef(capref, {
       format: "png",
-      quality: 0.9
     }).then(
-      async uri => {
-        printImage(printer, uri, {autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))}).then((response) =>  {
-          console.log("Printing", response);
-          releaseCapture(uri);
-        }).catch((response) => {
-          console.log("Printing failed", response)
-          releaseCapture(uri);
+      async uri => {printImage(printer, uri, {autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
+        .then((response) =>  {
+          Toast.show({
+            onPress() {},
+            type: ALERT_TYPE.SUCCESS,
+            title: "Printing Success",
+            textBody: "Please grab your name tag.",
+            autoClose: 5000, // or time in ms by default 5000
+          });
+          navigation.goBack(null);
+
+        }).catch(async (response) => {
+          if (parseInt(route.params.prints) > 1) {
+            if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
+                onCapture(fname, lname, status, logo, index);
+                onCapture(fname, lname, status, logo, index);
+            }else{
+              print2(fname, lname, status, logo);
+              }
+              } else {
+                if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
+                  onCapture(fname, lname, status, logo, index);
+              }else{
+                print(fname, lname, status, logo);
+                }
+            }
+           releaseCapture(uri);
         });  
       }, 
       error => console.log("Printing failed", error));
   }
 
-  const print2 = async (
-    fnamey,
-    lname,
-    status
-  ) => {
-    // On iOS/android prints the given html. On web prints the HTML from the current page.
+  const print2 = async (fname, lname, status, logo) => {
     await Print.printAsync({
       html: `<html>
       <head>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:0px;
-          height:0px;
+          width:${labelWidth}px;
+          height:${labelHeight}px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -150,33 +166,36 @@ const AddAttendee = ({ navigation, route }) => {
       <div class="status">${status}</div>
       </body>
       </html>`,
-      orientation: 'landscape',
-      width:0,
+      orientation: "landscape",
+      width: labelWidth,
       margins: {
         left: 1,
         top: 1,
         right: 1,
         bottom: 1,
       },
-      height:0,
+      height: labelHeight,
       useMarkupFormatter: true,
+    }).catch((error) => {
+      Toast.show({
+        onPress() {},
+        type: ALERT_TYPE.WARNING,
+        title: "Connection Failed",
+        textBody: "Server Connection Error: " + error,
+        autoClose: 5000, // or time in ms by default 5000
+      });
     });
   };
 
-  const print = async (
-    fname,
-    lname,
-    status
-  ) => {
-    // On iOS/android prints the given html. On web prints the HTML from the current page.
+  const print = async (fname, lname, status, logo) => {
     await Print.printAsync({
       html: `<html>
       <head>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:0px;
-          height:0px;
+          width:${labelWidth}px;
+          height:${labelHeight}px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -206,20 +225,28 @@ const AddAttendee = ({ navigation, route }) => {
       <div class="status">${status}</div>
       </body>
       </html>`,
-      orientation: 'landscape',
-      width:0,
+      orientation: "landscape",
+      width: labelWidth,
       margins: {
         left: 1,
         top: 1,
         right: 1,
         bottom: 1,
       },
-      height:0,
+      height: labelHeight,
       useMarkupFormatter: true,
+    }).catch((error) => {
+      Toast.show({
+        onPress() {},
+        type: ALERT_TYPE.WARNING,
+        title: "Connection Failed",
+        textBody: "Server Connection Error: " + error,
+        autoClose: 5000, // or time in ms by default 5000
+      });
     });
   };
 
-  const preview = (
+  const preview = async (
     fname,
     lname,
     email,
@@ -228,6 +255,7 @@ const AddAttendee = ({ navigation, route }) => {
     ifs_id,
     status
   ) => {
+
     if (fname.length <= 0 || lname.length <= 0 || email.length <= 0) {
       Dialog.show({
         type: ALERT_TYPE.WARNING,
@@ -258,26 +286,17 @@ const AddAttendee = ({ navigation, route }) => {
           setvisible(false);
           if (parseInt(route.params.prints) > 1){
             //print2(fname, lname, status);
-            onCapture()
-            onCapture()
+            onCapture(fname, lname, status)
+            onCapture(fname, lname, status)
 
           }else{
             //print(fname, lname, status);
-            onCapture()
+            onCapture(fname, lname, status)
           }
           navigation.goBack(null);
         })
         .catch((error) => {
           setvisible(false);
-          if (parseInt(route.params.prints) > 1){
-            //print2(fname, lname, status);
-            onCapture()
-            onCapture()
-
-          }else{
-            //print(fname, lname, status);
-            onCapture()
-          }
         });
     }
   };
@@ -468,7 +487,9 @@ const AddAttendee = ({ navigation, route }) => {
           <View style={[styles.dividerStyle]} />
         </View>
         <TouchableOpacity
-          onPress={() => {
+          onPress={async () => {
+            console.log(await AsyncStorage.getItem("useAirPrint"))
+
             preview(
               fname,
               lname,
@@ -505,7 +526,7 @@ const AddAttendee = ({ navigation, route }) => {
               {" "}
               Checkin and Grab Name Tag{" "}
             </Text>
-            <ViewShot style={{ position: "absolute", left: -1000, justifyContent: 'center', alignItems: 'center'}} ref={ref} options={{format: 'png', quality: 0.9}}>
+            <ViewShot style={{ position: "absolute", left: -1000, justifyContent: 'center', alignItems: 'center'}} ref={capref} options={{format: 'png', quality: 0.9}}>
             <Text style={{fontSize: 15, flex: 1, textAlign: 'center', fontWeight: 'bold',}}>
             {fname}
             </Text>

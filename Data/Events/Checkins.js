@@ -9,7 +9,7 @@ import {
   Alert,
   Platform,
 } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, createRef } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 FontAwesome.loadFont();
@@ -30,9 +30,12 @@ const Checkins = (props, navigation) => {
   const [textValue, settextValue] = useState("");
   const [addedEmails, setaddedEmails] = useState([]);
   const baseUrl = "https://bigdogtools.com/kiosk";
-  const ref = useRef();
   const [printer, setPrinter] = useState();
+  const [labelWidth, setlabelWidth] = useState(252);
+  const [labelHeight, setlabelHeight] = useState(172.79999999999998);
+  let refs = useRef([]);
 
+  
   const closeEvent = () => {
     axios
       .post(
@@ -165,23 +168,36 @@ const Checkins = (props, navigation) => {
     });
   }, [navigation]);
 
-  function onCapture() {
-    captureRef(ref, {
-      format: "png",
-      quality: 0.9,
-    }).then(
-      async (uri) => {
-        printImage(printer, uri, { autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel")) })
-          .then((response) => {
-            console.log("Printing", response);
+  function onCapture(fname, lname, status, logo, index) {
+    captureRef(refs.current[index], {
+      format: "png",    
+    })
+    .then(async (uri) => {
+        printImage(printer, uri, { autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
+        .then(async (data) => {
+          Toast.show({
+            onPress() {},
+            type: ALERT_TYPE.SUCCESS,
+            title: "Printing Success",
+            textBody: "Please grab your name tag.",
+            autoClose: 5000, // or time in ms by default 5000
+          });
+            setFilteredDataSource([]);
+            setisFound(true);
+            searchFilterFunction("");
+            settextValue("");
             releaseCapture(uri);
           })
-          .catch((response) => {
-            console.log("Printing failed", response);
+          .catch(async (error) => {
+            if (parseInt(props.route.params.prints) > 1) {
+              print2(fname, lname, status, logo);
+            } else {
+              print(fname, lname, status, logo);
+            }
             releaseCapture(uri);
           });
       },
-      (error) => console.log("Printing failed", error)
+      (error) => console.log("Capture failed", error)
     );
   }
 
@@ -189,6 +205,7 @@ const Checkins = (props, navigation) => {
     if (text.length <= 0) {
       setFilteredDataSource([]);
       setisFound(true);
+      refs = []
     } else {
       await fetch(
         baseUrl +
@@ -240,7 +257,8 @@ const Checkins = (props, navigation) => {
     kiosk_id,
     ifs_id,
     status,
-    logo
+    logo,
+    index
   ) => {
     if (addedEmails.includes(email)) {
       Alert.alert(
@@ -259,15 +277,23 @@ const Checkins = (props, navigation) => {
           },
           {
             text: "Re-Print Tag",
-            onPress: () => {
-              if (parseInt(props.route.params.prints) > 1) {
-                //print2(fname, lname, status, logo);
-                onCapture();
-                onCapture();
-              } else {
-                //print(fname, lname, status, logo);
-                onCapture();
+            onPress: async () => {
+
+          if (parseInt(props.route.params.prints) > 1) {
+            if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == "false"){
+              onCapture(fname, lname, status, logo, index);
+                onCapture(fname, lname, status, logo, index);
+            }else{
+              print2(fname, lname, status, logo);
               }
+              } else {
+                if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == "false"){
+                  onCapture(fname, lname, status, logo, index);
+              }else{
+                print(fname, lname, status, logo);
+                }
+            }
+
             },
           },
         ],
@@ -293,14 +319,22 @@ const Checkins = (props, navigation) => {
           }
         )
         .then(async (jsonData) => {
+          addedEmails.push(email);
+          setaddedEmails(addedEmails);
           if (parseInt(props.route.params.prints) > 1) {
-            //print2(fname, lname, status, logo);
-            onCapture();
-            onCapture();
-          } else {
-            //print(fname, lname, status, logo);
-            onCapture();
-          }
+            if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
+                onCapture(fname, lname, status, logo, index);
+                onCapture(fname, lname, status, logo, index);
+            }else{
+              print2(fname, lname, status, logo);
+              }
+              } else {
+                if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
+                  onCapture(fname, lname, status, logo, index);
+              }else{
+                print(fname, lname, status, logo);
+                }
+            }
         })
         .catch((error) => {
           Toast.show({
@@ -321,8 +355,8 @@ const Checkins = (props, navigation) => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:0px;
-          height:0px;
+          width:${labelWidth}px;
+          height:${labelHeight}px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -357,14 +391,14 @@ const Checkins = (props, navigation) => {
       </body>
       </html>`,
       orientation: "landscape",
-      width: 0,
+      width: labelWidth,
       margins: {
         left: 1,
         top: 1,
         right: 1,
         bottom: 1,
       },
-      height: 0,
+      height: labelHeight,
       useMarkupFormatter: true,
     }).catch((error) => {
       Toast.show({
@@ -384,8 +418,8 @@ const Checkins = (props, navigation) => {
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
         <style>
         html,body {
-          width:0px;
-          height:0px;
+          width:${labelWidth}px;
+          height:${labelHeight}px;
           vertical-align: center;
           horizontal-align: center;
           margin: .5rem .5rem .5rem .5rem;
@@ -416,14 +450,14 @@ const Checkins = (props, navigation) => {
       </body>
       </html>`,
       orientation: "landscape",
-      width: 0,
+      width: labelWidth,
       margins: {
         left: 1,
         top: 1,
         right: 1,
         bottom: 1,
       },
-      height: 0,
+      height: labelHeight,
       useMarkupFormatter: true,
     }).catch((error) => {
       Toast.show({
@@ -436,10 +470,12 @@ const Checkins = (props, navigation) => {
     });
   };
 
-  function Item({ item }) {
+  function Item({ item, index }) {
+    refs.current[index] = createRef();
+
     return (
       <TouchableOpacity
-        onPress={() => {
+        onPress={async () => {
           preview(
             item.fname,
             item.lname,
@@ -448,7 +484,8 @@ const Checkins = (props, navigation) => {
             props.route.params.kiosk_id,
             item.ifs_id,
             item.status,
-            props.route.params.event_logo
+            props.route.params.event_logo,
+            index
           );
         }}
       >
@@ -460,8 +497,10 @@ const Checkins = (props, navigation) => {
               justifyContent: "center",
               alignItems: "center",
             }}
-            ref={ref}
-            options={{ format: "png", quality: 0.9 }}
+            options={{
+            format: "png",
+            }}
+            ref={refs.current[index]}
           >
             <Text
               style={{
@@ -484,6 +523,20 @@ const Checkins = (props, navigation) => {
             >
               {item.lname}
             </Text>
+            <Image
+        resizeMode="contain"
+        resizeMethod="auto"
+        tintColor='black'
+        style={{
+          width: 100,
+          marginTop: 10,
+          height: 40,
+          alignSelf: "center",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+        source={{ uri: logo }}
+      />
           </ViewShot>
 
           <View style={{ alignItems: "flex-start", marginStart: 15, flex: 1 }}>
@@ -549,7 +602,8 @@ const Checkins = (props, navigation) => {
                 props.route.params.kiosk_id,
                 item.ifs_id,
                 item.status,
-                props.route.params.event_logo
+                props.route.params.event_logo,
+                index
               );
             }}
           >
@@ -557,6 +611,7 @@ const Checkins = (props, navigation) => {
               style={{
                 width: 90,
                 height: 40,
+                marginTop: 17,
                 justifyContent: "center",
                 backgroundColor: "#2E8B57",
                 alignSelf: "center",
@@ -691,7 +746,7 @@ const Checkins = (props, navigation) => {
         keyboardShouldPersistTaps="always"
         style={{ flex: 1 }}
         data={filteredDataSource}
-        renderItem={({ item }) => <Item item={item} />}
+        renderItem={({ item, index }) => <Item item={item} index={index}/>}
       />
     </View>
   );
