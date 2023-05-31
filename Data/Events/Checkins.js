@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Alert,
   Platform,
+  Keyboard,
 } from "react-native";
 import React, { useState, useEffect, useRef, createRef } from "react";
 import { useIsFocused } from "@react-navigation/native";
@@ -35,7 +36,6 @@ const Checkins = (props, navigation) => {
   const [labelHeight, setlabelHeight] = useState(172.79999999999998);
   let refs = useRef([]);
 
-  
   const closeEvent = () => {
     axios
       .post(
@@ -132,6 +132,22 @@ const Checkins = (props, navigation) => {
         ),
       headerRight: () =>
         props.route.params.mode === "NORMAL" ? (
+          <View style={{flexDirection:"row"}}>
+          <FontAwesome
+            style={{ paddingRight: 20 }}
+            backgroundColor="white"
+            borderRadius={17}
+            size={28}
+            color="black"
+            name={"users"}
+            onPress={() => {
+              props.navigation.navigate("View Event Attendees", {
+                kiosk_id: props.route.params.kiosk_id,
+                logo: props.route.params.event_logo,
+                kiosk_event: props.route.params.kiosk_event,
+              });
+            }}
+          />
           <FontAwesome
             style={{ paddingRight: 20 }}
             backgroundColor="white"
@@ -162,15 +178,17 @@ const Checkins = (props, navigation) => {
               );
             }}
           />
+           </View>
         ) : (
           ""
         ),
     });
   }, [navigation]);
-
+  
   function onCapture(fname, lname, status, logo, index) {
     captureRef(refs.current[index], {
-      format: "png",    
+      format: "jpg",    
+      quality: 1.0
     })
     .then(async (uri) => {
         printImage(printer, uri, { autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
@@ -207,6 +225,7 @@ const Checkins = (props, navigation) => {
       setisFound(true);
       refs = []
     } else {
+      if (text.length >= 3) {
       await fetch(
         baseUrl +
           "/search/index.php?email=" +
@@ -216,16 +235,14 @@ const Checkins = (props, navigation) => {
       )
         .then((response) => response.json())
         .then(async (jsonData) => {
-          const myData = []
-            .concat(jsonData)
-            .sort((a, b) => (a.name > b.name ? 1 : -1));
-          setFilteredDataSource(myData);
+          setFilteredDataSource(jsonData.sort((a, b) => a.fullname < b.fullname));
         });
-      if (text.length >= 5) {
+      if (text.length >= 3) {
         setisFound(false);
       } else {
         setisFound(true);
       }
+    }
     }
   };
 
@@ -383,11 +400,11 @@ const Checkins = (props, navigation) => {
       <body class="body">
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status">${status}</div>
+      <div class="status"></div>
       <BR><BR>
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status">${status}</div>
+      <div class="status"></div>
       </body>
       </html>`,
       orientation: "landscape",
@@ -446,7 +463,7 @@ const Checkins = (props, navigation) => {
       <body class="body">
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status">${status}</div>
+      <div class="status"></div>
       </body>
       </html>`,
       orientation: "landscape",
@@ -492,20 +509,23 @@ const Checkins = (props, navigation) => {
         <View style={styles.listItem}>
           <ViewShot
             style={{
+              transform: [{rotate: '90deg'}],
               position: "absolute",
               left: -1000,
+              flex: 1,
               justifyContent: "center",
               alignItems: "center",
             }}
             options={{
-            format: "png",
+            format: "jpg",
+            quality: 1.0
             }}
             ref={refs.current[index]}
           >
             <Text
               style={{
-                fontSize: 15,
-                flex: 1,
+                fontSize: 50,
+                fontFamily: 'Avenir',
                 textAlign: "center",
                 fontWeight: "bold",
               }}
@@ -514,9 +534,9 @@ const Checkins = (props, navigation) => {
             </Text>
             <Text
               style={{
-                fontSize: 13,
-                flex: 1,
-                marginTop: 5,
+                fontSize: 40,
+                fontFamily: 'Avenir',
+                marginTop: -10,
                 textAlign: "center",
                 fontWeight: "500",
               }}
@@ -528,9 +548,9 @@ const Checkins = (props, navigation) => {
         resizeMethod="auto"
         tintColor='black'
         style={{
-          width: 100,
+          width: 200,
           marginTop: 10,
-          height: 40,
+          height: 80,
           alignSelf: "center",
           flexDirection: "row",
           justifyContent: "center",
@@ -566,6 +586,8 @@ const Checkins = (props, navigation) => {
               />
               <Text style={{ marginTop: 5 }}>{item.email}</Text>
             </View>
+            { 
+            item.status != "" ? 
             <View
               style={{
                 width: 100,
@@ -581,16 +603,18 @@ const Checkins = (props, navigation) => {
                 backgroundColor: "#efefef",
               }}
             >
-              <FontAwesome name="id-badge" size={12} style={styles.whiteIcon} />
-              <Text
-                style={{
-                  color: "#000000",
-                  fontSize: 12,
-                }}
-              >
-                {item.status}
-              </Text>
+              
+<FontAwesome name="id-badge" size={12} style={styles.whiteIcon} /><Text
+                    style={{
+                      color: "#000000",
+                      fontSize: 12,
+                    }}
+                  >
+                    {item.status}
+                  </Text>
             </View>
+                          : ""
+              }
           </View>
           <TouchableOpacity
             onPress={() => {
@@ -611,7 +635,7 @@ const Checkins = (props, navigation) => {
               style={{
                 width: 90,
                 height: 40,
-                marginTop: 17,
+                marginTop: item.status != "" ? 18 : 2,
                 justifyContent: "center",
                 backgroundColor: "#2E8B57",
                 alignSelf: "center",
@@ -631,7 +655,9 @@ const Checkins = (props, navigation) => {
     );
   }
 
+  
   return (
+    
     <View style={styles.container}>
       <Image
         resizeMode="contain"
@@ -712,6 +738,7 @@ const Checkins = (props, navigation) => {
       </TouchableOpacity>
 
       <FlatList
+        onScrollBeginDrag={() => Keyboard.dismiss()}
         ListEmptyComponent={
           <View
             style={{
@@ -726,6 +753,7 @@ const Checkins = (props, navigation) => {
               alignSelf: "center",
             }}
           >
+            
             <Text
               style={{
                 color: "black",
@@ -736,6 +764,7 @@ const Checkins = (props, navigation) => {
                 textAlign: "center",
               }}
             >
+
               1. Enter an email address or the first and last name of the
               attendee in the search bar above.{"\n\n"}2. Find your name.{"\n\n"}3. Touch the green checkin button next to the
               attendee name.{"\n\n"}4. Grab your printed name tag.{"\n\n\n"}Note: If your information can not be found, touch the
@@ -746,7 +775,7 @@ const Checkins = (props, navigation) => {
         keyboardShouldPersistTaps="always"
         style={{ flex: 1 }}
         data={filteredDataSource}
-        renderItem={({ item, index }) => <Item item={item} index={index}/>}
+        renderItem={({ item, index }) => <Item item={item} index={index} /> }
       />
     </View>
   );

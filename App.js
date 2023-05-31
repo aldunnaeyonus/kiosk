@@ -1,4 +1,5 @@
 import Checkins from "./Data/Events/Checkins";
+import ViewAttendees from "./Data/Events/ViewAttendees";
 import ChangePass from "./Data/Settings/ChangePassword";
 import ChangeData from "./Data/Settings/ChangeData";
 import ViewEventList from "./Data/Events/ViewEventList";
@@ -307,6 +308,16 @@ export default function App() {
               headerTintColor: "#000000",
             }}
           />  
+         <Stack.Screen
+            name="View Event Attendees"
+            component={ViewAttendees}
+            options={({ route }) => ({
+              title: route.params.kiosk_event + " Attendee's Checked In",
+              headerShown: true,
+              headerBackTitleVisible: false,
+              headerTintColor: "#000000",
+            })}
+          />  
         </Stack.Navigator>
         </AlertNotificationRoot>
       </NavigationContainer>
@@ -424,6 +435,15 @@ export default function App() {
 <Stack.Screen
             name="Select Printer"
             component={BrotherPrinters}
+            options={{
+              headerShown: true,
+              headerBackTitleVisible: false,
+              headerTintColor: "#000000",
+            }}
+          />  
+           <Stack.Screen
+            name="View Event Attendees"
+            component={ViewAttendees}
             options={{
               headerShown: true,
               headerBackTitleVisible: false,

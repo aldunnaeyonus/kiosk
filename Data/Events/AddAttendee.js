@@ -9,6 +9,7 @@ import {
   Platform,
   ActivityIndicator,
   Modal,
+  Image
 } from "react-native";
 import InteractiveTextInput from "react-native-text-input-interactive";
 import { TextInput } from "react-native-paper";
@@ -505,7 +506,7 @@ const AddAttendee = ({ navigation, route }) => {
             style={{
               height: 50,
               width: '40%',
-              marginTop: 50,
+              marginTop: 20,
               flexDirection: "row",
               borderRadius: 20,
               backgroundColor: "green",
@@ -526,13 +527,27 @@ const AddAttendee = ({ navigation, route }) => {
               {" "}
               Checkin and Grab Name Tag{" "}
             </Text>
-            <ViewShot style={{ position: "absolute", left: -1000, justifyContent: 'center', alignItems: 'center'}} ref={capref} options={{format: 'png', quality: 0.9}}>
+            <ViewShot style={{ position: "absolute", left: -1000, justifyContent: 'center', alignItems: 'center', transform: [{rotate: '90deg'}]}} ref={capref} options={{format: 'png', quality: 0.9}}>
             <Text style={{fontSize: 15, flex: 1, textAlign: 'center', fontWeight: 'bold',}}>
             {fname}
             </Text>
             <Text style={{fontSize: 13, flex: 1, marginTop: 5, textAlign: 'center', fontWeight: '500'}}>
             {lname}
             </Text>
+            <Image
+        resizeMode="contain"
+        resizeMethod="auto"
+        tintColor='black'
+        style={{
+          width: 200,
+          marginTop: 10,
+          height: 80,
+          alignSelf: "center",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+        source={{ uri: route.params.logo }}
+      />
             </ViewShot>
           </View>
         </TouchableOpacity>
