@@ -297,14 +297,14 @@ const Checkins = (props, navigation) => {
             onPress: async () => {
 
           if (parseInt(props.route.params.prints) > 1) {
-            if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == "false"){
+            if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
               onCapture(fname, lname, status, logo, index);
                 onCapture(fname, lname, status, logo, index);
             }else{
               print2(fname, lname, status, logo);
               }
               } else {
-                if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == "false"){
+                if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
                   onCapture(fname, lname, status, logo, index);
               }else{
                 print(fname, lname, status, logo);

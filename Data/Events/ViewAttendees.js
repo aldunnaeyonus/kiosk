@@ -7,6 +7,7 @@ import {
     TextInput,
     TouchableOpacity,
     Keyboard,
+    Alert,
   } from "react-native";
   import React, { useState, useEffect } from "react";
   import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -14,7 +15,9 @@ import {
   FontAwesome.loadFont();
   import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
   MaterialCommunityIcons.loadFont();
-  
+  import { ALERT_TYPE, Toast } from "react-native-alert-notification";
+  import axios from "axios";
+
   const ViewAttendees = (props) => {
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [textValue, settextValue] = useState("");
@@ -58,13 +61,79 @@ import {
         }
       };
   
+      const preview = (
+        fname,
+        lname,
+        email,
+        kiosk_id,
+        ifs_id
+      ) => {
+          Alert.alert(
+            "Remove Attendee from Checkin",
+            "Remove Attendee: "+ fname +
+              " " +
+              lname +
+              " with email address of" +
+              email,
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "destructive",
+              },
+              {
+                text: "Delete Attendee",
+                onPress: async () => {
+                  axios
+                  .post(
+                    baseUrl + "/events/remove.php",
+                    {
+                      email: email,
+                      id: kiosk_id,
+                      ifs_id: ifs_id,
+                    },
+                    {
+                      headers: {
+                        "Content-Type": "application/json;charset=utf-8",
+                      },
+                    }
+                  )
+                  .then(async (jsonData) => {
+                    setFilteredDataSource([])
+                    setMasterDataSource([])
+            fetch( baseUrl + "/search/fetch.php?kioskID=" + props.route.params.kiosk_id )
+            .then((response) => response.json())
+            .then(async (jsonData) => {
+              setFilteredDataSource(jsonData.sort((a, b) => a.fullname < b.fullname));
+              setMasterDataSource(jsonData.sort((a, b) => a.fullname < b.fullname));
+            });
+                    Toast.show({
+                      onPress() {},
+                      type: ALERT_TYPE.SUCCESS,
+                      title: "Attendee Removal",
+                      textBody: "Success, the attendee was removed.",
+                      autoClose: 5000, // or time in ms by default 5000
+                    });
+                  })
+                  .catch((error) => {
+                    Toast.show({
+                      onPress() {},
+                      type: ALERT_TYPE.WARNING,
+                      title: "Connection Failed",
+                      textBody: "Server Connection Error: " + error,
+                      autoClose: 5000, // or time in ms by default 5000
+                    });
+                  });
+    
+                },
+              },
+            ],
+            { cancelable: false }
+          );
+      };
+
     function Item({ item }) {  
       return (
-        <TouchableOpacity
-          onPress={async () => {
-            
-          }}
-        >
           <View style={styles.listItem}>
             <View style={{ alignItems: "flex-start", marginStart: 15, flex: 1 }}>
               <View
@@ -94,8 +163,37 @@ import {
                 <Text style={{ marginTop: 5 }}>{item.email}</Text>
               </View>
             </View>
+            <TouchableOpacity
+            onPress={() => {
+              preview(
+                item.fname,
+                item.lname,
+                item.email,
+                props.route.params.kiosk_id,
+                item.ifs_id,
+              );
+            }}
+          >
+            <View
+              style={{
+                width: 90,
+                height: 40,
+                marginTop: item.status != "" ? 18 : 2,
+                justifyContent: "center",
+                backgroundColor: "red",
+                alignSelf: "center",
+                alignItems: "center",
+                borderRadius: 45,
+              }}
+            >
+              <Text
+                style={{ color: "white", fontSize: 15, fontWeight: "bold" }}
+              >
+                Remove
+              </Text>
+            </View>
+          </TouchableOpacity>
           </View>
-        </TouchableOpacity>
       );
     }
   

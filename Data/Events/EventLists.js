@@ -195,7 +195,7 @@ const EventList = (props) => {
                 },
               },
                 {
-                text: "Normal Mode",
+                text: "Admin Mode",
                 onPress: () => {
                   props.navigation.navigate("Check In Attendees", {
                     kiosk_id: item.kiosk_event_id,
