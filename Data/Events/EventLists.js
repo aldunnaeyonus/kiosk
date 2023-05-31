@@ -17,7 +17,7 @@ FontAwesome.loadFont();
 import SegmentedControlTab from "react-native-segmented-control-tab";
 const baseUrl = "https://bigdogtools.com/kiosk";
 import { pingPrinter, discoverPrinters } from 'react-native-brother-printers';
-import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 
 const EventList = (props) => {
   const [search, setSearch] = useState("");
@@ -170,7 +170,41 @@ const EventList = (props) => {
     }
   };
 
-  function Item({ item }) {
+
+  async function deleteEvent(id, pin, index) {
+    setisLoding(true)
+    fetch(
+      baseUrl +
+        "/events/delete.php?kiosk_id=" +
+        id +
+        "&active=" +
+        active +
+        "&kiosk_pin="+pin
+    )
+      .then((response) => response.json())
+      .then(async (jsonData) => {
+        handleRefresh();
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.SUCCESS,
+          title: "Success",
+          textBody: "Event was successfully deleted.",
+          autoClose: 5000, // or time in ms by default 5000
+        });
+        setisLoding(false)
+      })
+      .catch((error) => {
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.WARNING,
+          title: "Connection Failed",
+          textBody: "Server Connection Error: " + error,
+          autoClose: 5000, // or time in ms by default 5000
+        });
+      });
+  };
+
+  function Item({ item, index }) {
     return (
       <TouchableOpacity
         onPress={() => {
@@ -220,6 +254,29 @@ const EventList = (props) => {
                 },
               },
               {
+                text: "Delete Event",
+                onPress: () => {
+                  Alert.alert(
+                    "Delete Event",
+                    "Are you sure you want to delete this event.",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "destructive",
+                      },
+                      {
+                        text: "Delete Event",
+                        onPress: async () => {
+                          deleteEvent(item.kiosk_event_id, item.kiosk_event_owner_id, index)
+                          }
+                        }
+                    ],
+                    { cancelable: false }
+                  );
+                },
+              },
+              {
                 text: "Cancel",
                 onPress: () => console.log("Cancel Pressed"),
                 style: "destructive",
@@ -228,11 +285,11 @@ const EventList = (props) => {
             { cancelable: false }
           );
           } else {
-            props.navigation.navigate("View Event Attendee List", {
-              kiosk_id: item.kiosk_event_id,
-              kiosk_owner: item.kiosk_event_owner_id,
-              kiosk_event: item.kiosk_event_name,
-            });
+              props.navigation.navigate("View Event Attendees", {
+                kiosk_id: item.kiosk_event_id,
+                logo: item.kiosk_event_logo,
+                kiosk_event: item.kiosk_event_name,
+              });
           }
         }}
       >
@@ -310,9 +367,8 @@ const EventList = (props) => {
                 size={20}
                 style={styles.moreIcon}
               />
-            ) : (
-              <FontAwesome name="file" size={20} style={styles.fileIcon} />
-            )}
+            ) : ""
+            }
           </View>
         </View>
       </TouchableOpacity>
@@ -363,7 +419,7 @@ const EventList = (props) => {
         keyExtractor={item => item.kiosk_event_id}
         onRefresh={handleRefresh}
         data={filteredDataSource}
-        renderItem={({ item }) => <Item item={item} />}
+        renderItem={({ item, index }) => <Item item={item} index={index} />}
       />
       <TouchableOpacity
         onPress={() => {

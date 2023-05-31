@@ -61,6 +61,22 @@ import {
       props.navigation.setOptions({
         headerTitle: props.route.params.kiosk_event + " Event List",
         headerRight: () => (
+          <View style={{flexDirection:"row"}}>
+          <FontAwesome
+            style={{ paddingRight: 20 }}
+            backgroundColor="white"
+            borderRadius={17}
+            size={28}
+            color="black"
+            name={"users"}
+            onPress={() => {
+              props.navigation.navigate("View Event Attendees", {
+                kiosk_id: props.route.params.kiosk_id,
+                logo: props.route.params.event_logo,
+                kiosk_event: props.route.params.kiosk_event,
+              });
+            }}
+          />
           <FontAwesome
             style={{ paddingRight: 20 }}
             backgroundColor="white"
@@ -81,6 +97,7 @@ import {
               })
             }}
           />
+                     </View>
         ),
       });
     });

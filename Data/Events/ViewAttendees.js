@@ -38,12 +38,36 @@ import {
       }, [isFocused]);
   
       
+
       useEffect(() => {
         props.navigation.setOptions({
-          headerTitle: props.route.params.kiosk_event + " Attendee's Checked In",
+          headerTitle: props.route.params.kiosk_event + " Attendees Checked-In",
+          headerRight: () => (
+            <View style={{flexDirection:"row"}}>
+            <FontAwesome
+              style={{ paddingRight: 20 }}
+              backgroundColor="white"
+              borderRadius={17}
+              size={28}
+              color="black"
+              name={"file-excel-o"}
+              onPress={() => {
+                fetch( baseUrl + "/events/excel.php?kiosk_id=" + props.route.params.kiosk_id )
+                .then((response) => response.json())
+                .then(async (jsonData) => {
+                  Dialog.show({
+                    type: ALERT_TYPE.SUCCESS,
+                    title: "Success",
+                    textBody: "Please check your email inbox or spam folder for the generated excel file.",
+                    autoClose: 5000, // or time in ms by default 5000
+                  });
+                })
+              }}
+            />
+                       </View>
+          ),
         });
       });
-
 
       const searchFilterFunction = (text) => {
         if (text) {
