@@ -214,6 +214,10 @@ const Checkins = (props, navigation) => {
             } else {
               print(fname, lname, status, logo);
             }
+            setFilteredDataSource([]);
+            setisFound(true);
+            searchFilterFunction("");
+            settextValue("");
             releaseCapture(uri);
           });
       },
@@ -224,7 +228,7 @@ const Checkins = (props, navigation) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       searchFilterFunction(textValue);
-    }, 1000)
+    }, 500)
 
     return () => clearTimeout(timer)
   }, [textValue])

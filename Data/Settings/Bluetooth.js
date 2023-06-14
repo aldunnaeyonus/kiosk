@@ -8,6 +8,7 @@ import InfoText from "../extras/InfoText";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import DropDownPicker from "react-native-dropdown-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
 MaterialCommunityIcons.loadFont();
 
   const Bluetooth = (props) => {

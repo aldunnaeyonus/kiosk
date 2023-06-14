@@ -111,6 +111,14 @@ const AddAttendee = ({ navigation, route }) => {
               } else {
               print(fname, lname, status, logo);
             }
+            Toast.show({
+              onPress() {},
+              type: ALERT_TYPE.SUCCESS,
+              title: "Printing Success",
+              textBody: "Please grab your name tag.",
+              autoClose: 5000, // or time in ms by default 5000
+            });
+            navigation.goBack(null);
            releaseCapture(uri);
         });  
       }, 
@@ -152,11 +160,9 @@ const AddAttendee = ({ navigation, route }) => {
       <body class="body">
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status"></div>
       <BR><BR>
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status"></div>
       </body>
       </html>`,
       orientation: "landscape",
@@ -215,7 +221,6 @@ const AddAttendee = ({ navigation, route }) => {
       <body class="body">
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status"></div>
       </body>
       </html>`,
       orientation: "landscape",
@@ -283,12 +288,28 @@ const AddAttendee = ({ navigation, route }) => {
                 onCapture(fname, lname, status, logo);
             }else{
               print2(fname, lname, status, logo);
+              Toast.show({
+                onPress() {},
+                type: ALERT_TYPE.SUCCESS,
+                title: "Printing Success",
+                textBody: "Please grab your name tag.",
+                autoClose: 5000, // or time in ms by default 5000
+              });
+              navigation.goBack(null);
               }
               } else {
                 if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
                   onCapture(fname, lname, status, logo);
               }else{
                 print(fname, lname, status, logo);
+                Toast.show({
+                  onPress() {},
+                  type: ALERT_TYPE.SUCCESS,
+                  title: "Printing Success",
+                  textBody: "Please grab your name tag.",
+                  autoClose: 5000, // or time in ms by default 5000
+                });
+                navigation.goBack(null);
                 }
             }
         })
