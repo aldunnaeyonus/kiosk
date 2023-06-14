@@ -31,6 +31,14 @@ const EventList = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [kiosk_is_ifs, setkiosk_is_ifs] = useState("0");
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      searchFilterFunction(search);
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [search])
+
   const EmptyListMessage = ({ item }) => {
     return (
       <Image
@@ -204,6 +212,35 @@ const EventList = (props) => {
       });
   };
 
+  const closeEvent = (item) => {
+    axios
+      .post(
+        baseUrl + "/events/close.php",
+        {
+          kiosk_id: item,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+        }
+      )
+      .then((response) => {
+        handleRefresh();
+
+      })
+      .catch((error) => {
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.WARNING,
+          title: "Connection Failed",
+          textBody: "Server Connection Error: " + error,
+          autoClose: 5000, // or time in ms by default 5000
+        });
+      });
+  };
+
+
   function Item({ item, index }) {
     return (
       <TouchableOpacity
@@ -251,6 +288,31 @@ const EventList = (props) => {
                     kiosk_owner: item.kiosk_event_owner_id,
                     ifs_mode: kiosk_is_ifs,
                   });
+                },
+              },
+              {
+                text: "Archive Event",
+                onPress: () => {
+                  Alert.alert(
+                    "Archive Event",
+                    "Are you sure you want to Archive this Event [" +
+                    item.kiosk_event_name +
+                      "]\n\nThis will prevent attendees from checking in.",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "destructive",
+                      },
+                      {
+                        text: "Archive Event",
+                        onPress: () => {
+                          closeEvent(item.kiosk_event_id);
+                        },
+                      },
+                    ],
+                    { cancelable: false }
+                  );
                 },
               },
               {
@@ -387,7 +449,7 @@ const EventList = (props) => {
       <TextInput
         style={styles.textInputStyle}
         autoCapitalize="words"
-        onChangeText={(text) => searchFilterFunction(text)}
+        onChangeText={(text) => setSearch(text)}
         underlineColorAndroid="transparent"
         placeholder="Search "
       />

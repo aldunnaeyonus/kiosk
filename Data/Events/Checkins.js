@@ -77,7 +77,9 @@ const Checkins = (props, navigation) => {
                 [
                   {
                     text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
+                    onPress: () => {
+                      console.log("Cancel Pressed");
+                    },
                     style: "destructive",
                   },
                   {
@@ -219,6 +221,14 @@ const Checkins = (props, navigation) => {
     );
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      searchFilterFunction(textValue);
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [textValue])
+
   const searchFilterFunction = async (text) => {
     if (text.length <= 0) {
       setFilteredDataSource([]);
@@ -283,13 +293,19 @@ const Checkins = (props, navigation) => {
         fname +
           " " +
           lname +
-          " with email address of" +
+          " with email address with " +
           email +
-          " has already checked in.",
+          ", has already checked into this event.",
         [
           {
             text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
+            onPress: () => {
+              console.log("Cancel Pressed");
+              setFilteredDataSource([]);
+              setisFound(true);
+              searchFilterFunction("");
+              settextValue("");
+            },
             style: "destructive",
           },
           {
@@ -301,12 +317,20 @@ const Checkins = (props, navigation) => {
               onCapture(fname, lname, status, logo, index);
                 onCapture(fname, lname, status, logo, index);
             }else{
+              setFilteredDataSource([]);
+              setisFound(true);
+              searchFilterFunction("");
+              settextValue("");
               print2(fname, lname, status, logo);
               }
               } else {
                 if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
                   onCapture(fname, lname, status, logo, index);
               }else{
+                setFilteredDataSource([]);
+                setisFound(true);
+                searchFilterFunction("");
+                settextValue("");
                 print(fname, lname, status, logo);
                 }
             }
@@ -344,12 +368,20 @@ const Checkins = (props, navigation) => {
                 onCapture(fname, lname, status, logo, index);
             }else{
               print2(fname, lname, status, logo);
+              setFilteredDataSource([]);
+              setisFound(true);
+              searchFilterFunction("");
+              settextValue("");
               }
               } else {
                 if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
                   onCapture(fname, lname, status, logo, index);
               }else{
                 print(fname, lname, status, logo);
+                setFilteredDataSource([]);
+                setisFound(true);
+                searchFilterFunction("");
+                settextValue("");
                 }
             }
         })
@@ -400,11 +432,9 @@ const Checkins = (props, navigation) => {
       <body class="body">
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status"></div>
       <BR><BR>
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status"></div>
       </body>
       </html>`,
       orientation: "landscape",
@@ -463,7 +493,6 @@ const Checkins = (props, navigation) => {
       <body class="body">
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status"></div>
       </body>
       </html>`,
       orientation: "landscape",
@@ -677,7 +706,6 @@ const Checkins = (props, navigation) => {
         autoCapitalize="words"
         style={styles.textInputStyle}
         onChangeText={(text) => {
-          searchFilterFunction(text);
           settextValue(text);
         }}
         keyboardType="default"
@@ -707,8 +735,8 @@ const Checkins = (props, navigation) => {
             style={{
               height: 50,
               width: "50%",
-              marginBottom: 30,
-              marginTop: 20,
+              marginBottom: 10,
+              marginTop: 0,
               flexDirection: "row",
               borderRadius: 100,
               backgroundColor: "white",

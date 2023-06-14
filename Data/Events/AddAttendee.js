@@ -91,7 +91,8 @@ const AddAttendee = ({ navigation, route }) => {
 
   async function onCapture(fname, lname, status) {
     captureRef(capref, {
-      format: "png",
+      format: "jpg",
+      quality: 1.0
     }).then(
       async uri => {printImage(printer, uri, {autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
         .then((response) =>  {
@@ -106,18 +107,9 @@ const AddAttendee = ({ navigation, route }) => {
 
         }).catch(async (response) => {
           if (parseInt(route.params.prints) > 1) {
-            if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
-                onCapture(fname, lname, status, logo, index);
-                onCapture(fname, lname, status, logo, index);
-            }else{
               print2(fname, lname, status, logo);
-              }
               } else {
-                if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
-                  onCapture(fname, lname, status, logo, index);
-              }else{
-                print(fname, lname, status, logo);
-                }
+              print(fname, lname, status, logo);
             }
            releaseCapture(uri);
         });  
@@ -160,11 +152,11 @@ const AddAttendee = ({ navigation, route }) => {
       <body class="body">
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status">${status}</div>
+      <div class="status"></div>
       <BR><BR>
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status">${status}</div>
+      <div class="status"></div>
       </body>
       </html>`,
       orientation: "landscape",
@@ -223,7 +215,7 @@ const AddAttendee = ({ navigation, route }) => {
       <body class="body">
       <div class="fname">${fname}</div>
       <div class="lname">${lname}</div>
-      <div class="status">${status}</div>
+      <div class="status"></div>
       </body>
       </html>`,
       orientation: "landscape",
@@ -285,16 +277,20 @@ const AddAttendee = ({ navigation, route }) => {
         )
         .then(async (jsonData) => {
           setvisible(false);
-          if (parseInt(route.params.prints) > 1){
-            //print2(fname, lname, status);
-            onCapture(fname, lname, status)
-            onCapture(fname, lname, status)
-
-          }else{
-            //print(fname, lname, status);
-            onCapture(fname, lname, status)
-          }
-          navigation.goBack(null);
+          if (parseInt(route.params.prints) > 1) {
+            if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
+                onCapture(fname, lname, status, logo);
+                onCapture(fname, lname, status, logo);
+            }else{
+              print2(fname, lname, status, logo);
+              }
+              } else {
+                if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
+                  onCapture(fname, lname, status, logo);
+              }else{
+                print(fname, lname, status, logo);
+                }
+            }
         })
         .catch((error) => {
           setvisible(false);
@@ -527,12 +523,42 @@ const AddAttendee = ({ navigation, route }) => {
               {" "}
               Checkin and Grab Name Tag{" "}
             </Text>
-            <ViewShot style={{ position: "absolute", left: -1000, justifyContent: 'center', alignItems: 'center', transform: [{rotate: '90deg'}]}} ref={capref} options={{format: 'png', quality: 0.9}}>
-            <Text style={{fontSize: 15, flex: 1, textAlign: 'center', fontWeight: 'bold',}}>
-            {fname}
+            
+            <ViewShot
+            style={{
+              transform: [{rotate: '90deg'}],
+              position: "absolute",
+              left: -1000,
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            options={{
+            format: "jpg",
+            quality: 1.0
+            }}
+            ref={capref}
+          >
+            <Text
+              style={{
+                fontSize: 50,
+                fontFamily: 'Avenir',
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
+              {fname}
             </Text>
-            <Text style={{fontSize: 13, flex: 1, marginTop: 5, textAlign: 'center', fontWeight: '500'}}>
-            {lname}
+            <Text
+              style={{
+                fontSize: 40,
+                fontFamily: 'Avenir',
+                marginTop: -10,
+                textAlign: "center",
+                fontWeight: "500",
+              }}
+            >
+              {lname}
             </Text>
             <Image
         resizeMode="contain"
@@ -548,7 +574,7 @@ const AddAttendee = ({ navigation, route }) => {
         }}
         source={{ uri: route.params.logo }}
       />
-            </ViewShot>
+          </ViewShot>
           </View>
         </TouchableOpacity>
       </ScrollView>

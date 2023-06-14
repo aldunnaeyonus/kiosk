@@ -281,7 +281,8 @@ const previewAction = () => {
                   <ListItem.Content>
                     <ListItem.Title>iOS Airprint / Direct Print</ListItem.Title>
                   </ListItem.Content>
-                  <ListItem.CheckBox right 
+                  <ListItem.CheckBox 
+                  right 
                   checkedTitle='Using iOS AirPrint' 
                   title='Using Direct Print' 
                   checked={checks} 

@@ -21,6 +21,14 @@ import {
     const [isLoding, setisLoding] = useState(true);
 
 
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        searchFilterFunction(textValue);
+      }, 500)
+  
+      return () => clearTimeout(timer)
+    }, [search])
+
     const EmptyListMessage = () => {
       return (
         <Image
@@ -122,7 +130,7 @@ import {
         <TextInput
                 autoCapitalize="words"
           style={styles.textInputStyle}
-          onChangeText={(text) => searchFilterFunction(text)}
+          onChangeText={(text) => setSearch(text)}
           underlineColorAndroid="transparent"
           placeholder="Search by Attendee Name"
         />
