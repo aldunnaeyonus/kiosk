@@ -89,7 +89,7 @@ const AddAttendee = ({ navigation, route }) => {
     fetchData();
   }, [isFocused]);
 
-  async function onCapture(fname, lname, status) {
+  async function onCapture(fname, lname) {
     captureRef(capref, {
       format: "jpg",
       quality: 1.0
@@ -107,9 +107,9 @@ const AddAttendee = ({ navigation, route }) => {
 
         }).catch(async (response) => {
           if (parseInt(route.params.prints) > 1) {
-              print2(fname, lname, status, logo);
+              print2(fname, lname);
               } else {
-              print(fname, lname, status, logo);
+              print(fname, lname);
             }
             Toast.show({
               onPress() {},
@@ -125,7 +125,7 @@ const AddAttendee = ({ navigation, route }) => {
       error => console.log("Printing failed", error));
   }
 
-  const print2 = async (fname, lname, status, logo) => {
+  const print2 = async (fname, lname) => {
     await Print.printAsync({
       html: `<html>
       <head>
@@ -186,7 +186,7 @@ const AddAttendee = ({ navigation, route }) => {
     });
   };
 
-  const print = async (fname, lname, status, logo) => {
+  const print = async (fname, lname) => {
     await Print.printAsync({
       html: `<html>
       <head>
@@ -250,8 +250,7 @@ const AddAttendee = ({ navigation, route }) => {
     email,
     phone,
     kiosk_id,
-    ifs_id,
-    status
+    ifs_id
   ) => {
 
     if (fname.length <= 0 || lname.length <= 0 || email.length <= 0) {
@@ -262,7 +261,6 @@ const AddAttendee = ({ navigation, route }) => {
         autoClose: 5000, // or time in ms by default 5000
       });
     } else {
-      setvisible(true);
       axios
         .post(
           baseUrl + "/events/checkin.php",
@@ -281,40 +279,29 @@ const AddAttendee = ({ navigation, route }) => {
           }
         )
         .then(async (jsonData) => {
-          setvisible(false);
           if (parseInt(route.params.prints) > 1) {
             if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
-                onCapture(fname, lname, status, logo);
-                onCapture(fname, lname, status, logo);
+              onCapture(fname, lname);
+                onCapture(fname, lname);
             }else{
-              print2(fname, lname, status, logo);
-              Toast.show({
-                onPress() {},
-                type: ALERT_TYPE.SUCCESS,
-                title: "Printing Success",
-                textBody: "Please grab your name tag.",
-                autoClose: 5000, // or time in ms by default 5000
-              });
-              navigation.goBack(null);
+              print2(fname, lname);
               }
               } else {
-                if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
-                  onCapture(fname, lname, status, logo);
+            if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
+                  onCapture(fname, lname);
               }else{
-                print(fname, lname, status, logo);
-                Toast.show({
-                  onPress() {},
-                  type: ALERT_TYPE.SUCCESS,
-                  title: "Printing Success",
-                  textBody: "Please grab your name tag.",
-                  autoClose: 5000, // or time in ms by default 5000
-                });
-                navigation.goBack(null);
+                print(fname, lname);
                 }
             }
         })
         .catch((error) => {
-          setvisible(false);
+          Toast.show({
+            onPress() {},
+            type: ALERT_TYPE.WARNING,
+            title: "Connection Failed",
+            textBody: "Server Connection Error: " + error,
+            autoClose: 5000, // or time in ms by default 5000
+          });
         });
     }
   };
@@ -506,8 +493,6 @@ const AddAttendee = ({ navigation, route }) => {
         </View>
         <TouchableOpacity
           onPress={async () => {
-            console.log(await AsyncStorage.getItem("useAirPrint"))
-
             preview(
               fname,
               lname,
@@ -522,7 +507,7 @@ const AddAttendee = ({ navigation, route }) => {
           <View
             style={{
               height: 50,
-              width: '40%',
+              width: '65%',
               marginTop: 20,
               flexDirection: "row",
               borderRadius: 20,
@@ -593,7 +578,7 @@ const AddAttendee = ({ navigation, route }) => {
           flexDirection: "row",
           justifyContent: "center",
         }}
-        source={{ uri: route.params.logo }}
+        source={{ uri: baseUrl + "/logos/" + route.params.logo }}
       />
           </ViewShot>
           </View>

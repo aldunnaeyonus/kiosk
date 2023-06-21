@@ -18,6 +18,7 @@ import SegmentedControlTab from "react-native-segmented-control-tab";
 const baseUrl = "https://bigdogtools.com/kiosk";
 import { pingPrinter, discoverPrinters } from 'react-native-brother-printers';
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
+import axios from "axios";
 
 const EventList = (props) => {
   const [search, setSearch] = useState("");
@@ -115,14 +116,26 @@ const EventList = (props) => {
         try {
         if (await AsyncStorage.getItem("BrotherPrinterIP") != null){
           discoverPrinters({}).then(async () => {
-            console.log("Discover Successful");
+            Toast.show({
+              onPress() {},
+              type: ALERT_TYPE.SUCCESS,
+              title: "Found a Printer",
+              textBody: "The selected Printer's IP Address was found.",
+              autoClose: 5000, // or time in ms by default 5000
+            });
             pingPrinter(Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP"))
             .then((error) => {
               console.log(error);
             }).catch((err) => {
             });
           }).catch(() => {
-            console.log("Discover failed")
+            Toast.show({
+              onPress() {},
+              type: ALERT_TYPE.WARNING,
+              title: "Failed to Find a Printer",
+              textBody: "The selected Printer's IP Address could not be accessed, please go to the Select A Printer in the settings menu and search for a new printer.",
+              autoClose: 5000, // or time in ms by default 5000
+            });
           });
         }else{
           Dialog.show({
@@ -212,35 +225,7 @@ const EventList = (props) => {
       });
   };
 
-  const closeEvent = (item) => {
-    axios
-      .post(
-        baseUrl + "/events/close.php",
-        {
-          kiosk_id: item,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-        }
-      )
-      .then((response) => {
-        handleRefresh();
-
-      })
-      .catch((error) => {
-        Toast.show({
-          onPress() {},
-          type: ALERT_TYPE.WARNING,
-          title: "Connection Failed",
-          textBody: "Server Connection Error: " + error,
-          autoClose: 5000, // or time in ms by default 5000
-        });
-      });
-  };
-
-
+  
   function Item({ item, index }) {
     return (
       <TouchableOpacity
@@ -307,7 +292,40 @@ const EventList = (props) => {
                       {
                         text: "Archive Event",
                         onPress: () => {
-                          closeEvent(item.kiosk_event_id);
+                          setisLoding(true)
+    axios
+      .post(
+        baseUrl + "/events/close.php",
+        {
+          kiosk_id: item.kiosk_event_id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+        }
+      )
+      .then(async (jsonData) => {
+        setisLoding(false)
+        handleRefresh();
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.SUCCESS,
+          title: "Success",
+          textBody: "Event was successfully archived.",
+          autoClose: 5000, // or time in ms by default 5000
+      })
+      })
+      .catch((error) => {
+        setisLoding(false)
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.WARNING,
+          title: "Connection Failed",
+          textBody: "Server Connection Error: " + error,
+          autoClose: 5000, // or time in ms by default 5000
+        });
+      });
                         },
                       },
                     ],

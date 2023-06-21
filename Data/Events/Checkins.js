@@ -36,32 +36,7 @@ const Checkins = (props, navigation) => {
   const [labelHeight, setlabelHeight] = useState(172.79999999999998);
   let refs = useRef([]);
 
-  const closeEvent = () => {
-    axios
-      .post(
-        baseUrl + "/events/close.php",
-        {
-          kiosk_id: props.route.params.kiosk_id,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-        }
-      )
-      .then((response) => {
-        props.navigation.goBack(null);
-      })
-      .catch((error) => {
-        Toast.show({
-          onPress() {},
-          type: ALERT_TYPE.WARNING,
-          title: "Connection Failed",
-          textBody: "Server Connection Error: " + error,
-          autoClose: 5000, // or time in ms by default 5000
-        });
-      });
-  };
+  
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -148,36 +123,6 @@ const Checkins = (props, navigation) => {
                 logo: props.route.params.event_logo,
                 kiosk_event: props.route.params.kiosk_event,
               });
-            }}
-          />
-          <FontAwesome
-            style={{ paddingRight: 20 }}
-            backgroundColor="white"
-            borderRadius={17}
-            size={28}
-            color="black"
-            name={"file-archive-o"}
-            onPress={() => {
-              Alert.alert(
-                "Archive Event",
-                "Are you sure you want to Archive this Event [" +
-                  props.route.params.kiosk_event +
-                  "]\n\nThis will prevent attendees from checking in.",
-                [
-                  {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "destructive",
-                  },
-                  {
-                    text: "Archive Event",
-                    onPress: () => {
-                      closeEvent();
-                    },
-                  },
-                ],
-                { cancelable: false }
-              );
             }}
           />
            </View>
@@ -726,8 +671,8 @@ const Checkins = (props, navigation) => {
             logo: props.route.params.event_logo,
             prints: props.route.params.prints,
             searchText: textValue,
+            prints: props.route.params.prints,
           });
-          addedEmails.push(textValue);
           setFilteredDataSource([]);
           setisFound(true);
           searchFilterFunction("");
