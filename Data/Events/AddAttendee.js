@@ -266,6 +266,7 @@ const AddAttendee = ({ navigation, route }) => {
             phone: phone,
             id: kiosk_id,
             ifs_id: ifs_id,
+            pin: route.params.pin,
           },
           {
             headers: {

@@ -673,6 +673,7 @@ const Checkins = (props, navigation) => {
             prints: props.route.params.prints,
             searchText: textValue,
             prints: props.route.params.prints,
+            pin: props.route.params.kiosk_id
           });
           setFilteredDataSource([]);
           setisFound(true);
