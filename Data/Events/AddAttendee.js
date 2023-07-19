@@ -89,14 +89,14 @@ const AddAttendee = ({ navigation, route }) => {
     fetchData();
   }, [isFocused]);
 
-  async function onCapture(fname, lname) {
+  async function onCapture() {
     captureRef(capref, {
       format: "jpg",
       quality: 1.0
     }).then(
       async uri => {printImage(printer, uri, {autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
-        .then((response) =>  {
-          Toast.show({
+      .then(async (data) => {
+        Toast.show({
             onPress() {},
             type: ALERT_TYPE.SUCCESS,
             title: "Printing Success",
@@ -106,16 +106,11 @@ const AddAttendee = ({ navigation, route }) => {
           navigation.goBack(null);
 
         }).catch(async (response) => {
-          if (parseInt(route.params.prints) > 1) {
-              print2(fname, lname);
-              } else {
-              print(fname, lname);
-            }
             Toast.show({
               onPress() {},
-              type: ALERT_TYPE.SUCCESS,
+              type: ALERT_TYPE.WARNING,
               title: "Printing Success",
-              textBody: "Please grab your name tag.",
+              textBody: "There was an issue printing. "+response,
               autoClose: 5000, // or time in ms by default 5000
             });
             navigation.goBack(null);
@@ -278,17 +273,17 @@ const AddAttendee = ({ navigation, route }) => {
             },
           }
         )
-        .then(async (jsonData) => {
+        .then(async function (response) {
           if (parseInt(route.params.prints) > 1) {
             if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
-              onCapture(fname, lname);
-                onCapture(fname, lname);
+              onCapture();
+                onCapture();
             }else{
               print2(fname, lname);
               }
               } else {
             if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
-                  onCapture(fname, lname);
+                  onCapture();
               }else{
                 print(fname, lname);
                 }
@@ -529,7 +524,9 @@ const AddAttendee = ({ navigation, route }) => {
               {" "}
               Checkin and Grab Name Tag{" "}
             </Text>
-            
+                      </View>
+                    </TouchableOpacity>
+
             <ViewShot
             style={{
               transform: [{rotate: '90deg'}],
@@ -581,8 +578,6 @@ const AddAttendee = ({ navigation, route }) => {
         source={{ uri: baseUrl + "/logos/" + route.params.logo }}
       />
           </ViewShot>
-          </View>
-        </TouchableOpacity>
       </ScrollView>
     </SafeAreaProvider>
   );

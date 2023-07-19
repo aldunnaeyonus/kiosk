@@ -8,7 +8,7 @@ import InfoText from "../extras/InfoText";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import DropDownPicker from "react-native-dropdown-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { ListItemSubtitle } from '@rneui/base/dist/ListItem/ListItem.Subtitle';
+
 MaterialCommunityIcons.loadFont();
 
   const Bluetooth = (props) => {
@@ -427,6 +427,15 @@ const previewAction = () => {
               <ListItem.Chevron />
             </ListItem>            
             <View style={[styles.dividerTableStyle]} />
+            <ListItem
+              containerStyle={{ paddingVertical: 0 }}
+              key="11"
+              onPress={{}}
+            >
+              <ListItem.Content>
+                <ListItem.Title>v1.0.3</ListItem.Title>
+              </ListItem.Content>
+            </ListItem> 
             </View>
         </View>
     </SafeAreaProvider>

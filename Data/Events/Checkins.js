@@ -260,7 +260,6 @@ const Checkins = (props, navigation) => {
           {
             text: "Re-Print Tag",
             onPress: async () => {
-
           if (parseInt(props.route.params.prints) > 1) {
             if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
               onCapture(fname, lname, status, logo, index);
@@ -308,6 +307,7 @@ const Checkins = (props, navigation) => {
             },
           }
         )
+        .then((response) => response.json())
         .then(async (jsonData) => {
           addedEmails.push(email);
           setaddedEmails(addedEmails);

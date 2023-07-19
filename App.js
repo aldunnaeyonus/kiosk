@@ -82,6 +82,9 @@ export default function App() {
         await AsyncStorage.setItem("labelWidth", "325.03937008");
         await AsyncStorage.setItem("labelHeight", "226.77165354");
         }
+        if (await AsyncStorage.getItem("BrotherPrinterLabel") == null){
+          await AsyncStorage.setItem("BrotherPrinterLabel", "10");
+          }
         if (await AsyncStorage.getItem("useAirPrint") == null){
           await AsyncStorage.setItem("useAirPrint", JSON.stringify(false))
         }
