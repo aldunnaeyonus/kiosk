@@ -173,7 +173,8 @@ const Checkins = (props, navigation) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       searchFilterFunction(textValue);
-    }, 500)
+      Keyboard.dismiss();
+    }, 750)
 
     return () => clearTimeout(timer)
   }, [textValue])

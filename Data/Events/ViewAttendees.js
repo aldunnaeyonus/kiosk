@@ -26,6 +26,15 @@ import {
     const [masterDataSource, setMasterDataSource] = useState([]);
 
     useEffect(() => {
+      const timer = setTimeout(() => {
+        searchFilterFunction(textValue);
+        Keyboard.dismiss();
+      }, 750)
+  
+      return () => clearTimeout(timer)
+    }, [search])
+
+    useEffect(() => {
         const fetchData = async () => {
           fetch( baseUrl + "/search/fetch.php?kioskID=" + props.route.params.kiosk_id )
             .then((response) => response.json())
@@ -244,7 +253,6 @@ import {
           style={styles.textInputStyle}
           onChangeText={(text) => {
             settextValue(text);
-            searchFilterFunction(textValue);
           }}
           keyboardType="default"
           underlineColorAndroid="transparent"

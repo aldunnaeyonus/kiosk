@@ -4,6 +4,7 @@ import {
     FlatList,
     TextInput,
     Image,
+    Keyboard
   } from "react-native";
   import React, { useState, useEffect } from "react";
   import { useIsFocused } from "@react-navigation/native";
@@ -24,7 +25,8 @@ import {
     useEffect(() => {
       const timer = setTimeout(() => {
         searchFilterFunction(textValue);
-      }, 500)
+        Keyboard.dismiss();
+      }, 750)
   
       return () => clearTimeout(timer)
     }, [search])

@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Platform,
   Image,
-  Alert
+  Alert,
+  Keyboard
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
@@ -35,7 +36,8 @@ const EventList = (props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       searchFilterFunction(search);
-    }, 500)
+      Keyboard.dismiss();
+    }, 750)
 
     return () => clearTimeout(timer)
   }, [search])
