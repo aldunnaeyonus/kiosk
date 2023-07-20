@@ -150,7 +150,7 @@ const Checkins = (props, navigation) => {
             setisFound(true);
             searchFilterFunction("");
             settextValue("");
-            releaseCapture(uri);
+            //releaseCapture(uri);
           })
           .catch((error) => {
             Toast.show({
@@ -492,10 +492,6 @@ const Checkins = (props, navigation) => {
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-            }}
-            options={{
-            format: "jpg",
-            quality: 0.9
             }}
             ref={refs.current[index]}
           >
