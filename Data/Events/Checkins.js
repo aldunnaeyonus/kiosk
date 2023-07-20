@@ -7,7 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  Modal,
   Platform,
   Keyboard,
 } from "react-native";
@@ -163,7 +162,7 @@ const Checkins = (props, navigation) => {
             });
           });
       },
-      async (error) => Toast.show({
+      (error) => Toast.show({
         onPress() {},
         type: ALERT_TYPE.WARNING,
         title: "Connection Failed",
@@ -402,7 +401,7 @@ const Checkins = (props, navigation) => {
         onPress() {},
         type: ALERT_TYPE.WARNING,
         title: "Connection Failed",
-        textBody: "Server Connection Error: " + error,
+        textBody: error,
         autoClose: 5000, // or time in ms by default 5000
       });
     });
@@ -460,7 +459,7 @@ const Checkins = (props, navigation) => {
         onPress() {},
         type: ALERT_TYPE.WARNING,
         title: "Connection Failed",
-        textBody: "Server Connection Error: " + error,
+        textBody: error,
         autoClose: 5000, // or time in ms by default 5000
       });
     });
@@ -483,6 +482,8 @@ const Checkins = (props, navigation) => {
           );
         }}
       >
+                  <View style={styles.listItem}>
+
           <ViewShot
             style={{
               transform: [{rotate: '90deg'}],
@@ -534,7 +535,6 @@ const Checkins = (props, navigation) => {
         source={{ uri: logo }}
       />
           </ViewShot>
-          <View style={styles.listItem}>
 
           <View style={{ alignItems: "flex-start", marginStart: 15, flex: 1 }}>
             <View

@@ -16,7 +16,7 @@ MaterialCommunityIcons.loadFont();
   const [url, setURL] = useState("");
   const isFocused = useIsFocused();
   const baseUrl = "https://bigdogtools.com/kiosk";
-  const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "18"}, {label: "DK-2205 W62 RB", value: "7"}]);
+  const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "12"}, {label: "DK-2205 W62 RB", value: "23"}]);
   const [open, setOpen] = useState(false);
   const [valuepaper, setValuepaper] = useState("");
   const [checks, setChecked] = useState(false);
@@ -119,7 +119,7 @@ const previewAction = () => {
         const kiosPrinterTitle = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterName") : window.localStorage.getItem("BrotherPrinterName");
 
         if ((await AsyncStorage.getItem("BrotherPrinterLabel") == "10") || (await AsyncStorage.getItem("BrotherPrinterLabel") == null) ){
-          await AsyncStorage.setItem("BrotherPrinterLabel", "18")
+          await AsyncStorage.setItem("BrotherPrinterLabel", "12")
         setValuepaper("18");
         }else{
           const BrotherPrinterLabel = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterLabel") : window.localStorage.getItem("BrotherPrinterLabel");
