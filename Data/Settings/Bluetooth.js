@@ -118,8 +118,8 @@ const previewAction = () => {
         const kiosPrinterURL = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP");
         const kiosPrinterTitle = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterName") : window.localStorage.getItem("BrotherPrinterName");
 
-        if (await AsyncStorage.getItem("BrotherPrinterLabel") == null){
-        await AsyncStorage.setItem("BrotherPrinterLabel", "18")
+        if ((await AsyncStorage.getItem("BrotherPrinterLabel") == "10") || (await AsyncStorage.getItem("BrotherPrinterLabel") == null) ){
+          await AsyncStorage.setItem("BrotherPrinterLabel", "18")
         setValuepaper("18");
         }else{
           const BrotherPrinterLabel = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterLabel") : window.localStorage.getItem("BrotherPrinterLabel");
