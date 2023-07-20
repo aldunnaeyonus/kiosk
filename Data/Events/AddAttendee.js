@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Platform,
-  ActivityIndicator,
   Modal,
   Image
 } from "react-native";
@@ -23,7 +22,7 @@ FontAwesome.loadFont();
 import * as Print from "expo-print";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import {printImage} from 'react-native-brother-printers';
-import ViewShot, {captureRef, releaseCapture} from "react-native-view-shot";
+import ViewShot, {captureRef} from "react-native-view-shot";
 
 
 const AddAttendee = ({ navigation, route }) => {
@@ -33,37 +32,10 @@ const AddAttendee = ({ navigation, route }) => {
   const [phone, setphone] = useState("");
   const isFocused = useIsFocused();
   const baseUrl = "https://bigdogtools.com/kiosk";
-  const [visible, setvisible] = useState(false);
   const [printer, setPrinter] = useState("");
   const capref = useRef();
   const [labelWidth, setlabelWidth] = useState(252);
   const [labelHeight, setlabelHeight] = useState(172.79999999999998);
-
-  const CustomProgressBar = ({ visible }) => (
-    <Modal
-      style={{ backgroundColor: "transparent" }}
-      onRequestClose={() => null}
-      visible={visible}
-    >
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "#dcdcdc",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <View
-          style={{ borderRadius: 10, backgroundColor: "white", padding: 25 }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: "200" }}>
-            Adding Attendee
-          </Text>
-          <ActivityIndicator size="large" />
-        </View>
-      </View>
-    </Modal>
-  );
 
   useEffect(() => {
       if (route.params.searchText.includes("@")){
@@ -92,10 +64,10 @@ const AddAttendee = ({ navigation, route }) => {
   async function onCapture() {
     captureRef(capref, {
       format: "jpg",
-      quality: 1.0
+      quality: 0.9
     }).then(
       async uri => {printImage(printer, uri, {autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
-      .then(async (data) => {
+      .then(() => {
         Toast.show({
             onPress() {},
             type: ALERT_TYPE.SUCCESS,
@@ -103,21 +75,26 @@ const AddAttendee = ({ navigation, route }) => {
             textBody: "Please grab your name tag.",
             autoClose: 5000, // or time in ms by default 5000
           });
+          releaseCapture(uri);
           navigation.goBack(null);
 
-        }).catch(async (response) => {
-            Toast.show({
-              onPress() {},
-              type: ALERT_TYPE.WARNING,
-              title: "Printing Success",
-              textBody: "There was an issue printing. "+response,
-              autoClose: 5000, // or time in ms by default 5000
-            });
-            navigation.goBack(null);
-           releaseCapture(uri);
+        }).catch((error) => {
+          Toast.show({
+            onPress() {},
+            type: ALERT_TYPE.WARNING,
+            title: "Connection Failed",
+            textBody: "Printer Connection Error: " + error,
+            autoClose: 5000, // or time in ms by default 5000
+          });
         });  
       }, 
-      error => console.log("Printing failed", error));
+      error => Toast.show({
+        onPress() {},
+        type: ALERT_TYPE.WARNING,
+        title: "Connection Failed",
+        textBody: "Printer Connection Error: " + error,
+        autoClose: 5000, // or time in ms by default 5000
+      }));
   }
 
   const print2 = async (fname, lname) => {
@@ -312,7 +289,6 @@ const AddAttendee = ({ navigation, route }) => {
 
   return (
     <SafeAreaProvider style={styles.container}>
-      <CustomProgressBar visible={visible} />
       <ScrollView>
         <View
           style={{
@@ -525,9 +501,6 @@ const AddAttendee = ({ navigation, route }) => {
               {" "}
               Checkin and Grab Name Tag{" "}
             </Text>
-                      </View>
-                    </TouchableOpacity>
-
             <ViewShot
             style={{
               transform: [{rotate: '90deg'}],
@@ -541,6 +514,7 @@ const AddAttendee = ({ navigation, route }) => {
             format: "jpg",
             quality: 1.0
             }}
+            collapsable={false}
             ref={capref}
           >
             <Text
@@ -579,6 +553,8 @@ const AddAttendee = ({ navigation, route }) => {
         source={{ uri: baseUrl + "/logos/" + route.params.logo }}
       />
           </ViewShot>
+          </View>
+                    </TouchableOpacity>
       </ScrollView>
     </SafeAreaProvider>
   );

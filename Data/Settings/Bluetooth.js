@@ -433,7 +433,7 @@ const previewAction = () => {
               onPress={{}}
             >
               <ListItem.Content>
-                <ListItem.Title>v1.0.3</ListItem.Title>
+                <ListItem.Title>v1.0.5</ListItem.Title>
               </ListItem.Content>
             </ListItem> 
             </View>

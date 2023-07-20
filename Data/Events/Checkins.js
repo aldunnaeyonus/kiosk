@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  Modal,
   Platform,
   Keyboard,
 } from "react-native";
@@ -37,7 +38,6 @@ const Checkins = (props, navigation) => {
   let refs = useRef([]);
 
   
-
   useEffect(() => {
     props.navigation.setOptions({
       headerLeft: () =>
@@ -132,14 +132,14 @@ const Checkins = (props, navigation) => {
     });
   }, [navigation]);
   
-  function onCapture(fname, lname, status, logo, index) {
+  function onCapture(index) {
     captureRef(refs.current[index], {
       format: "jpg",    
-      quality: 1.0
+      quality: 0.9
     })
     .then(async (uri) => {
         printImage(printer, uri, { autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
-        .then(async (data) => {
+        .then(() => {
           Toast.show({
             onPress() {},
             type: ALERT_TYPE.SUCCESS,
@@ -153,20 +153,23 @@ const Checkins = (props, navigation) => {
             settextValue("");
             releaseCapture(uri);
           })
-          .catch(async (error) => {
-            if (parseInt(props.route.params.prints) > 1) {
-              print2(fname, lname, status, logo);
-            } else {
-              print(fname, lname, status, logo);
-            }
-            setFilteredDataSource([]);
-            setisFound(true);
-            searchFilterFunction("");
-            settextValue("");
-            releaseCapture(uri);
+          .catch((error) => {
+            Toast.show({
+              onPress() {},
+              type: ALERT_TYPE.WARNING,
+              title: "Connection Failed",
+              textBody: "Printer Connection Error: " + error,
+              autoClose: 5000, // or time in ms by default 5000
+            });
           });
       },
-      (error) => console.log("Capture failed", error)
+      async (error) => Toast.show({
+        onPress() {},
+        type: ALERT_TYPE.WARNING,
+        title: "Connection Failed",
+        textBody: error,
+        autoClose: 5000, // or time in ms by default 5000
+      })
     );
   }
 
@@ -233,8 +236,6 @@ const Checkins = (props, navigation) => {
     phone,
     kiosk_id,
     ifs_id,
-    status,
-    logo,
     index
   ) => {
     if (addedEmails.includes(email)) {
@@ -263,24 +264,24 @@ const Checkins = (props, navigation) => {
             onPress: async () => {
           if (parseInt(props.route.params.prints) > 1) {
             if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
-              onCapture(fname, lname, status, logo, index);
-                onCapture(fname, lname, status, logo, index);
+                onCapture(index);
+                onCapture(index);
             }else{
               setFilteredDataSource([]);
               setisFound(true);
               searchFilterFunction("");
               settextValue("");
-              print2(fname, lname, status, logo);
+              print2(fname, lname);
               }
               } else {
                 if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
-                  onCapture(fname, lname, status, logo, index);
+                  onCapture(index);
               }else{
                 setFilteredDataSource([]);
                 setisFound(true);
                 searchFilterFunction("");
                 settextValue("");
-                print(fname, lname, status, logo);
+                print(fname, lname);
                 }
             }
 
@@ -308,16 +309,15 @@ const Checkins = (props, navigation) => {
             },
           }
         )
-        .then((response) => response.json())
-        .then(async (jsonData) => {
+        .then(async function () {
           addedEmails.push(email);
           setaddedEmails(addedEmails);
           if (parseInt(props.route.params.prints) > 1) {
             if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
-                onCapture(fname, lname, status, logo, index);
-                onCapture(fname, lname, status, logo, index);
+                onCapture(index);
+                onCapture(index);
             }else{
-              print2(fname, lname, status, logo);
+              print2(fname, lname);
               setFilteredDataSource([]);
               setisFound(true);
               searchFilterFunction("");
@@ -325,9 +325,9 @@ const Checkins = (props, navigation) => {
               }
               } else {
                 if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
-                  onCapture(fname, lname, status, logo, index);
+                  onCapture(index);
               }else{
-                print(fname, lname, status, logo);
+                print(fname, lname);
                 setFilteredDataSource([]);
                 setisFound(true);
                 searchFilterFunction("");
@@ -347,7 +347,7 @@ const Checkins = (props, navigation) => {
     }
   };
 
-  const print2 = async (fname, lname, status, logo) => {
+  const print2 = async (fname, lname) => {
     await Print.printAsync({
       html: `<html>
       <head>
@@ -408,7 +408,7 @@ const Checkins = (props, navigation) => {
     });
   };
 
-  const print = async (fname, lname, status, logo) => {
+  const print = async (fname, lname) => {
     await Print.printAsync({
       html: `<html>
       <head>
@@ -479,13 +479,10 @@ const Checkins = (props, navigation) => {
             item.phone,
             props.route.params.kiosk_id,
             item.ifs_id,
-            item.status,
-            props.route.params.event_logo,
             index
           );
         }}
       >
-        <View style={styles.listItem}>
           <ViewShot
             style={{
               transform: [{rotate: '90deg'}],
@@ -497,7 +494,7 @@ const Checkins = (props, navigation) => {
             }}
             options={{
             format: "jpg",
-            quality: 1.0
+            quality: 0.9
             }}
             ref={refs.current[index]}
           >
@@ -537,6 +534,7 @@ const Checkins = (props, navigation) => {
         source={{ uri: logo }}
       />
           </ViewShot>
+          <View style={styles.listItem}>
 
           <View style={{ alignItems: "flex-start", marginStart: 15, flex: 1 }}>
             <View
@@ -595,21 +593,6 @@ const Checkins = (props, navigation) => {
                           : ""
               }
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              preview(
-                item.fname,
-                item.lname,
-                item.email,
-                item.phone,
-                props.route.params.kiosk_id,
-                item.ifs_id,
-                item.status,
-                props.route.params.event_logo,
-                index
-              );
-            }}
-          >
             <View
               style={{
                 width: 90,
@@ -628,8 +611,7 @@ const Checkins = (props, navigation) => {
                 Checkin
               </Text>
             </View>
-          </TouchableOpacity>
-        </View>
+          </View>
       </TouchableOpacity>
     );
   }
@@ -638,6 +620,7 @@ const Checkins = (props, navigation) => {
   return (
     
     <View style={styles.container}>
+
       <Image
         resizeMode="contain"
         resizeMethod="auto"
