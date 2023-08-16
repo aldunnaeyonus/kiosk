@@ -65,6 +65,7 @@
 		<string>_pdl-datastream._tcp</string>
 		<string>_printer._tcp</string>
 		<string>_ipp._tcp</string>
+		<string>_bonjour._tcp</string>
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Big Dog Tags Needs access to locak network to connect to local printers.</string>
