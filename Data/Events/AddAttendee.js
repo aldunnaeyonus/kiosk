@@ -74,6 +74,7 @@ const AddAttendee = ({ navigation, route }) => {
             textBody: "Please grab your name tag.",
             autoClose: 5000, // or time in ms by default 5000
           });
+          releaseCapture(uri);
           navigation.goBack(null);
 
         }).catch((error) => {
@@ -84,6 +85,7 @@ const AddAttendee = ({ navigation, route }) => {
             textBody: error,
             autoClose: 5000, // or time in ms by default 5000
           });
+          releaseCapture(uri);
         });  
       }, 
       error => Toast.show({

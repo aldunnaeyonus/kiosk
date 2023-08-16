@@ -150,7 +150,7 @@ const Checkins = (props, navigation) => {
             setisFound(true);
             searchFilterFunction("");
             settextValue("");
-            //releaseCapture(uri);
+            releaseCapture(uri);
           })
           .catch((error) => {
             Toast.show({

@@ -24,7 +24,7 @@ import {
     const baseUrl = "https://bigdogtools.com/kiosk";
     const isFocused = useIsFocused();
     const [masterDataSource, setMasterDataSource] = useState([]);
-
+/*
     useEffect(() => {
       const timer = setTimeout(() => {
         searchFilterFunction(textValue);
@@ -32,8 +32,8 @@ import {
       }, 750)
   
       return () => clearTimeout(timer)
-    }, [search])
-
+    }, [textValue])
+*/
     useEffect(() => {
         const fetchData = async () => {
           fetch( baseUrl + "/search/fetch.php?kioskID=" + props.route.params.kiosk_id )
