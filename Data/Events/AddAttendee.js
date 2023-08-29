@@ -20,7 +20,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 FontAwesome.loadFont();
 import * as Print from "expo-print";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
-import {printImage, registerBrotherListener} from 'react-native-brother-printers';
+import {printImage, registerBrotherListener, pingPrinter} from 'react-native-brother-printers';
 import ViewShot, {captureRef} from "react-native-view-shot";
 
 
@@ -37,6 +37,25 @@ const AddAttendee = ({ navigation, route }) => {
   const [labelHeight, setlabelHeight] = useState(172.79999999999998);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      pingPrintrer();
+    }, 30000);
+  
+    return () => clearInterval(interval);
+  }, []);
+
+  async function pingPrintrer() {
+    pingPrinter(Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP"))
+    .then((error) => {
+      console.log(error);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  useEffect(() => {
+    pingPrintrer();
+
     registerBrotherListener("onDiscoverPrinters", (printers) => {
             
       // Store these printers somewhere

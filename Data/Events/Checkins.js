@@ -21,7 +21,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 MaterialCommunityIcons.loadFont();
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import ViewShot, { captureRef, releaseCapture } from "react-native-view-shot";
-import { printImage, registerBrotherListener } from "react-native-brother-printers";
+import { printImage, registerBrotherListener, pingPrinter } from "react-native-brother-printers";
 
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -36,12 +36,31 @@ const Checkins = (props, navigation) => {
   const [labelHeight, setlabelHeight] = useState(172.79999999999998);
   let refs = useRef([]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      pingPrintrer();
+    }, 30000);
   
+    return () => clearInterval(interval);
+  }, []);
+
+  async function pingPrintrer() {
+    pingPrinter(Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP"))
+    .then((error) => {
+      console.log(error);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
   useEffect(() => {
     registerBrotherListener("onDiscoverPrinters", (printers) => {
             
       // Store these printers somewhere
     });
+    pingPrintrer();
+
+
     props.navigation.setOptions({
       headerLeft: () =>
         props.route.params.mode === "NORMAL" ? (
