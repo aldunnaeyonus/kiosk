@@ -20,7 +20,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 FontAwesome.loadFont();
 import * as Print from "expo-print";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
-import {printImage} from 'react-native-brother-printers';
+import {printImage, registerBrotherListener} from 'react-native-brother-printers';
 import ViewShot, {captureRef} from "react-native-view-shot";
 
 
@@ -37,6 +37,10 @@ const AddAttendee = ({ navigation, route }) => {
   const [labelHeight, setlabelHeight] = useState(172.79999999999998);
 
   useEffect(() => {
+    registerBrotherListener("onDiscoverPrinters", (printers) => {
+            
+      // Store these printers somewhere
+    });
       if (route.params.searchText.includes("@")){
           setemail(route.params.searchText);
       }else if (/^\d+$/.test(route.params.searchText)){

@@ -8,6 +8,7 @@ import InfoText from "../extras/InfoText";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import DropDownPicker from "react-native-dropdown-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import VersionCheck from 'react-native-version-check';
 
 MaterialCommunityIcons.loadFont();
 
@@ -36,7 +37,13 @@ MaterialCommunityIcons.loadFont();
     props.navigation.navigate("Change Account Details", { title: "Change Account Details", kios_id: props.route.params.kiosk_id });
   }, []);
 
-
+  const appstore = async () => {
+    props.navigation.navigate("WebView", {
+      url: "https://apps.apple.com/us/app/big-dog-tags/id6447769349",
+      name: "App Store",
+    });
+  };
+  
   const privacy = async () => {
     props.navigation.navigate("WebView", {
       url: baseUrl + "/privacyPolicy.html",
@@ -425,7 +432,32 @@ const previewAction = () => {
                 <ListItem.Title>Terms & Use Policy</ListItem.Title>
               </ListItem.Content>
               <ListItem.Chevron />
-            </ListItem>            
+            </ListItem>  
+            <View style={[styles.dividerTableStyleShort]} />
+            <ListItem
+              containerStyle={{ paddingVertical: 5 }}
+              key="7"
+              onPress={appstore}
+            >
+              <Icon
+                type="ionicon"
+                name="arrow-up-circle-outline"
+                size={20}
+                color="white"
+                containerStyle={{
+                  backgroundColor: "#FF3232",
+                  width: 28,
+                  height: 28,
+                  borderRadius: 6,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              />
+              <ListItem.Content>
+                <ListItem.Title>Check for App Update</ListItem.Title>
+              </ListItem.Content>
+              <ListItem.Chevron />
+            </ListItem>           
             <View style={[styles.dividerTableStyle]} />
             <ListItem
               containerStyle={{ paddingVertical: 0 }}
@@ -433,7 +465,7 @@ const previewAction = () => {
               onPress={{}}
             >
               <ListItem.Content>
-                <ListItem.Title>v1.0.6</ListItem.Title>
+              <ListItem.Title>v{VersionCheck.getCurrentVersion()}</ListItem.Title>
               </ListItem.Content>
             </ListItem> 
             </View>

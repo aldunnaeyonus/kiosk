@@ -95,7 +95,7 @@ export default class BrotherPrinters extends Component {
               console.log("Discover failed")
             });
           }} style={styles.appButtonContainer}>
-    <Text style={styles.appButtonText}>Step 2. Touch here to Discover All Available Printers. If no printers are found, retry step 2.</Text>
+    <Text style={styles.appButtonText}>Step 2. Touch here to Discover All Available Printers. If no printers are found, retry step 2.{'\n\n'}Note: Ensure all printers are connected to the internet, and the WIFI icon on the screen is not blinking.{'\n\n'}This feature will not work if you are connected to a network that requires a signin page or Hotel Networks.</Text>
   </TouchableOpacity>
 
                 <View style={styles.loading}>
@@ -193,6 +193,7 @@ listItem: {
     color: "#fff",
     fontWeight: "bold",
     alignSelf: "center",
+    textAlign: "center",
     textTransform: "uppercase"
   }
 });

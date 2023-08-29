@@ -20,6 +20,7 @@ const baseUrl = "https://bigdogtools.com/kiosk";
 import { pingPrinter, discoverPrinters } from 'react-native-brother-printers';
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import axios from "axios";
+import VersionCheck from 'react-native-version-check';
 
 const EventList = (props) => {
   const [search, setSearch] = useState("");
@@ -32,8 +33,19 @@ const EventList = (props) => {
   const [isLoding, setisLoding] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [kiosk_is_ifs, setkiosk_is_ifs] = useState("0");
+  
+  useEffect(async () => {
 
-  useEffect(() => {
+    VersionCheck.needUpdate()
+    .then(res => {
+      if (res.isNeeded) {
+        props.navigation.navigate("WebView", {
+          url: 'https://apps.apple.com/us/app/big-dog-tags/id6447769349',
+          name: "App Store",
+        });
+      }
+    });
+
     const timer = setTimeout(() => {
       searchFilterFunction(search);
       Keyboard.dismiss();
@@ -117,7 +129,7 @@ const EventList = (props) => {
     async function fetchData () {
         try {
         if (await AsyncStorage.getItem("BrotherPrinterIP") != null){
-          discoverPrinters({}).then(async () => {
+           discoverPrinters({}).then(async () => {
             Toast.show({
               onPress() {},
               type: ALERT_TYPE.SUCCESS,
@@ -496,6 +508,7 @@ const EventList = (props) => {
       <FlatList
         keyboardShouldPersistTaps="always"
         style={{ flex: 1 }}
+        numColumns={1}
         ListEmptyComponent={EmptyListMessage}
         refreshing={isLoding}
         keyExtractor={item => item.kiosk_event_id}

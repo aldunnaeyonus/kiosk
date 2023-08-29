@@ -21,7 +21,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 MaterialCommunityIcons.loadFont();
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import ViewShot, { captureRef, releaseCapture } from "react-native-view-shot";
-import { printImage } from "react-native-brother-printers";
+import { printImage, registerBrotherListener } from "react-native-brother-printers";
 
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -38,6 +38,10 @@ const Checkins = (props, navigation) => {
 
   
   useEffect(() => {
+    registerBrotherListener("onDiscoverPrinters", (printers) => {
+            
+      // Store these printers somewhere
+    });
     props.navigation.setOptions({
       headerLeft: () =>
         props.route.params.mode === "NORMAL" ? (

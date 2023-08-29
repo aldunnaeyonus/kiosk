@@ -30,6 +30,9 @@ export default function App() {
   const [showRealApp, setshowRealApp] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [isReady, setIsReady] = useState(false);
+
+  
+
   LogBox.ignoreAllLogs(true);
   const stringToBoolean = (stringValue) => {
     switch(stringValue?.toLowerCase()?.trim()){

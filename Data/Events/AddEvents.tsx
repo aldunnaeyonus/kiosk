@@ -427,7 +427,7 @@ const AddEvent = ({ navigation }) => {
               height: 0.5,
             }}
             open={open}
-            placeholder="Select Event Logo"
+            placeholder="Select Event Logo (Scroll Down to See More)"
             placeholderStyle={{ fontSize: 18 }}
             textStyle={{ fontSize: 18 }}
             value={value}

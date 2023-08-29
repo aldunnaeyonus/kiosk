@@ -313,6 +313,8 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-version-check (3.4.7):
+    - React-Core
   - react-native-view-shot (3.6.0):
     - React-Core
   - react-native-webview (11.26.0):
@@ -484,6 +486,7 @@ DEPENDENCIES:
   - react-native-html-to-pdf (from `../node_modules/react-native-html-to-pdf`)
   - react-native-print (from `../node_modules/react-native-print`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-version-check (from `../node_modules/react-native-version-check`)
   - react-native-view-shot (from `../node_modules/react-native-view-shot`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -591,6 +594,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-print"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-version-check:
+    :path: "../node_modules/react-native-version-check"
   react-native-view-shot:
     :path: "../node_modules/react-native-view-shot"
   react-native-webview:
@@ -680,6 +685,7 @@ SPEC CHECKSUMS:
   react-native-html-to-pdf: 4c5c6e26819fe202971061594058877aa9b25265
   react-native-print: f704aef52d931bfce6d1d84351dbb5232d7ecb89
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
+  react-native-version-check: 6cd36aad4e30b8e3216747e3b4ddeb09e0647af8
   react-native-view-shot: 705f999ac2a24e4e6c909c0ca65c732ed33ca2ff
   react-native-webview: 994b9f8fbb504d6314dc40d83f94f27c6831b3bf
   React-perflogger: 2d505bbe298e3b7bacdd9e542b15535be07220f6
