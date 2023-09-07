@@ -97,7 +97,7 @@ const AddAttendee = ({ navigation, route }) => {
       }));
   }
 
-  const print = (index) => {
+  const print = () => {
     Toast.show({
       onPress() {},
       type: ALERT_TYPE.SUCCESS,
