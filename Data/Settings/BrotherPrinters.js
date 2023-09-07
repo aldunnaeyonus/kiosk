@@ -32,6 +32,7 @@ export default class BrotherPrinters extends Component {
                 onPress={async () => {
             await AsyncStorage.setItem("BrotherPrinterIP", item.ipAddress);   
             await AsyncStorage.setItem("BrotherPrinterName", item.serialNumber);   
+            await AsyncStorage.setItem("AirprintURL", "ipp://"+item.nodeName+".local:631/ipp/print");   
             await AsyncStorage.setItem("BrotherPrinter", JSON.stringify(item));
             Toast.show({
                 type: ALERT_TYPE.SUCCESS,

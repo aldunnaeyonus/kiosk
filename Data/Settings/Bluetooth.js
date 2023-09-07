@@ -1,14 +1,12 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import { View, StyleSheet, Platform, Dimensions, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, Platform, Dimensions, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 const { width: ScreenWidth } = Dimensions.get("screen");
 import { ListItem, Icon } from "@rneui/themed";
 import InfoText from "../extras/InfoText";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import DropDownPicker from "react-native-dropdown-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import VersionCheck from 'react-native-version-check';
 
 MaterialCommunityIcons.loadFont();
 
@@ -155,7 +153,7 @@ const previewAction = () => {
   };
 
   return (
-    <SafeAreaProvider style={{ backgroundColor:'white' }}>
+    <ScrollView style={{ backgroundColor:'white' }}>
           <View>
             <InfoText text="Account" />
             <View>
@@ -465,12 +463,12 @@ const previewAction = () => {
               onPress={{}}
             >
               <ListItem.Content>
-              <ListItem.Title>v{VersionCheck.getCurrentVersion()}</ListItem.Title>
+              <ListItem.Title>v1.0.6</ListItem.Title>
               </ListItem.Content>
             </ListItem> 
             </View>
         </View>
-    </SafeAreaProvider>
+    </ScrollView>
 
   );
 }

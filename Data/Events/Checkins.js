@@ -21,7 +21,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 MaterialCommunityIcons.loadFont();
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import ViewShot, { captureRef, releaseCapture } from "react-native-view-shot";
-import { printImage, registerBrotherListener, pingPrinter } from "react-native-brother-printers";
+import { printImage } from "react-native-brother-printers";
 
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -32,35 +32,12 @@ const Checkins = (props, navigation) => {
   const [addedEmails, setaddedEmails] = useState([]);
   const baseUrl = "https://bigdogtools.com/kiosk";
   const [printer, setPrinter] = useState();
-  const [labelWidth, setlabelWidth] = useState(252);
-  const [labelHeight, setlabelHeight] = useState(172.79999999999998);
+
   let refs = useRef([]);
+  const [printerURL, setprinterURL] = useState('');
+
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      pingPrintrer();
-    }, 30000);
-  
-    return () => clearInterval(interval);
-  }, []);
-
-  async function pingPrintrer() {
-    pingPrinter(Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP"))
-    .then((error) => {
-      console.log(error);
-    }).catch((err) => {
-      console.log(err);
-    });
-  }
-
-  useEffect(() => {
-    registerBrotherListener("onDiscoverPrinters", (printers) => {
-            
-      // Store these printers somewhere
-    });
-    pingPrintrer();
-
-
     props.navigation.setOptions({
       headerLeft: () =>
         props.route.params.mode === "NORMAL" ? (
@@ -239,6 +216,7 @@ const Checkins = (props, navigation) => {
           Platform.OS !== "web"
             ? await AsyncStorage.getItem("BrotherPrinter")
             : window.localStorage.getItem("BrotherPrinter");
+          setprinterURL(await AsyncStorage.getItem("AirprintURL"));
         setPrinter(JSON.parse(BrotherPrinter));
       } catch (error) {
         setPrinter("");
@@ -289,21 +267,22 @@ const Checkins = (props, navigation) => {
                 onCapture(index);
                 onCapture(index);
             }else{
+              print(index);
+              print(index);
               setFilteredDataSource([]);
               setisFound(true);
               searchFilterFunction("");
               settextValue("");
-              print2(fname, lname);
-              }
+            }
               } else {
                 if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
                   onCapture(index);
               }else{
+                print(index);
                 setFilteredDataSource([]);
                 setisFound(true);
                 searchFilterFunction("");
                 settextValue("");
-                print(fname, lname);
                 }
             }
 
@@ -339,7 +318,8 @@ const Checkins = (props, navigation) => {
                 onCapture(index);
                 onCapture(index);
             }else{
-              print2(fname, lname);
+              print(index);
+              print(index);
               setFilteredDataSource([]);
               setisFound(true);
               searchFilterFunction("");
@@ -349,7 +329,7 @@ const Checkins = (props, navigation) => {
                 if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
                   onCapture(index);
               }else{
-                print(fname, lname);
+                print(index);
                 setFilteredDataSource([]);
                 setisFound(true);
                 searchFilterFunction("");
@@ -369,123 +349,42 @@ const Checkins = (props, navigation) => {
     }
   };
 
-  const print2 = async (fname, lname) => {
-    await Print.printAsync({
-      html: `<html>
-      <head>
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
-        <style>
-        html,body {
-          width:${labelWidth}px;
-          height:${labelHeight}px;
-          vertical-align: center;
-          horizontal-align: center;
-          margin: .5rem .5rem .5rem .5rem;
-        }
-        .fname { 
-          font-size: 4em; 
-          font-weight: bolder; 
-          text-align: center;
-        }
-        .lname {
-          font-size: 3em; 
-          font-weight: bold; 
-          margin: -1rem 0rem 0rem 0rem;
-          text-align: center;
-          }
-        .status {
-          font-size: 2em; 
-          font-weight: lighter; 
-          margin: -0.5rem 0rem 0rem 0rem;
-          text-align: center;
-          }
-      </style>
-      </head>
-      <body class="body">
-      <div class="fname">${fname}</div>
-      <div class="lname">${lname}</div>
-      <BR><BR>
-      <div class="fname">${fname}</div>
-      <div class="lname">${lname}</div>
-      </body>
-      </html>`,
-      orientation: "landscape",
-      width: labelWidth,
-      margins: {
-        left: 1,
-        top: 1,
-        right: 1,
-        bottom: 1,
-      },
-      height: labelHeight,
-      useMarkupFormatter: true,
-    }).catch((error) => {
-      Toast.show({
-        onPress() {},
-        type: ALERT_TYPE.WARNING,
-        title: "Connection Failed",
-        textBody: error,
-        autoClose: 5000, // or time in ms by default 5000
-      });
+  const print = (index) => {
+    Toast.show({
+      onPress() {},
+      type: ALERT_TYPE.SUCCESS,
+      title: "Loading",
+      textBody: "Gathering details.",
+      autoClose: 5000, // or time in ms by default 5000
     });
-  };
+    captureRef(refs.current[index], {
+      format: "jpg",    
+      quality: 0.9
+    })
+    .then((uri) => {
+      Print.printAsync({
+        uri: uri,
+        orientation: "landscape",
+        printerUrl: printerURL
+      });
 
-  const print = async (fname, lname) => {
-    await Print.printAsync({
-      html: `<html>
-      <head>
-        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
-        <style>
-        html,body {
-          width:${labelWidth}px;
-          height:${labelHeight}px;
-          vertical-align: center;
-          horizontal-align: center;
-          margin: .5rem .5rem .5rem .5rem;
-        }
-        .fname { 
-          font-size: 4em; 
-          font-weight: bolder; 
-          text-align: center;
-        }
-        .lname {
-          font-size: 3em; 
-          font-weight: bold; 
-          margin: -1rem 0rem 0rem 0rem;
-          text-align: center;
-          }
-        .status {
-          font-size: 2em; 
-          font-weight: lighter; 
-          margin: -0.5rem 0rem 0rem 0rem;
-          text-align: center;
-          }
-      </style>
-      </head>
-      <body class="body">
-      <div class="fname">${fname}</div>
-      <div class="lname">${lname}</div>
-      </body>
-      </html>`,
-      orientation: "landscape",
-      width: labelWidth,
-      margins: {
-        left: 1,
-        top: 1,
-        right: 1,
-        bottom: 1,
-      },
-      height: labelHeight,
-      useMarkupFormatter: true,
     }).catch((error) => {
       Toast.show({
         onPress() {},
         type: ALERT_TYPE.WARNING,
         title: "Connection Failed",
-        textBody: error,
+        textBody: "Ensure your printer is not asleep. " +error,
         autoClose: 5000, // or time in ms by default 5000
       });
-    });
+      },
+      (error) => Toast.show({
+        onPress() {},
+        type: ALERT_TYPE.WARNING,
+        title: "Connection Failed",
+        textBody: "Ensure your printer is not asleep. " +error,
+        autoClose: 5000, // or time in ms by default 5000
+      })
+    );
   };
 
   function Item({ item, index }) {
@@ -639,7 +538,21 @@ const Checkins = (props, navigation) => {
   return (
     
     <View style={styles.container}>
-
+     {logo.includes("NoLogo.png") ?
+          <Image
+          resizeMode="contain"
+          resizeMethod="auto"
+          style={{
+            width: "100%",
+            marginTop: 10,
+            height: "10%",
+            alignSelf: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+          source={require("../../assets/register.png")}
+          />
+        :
       <Image
         resizeMode="contain"
         resizeMethod="auto"
@@ -653,6 +566,7 @@ const Checkins = (props, navigation) => {
         }}
         source={{ uri: logo }}
       />
+      }
 
       <TextInput
         autoCapitalize="words"

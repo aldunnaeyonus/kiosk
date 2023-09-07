@@ -17,7 +17,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 FontAwesome.loadFont();
 import SegmentedControlTab from "react-native-segmented-control-tab";
 const baseUrl = "https://bigdogtools.com/kiosk";
-import { pingPrinter, discoverPrinters } from 'react-native-brother-printers';
+import BRPtouchPrinter from 'react-native-brother-printers';
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import axios from "axios";
 import VersionCheck from 'react-native-version-check';
@@ -129,7 +129,7 @@ const EventList = (props) => {
     async function fetchData () {
         try {
         if (await AsyncStorage.getItem("BrotherPrinterIP") != null){
-           discoverPrinters({}).then(async () => {
+          BRPtouchPrinter().discoverPrinters({}).then(async () => {
             Toast.show({
               onPress() {},
               type: ALERT_TYPE.SUCCESS,

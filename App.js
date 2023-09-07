@@ -81,10 +81,6 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        if (await AsyncStorage.getItem("labelWidth") == null){
-        await AsyncStorage.setItem("labelWidth", "325.03937008");
-        await AsyncStorage.setItem("labelHeight", "226.77165354");
-        }
         if ((await AsyncStorage.getItem("BrotherPrinterLabel") == "10") || (await AsyncStorage.getItem("BrotherPrinterLabel") == null) ){
           await AsyncStorage.setItem("BrotherPrinterLabel", "12");
           }
