@@ -52,8 +52,8 @@ export default class BrotherPrinters extends Component {
               }}
             >
               <FontAwesome name="print" size={20} style={styles.whiteIcon2} />
-              <Text style={{ marginLeft: 10, fontWeight: "bold", fontSize: 20, marginTop: 5 }}>
-                {item.serialNumber}
+              <Text style={{ marginLeft: 10, fontWeight: "bold", fontSize: 20, marginTop: 5, }}>
+                SN: {item.serialNumber} - IP: {item.ipAddress}
               </Text>
               <Text style={{ marginLeft: 10, fontWeight: "bold", fontSize: 15, marginTop: 5 }}>
               </Text>
@@ -85,7 +85,7 @@ export default class BrotherPrinters extends Component {
       </ViewShot>
 
         <View style={styles.actions}>
-        <Text style={styles.instructions}>Step 1. Ensure this device and all printers are connected to the same network.</Text>
+        <Text style={styles.instructions}>Step 1.{"\n\n"}Ensure all printers are connected to the same network, turned on, and the WIFI icon on the printer screen is not blinking.{"\n\n"}Also, the print feature will not work if you are connected to a network that requires a sign in page or Hotel Networks.</Text>
 
         <TouchableOpacity onPress={() => {
             this.setState({loading: true})
@@ -96,15 +96,13 @@ export default class BrotherPrinters extends Component {
               console.log("Discover failed")
             });
           }} style={styles.appButtonContainer}>
-    <Text style={styles.appButtonText}>Step 2. Touch here to Discover All Available Printers. If no printers are found, retry step 2.{'\n\n'}Note: Ensure all printers are connected to the internet, and the WIFI icon on the screen is not blinking.{'\n\n'}This feature will not work if you are connected to a network that requires a signin page or Hotel Networks.</Text>
+    <Text style={styles.appButtonText}>Step 2.{"\n\n"}Touch here to Discover All Available Printers. If no printers are found, retry step 2.</Text>
   </TouchableOpacity>
 
-                <View style={styles.loading}>
-        <ActivityIndicator animating={loading} size={'large'} color={'black'}/>
-                </View>
+
           {printer.length > 0 && (
                     <>
-              <Text style={styles.instructions2}>Step 3. Select a Printer from the list below.</Text>
+              <Text style={styles.instructions2}>Step 3.{"\n\n"}Select a Printer from the list below.</Text>
 
                     <FlatList
                         data={printer}
@@ -116,8 +114,9 @@ export default class BrotherPrinters extends Component {
 
 
           )}
-
-          
+                <View style={styles.loading}>
+        <ActivityIndicator animating={loading} size={'large'} color={'blue'}/>
+                </View>
         </View>
       </View>
     );
@@ -160,7 +159,6 @@ const styles = StyleSheet.create({
 
   },
   loading: {
-    position: 'absolute',
     left: 0,
     right: 0,
     top: 100,
@@ -180,7 +178,6 @@ listItem: {
     width: "100%",
     flex: 1,
     alignSelf: "center",
-    flexDirection: "row",
   },
   appButtonContainer: {
     elevation: 8,

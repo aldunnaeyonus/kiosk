@@ -424,9 +424,9 @@ const AddAttendee = ({ navigation, route }) => {
             <View style={styles.listItem}>
             <ViewShot
             style={{
-              transform: [{rotate: '90deg'}],
+              //transform: [{rotate: '90deg'}],
               position: "absolute",
-              left: -1000,
+              //left: -1000,
               flex: 1,
               justifyContent: "center",
               alignItems: "center",

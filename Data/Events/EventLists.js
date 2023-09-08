@@ -505,6 +505,8 @@ const EventList = (props) => {
           onTabPress={handleSingleIndexSelect}
         />
       </View>
+      <Text style={{margin:10, textAlign:'center'}}>Enure the printer under the settings is selected after turning off printers. Rechecking is done incase of an IP or network change.</Text>
+
       <FlatList
         keyboardShouldPersistTaps="always"
         style={{ flex: 1 }}

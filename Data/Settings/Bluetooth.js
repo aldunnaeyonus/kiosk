@@ -7,6 +7,7 @@ import { ListItem, Icon } from "@rneui/themed";
 import InfoText from "../extras/InfoText";
 import DropDownPicker from "react-native-dropdown-picker";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import * as Application from 'expo-application';
 
 MaterialCommunityIcons.loadFont();
 
@@ -463,7 +464,7 @@ const previewAction = () => {
               onPress={{}}
             >
               <ListItem.Content>
-              <ListItem.Title>v1.0.6</ListItem.Title>
+              <ListItem.Title>v{Application.nativeApplicationVersion}</ListItem.Title>
               </ListItem.Content>
             </ListItem> 
             </View>
