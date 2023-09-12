@@ -134,7 +134,8 @@ const Checkins = (props, navigation) => {
   function onCapture(index) {
     captureRef(refs.current[index], {
       format: "jpg",    
-      quality: 0.9
+      quality: 0.9,
+      screenView: "check"
     })
     .then(async (uri) => {
         printImage(printer, uri, { autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
@@ -176,7 +177,7 @@ const Checkins = (props, navigation) => {
     const timer = setTimeout(() => {
       searchFilterFunction(textValue);
       Keyboard.dismiss();
-    }, 750)
+    }, 1500)
 
     return () => clearTimeout(timer)
   }, [textValue])
@@ -359,14 +360,15 @@ const Checkins = (props, navigation) => {
     });
     captureRef(refs.current[index], {
       format: "jpg",    
-      quality: 0.9
+      quality: 0.9,
+      screenView: "check"
     })
     .then((uri) => {
       Print.printAsync({
         uri: uri,
         orientation: "landscape",
         printerUrl: printerURL
-      });
+            });
 
     }).catch((error) => {
       Toast.show({
@@ -408,7 +410,7 @@ const Checkins = (props, navigation) => {
 
           <ViewShot
             style={{
-              transform: [{rotate: '90deg'}],
+              transform: [{rotate: '-90deg'}],
               position: "absolute",
               left: -1000,
               flex: 1,

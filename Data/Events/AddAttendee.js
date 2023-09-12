@@ -21,7 +21,7 @@ FontAwesome.loadFont();
 import * as Print from "expo-print";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import {printImage} from 'react-native-brother-printers';
-import ViewShot, {captureRef} from "react-native-view-shot";
+import ViewShot, {captureRef, releaseCapture} from "react-native-view-shot";
 
 
 const AddAttendee = ({ navigation, route }) => {
@@ -63,7 +63,8 @@ const AddAttendee = ({ navigation, route }) => {
   async function onCapture() {
     captureRef(capref, {
       format: "jpg",
-      quality: 0.9
+      quality: 0.9,
+      screenView: "add"
     }).then(
       async uri => {printImage(printer, uri, {autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
       .then(() => {
@@ -107,7 +108,8 @@ const AddAttendee = ({ navigation, route }) => {
     });
     captureRef(capref, {
       format: "jpg",    
-      quality: 0.9
+      quality: 0.9,
+      screenView: "add"
     })
     .then((uri) => {
       Print.printAsync({
@@ -170,7 +172,7 @@ const AddAttendee = ({ navigation, route }) => {
             },
           }
         )
-        .then(async function (response) {
+        .then(async function () {
           if (parseInt(route.params.prints) > 1) {
             if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
               onCapture();
@@ -424,9 +426,9 @@ const AddAttendee = ({ navigation, route }) => {
             <View style={styles.listItem}>
             <ViewShot
             style={{
-              //transform: [{rotate: '90deg'}],
+              transform: [{rotate: '-90deg'}],
               position: "absolute",
-              //left: -1000,
+              left: -1000,
               flex: 1,
               justifyContent: "center",
               alignItems: "center",

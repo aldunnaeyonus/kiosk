@@ -34,8 +34,7 @@ const EventList = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [kiosk_is_ifs, setkiosk_is_ifs] = useState("0");
   
-  useEffect(async () => {
-
+  const doSomething = async() =>{
     VersionCheck.needUpdate()
     .then(res => {
       if (res.isNeeded) {
@@ -45,12 +44,43 @@ const EventList = (props) => {
         });
       }
     });
+    const kiosk_id =
+    Platform.OS !== "web"
+      ? await AsyncStorage.getItem("kiosk_id")
+      : window.localStorage.getItem("kiosk_id");
+      const kioskifs = Platform.OS !== "web" ? await AsyncStorage.getItem("kiosk_is_ifs") : window.localStorage.getItem("kiosk_is_ifs");
 
+  const kiosk_comapny_name =
+    Platform.OS !== "web"
+      ? await AsyncStorage.getItem("kiosk_comapny_name")
+      : window.localStorage.getItem("kiosk_comapny_name");
+  setkiosk_ids(kiosk_id);
+  setkiosk_name(kiosk_comapny_name);
+  setkiosk_is_ifs(""+kioskifs)
+  props.navigation.setOptions({
+    title: kiosk_comapny_name + " Events List",
+  });
+  fetch(
+    baseUrl +
+      "/events/index.php?kiosk_id=" +
+      kiosk_id +
+      "&active=" +
+      active
+  )
+    .then((response) => response.json())
+    .then((jsonData) => {
+        setFilteredDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
+        setMasterDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
+        setisLoding(false)
+    });
+    }
+
+    
+  useEffect(() => {
     const timer = setTimeout(() => {
       searchFilterFunction(search);
       Keyboard.dismiss();
-    }, 750)
-
+    }, 1600)
     return () => clearTimeout(timer)
   }, [search])
 
@@ -89,40 +119,10 @@ const EventList = (props) => {
   };
 
   useEffect(() => {
+    
     setisLoding(true)
     setActive(selectedIndex == 0 ? "0" : "1");
-    async function fetchData () {
-      const kiosk_id =
-        Platform.OS !== "web"
-          ? await AsyncStorage.getItem("kiosk_id")
-          : window.localStorage.getItem("kiosk_id");
-          const kioskifs = Platform.OS !== "web" ? await AsyncStorage.getItem("kiosk_is_ifs") : window.localStorage.getItem("kiosk_is_ifs");
-
-      const kiosk_comapny_name =
-        Platform.OS !== "web"
-          ? await AsyncStorage.getItem("kiosk_comapny_name")
-          : window.localStorage.getItem("kiosk_comapny_name");
-      setkiosk_ids(kiosk_id);
-      setkiosk_name(kiosk_comapny_name);
-      setkiosk_is_ifs(""+kioskifs)
-      props.navigation.setOptions({
-        title: kiosk_comapny_name + " Events List",
-      });
-      fetch(
-        baseUrl +
-          "/events/index.php?kiosk_id=" +
-          kiosk_id +
-          "&active=" +
-          active
-      )
-        .then((response) => response.json())
-        .then(async (jsonData) => {
-            setisLoding(false)
-            setFilteredDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
-            setMasterDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
-        });
-    };
-    fetchData();
+    doSomething();
   }, [isFocused]);
 
   useEffect(() => {
@@ -505,7 +505,7 @@ const EventList = (props) => {
           onTabPress={handleSingleIndexSelect}
         />
       </View>
-      <Text style={{margin:10, textAlign:'center'}}>Enure the printer under the settings is selected after turning off printers. Rechecking is done incase of an IP or network change.</Text>
+      <Text style={{margin:10, textAlign:'center'}}>Ensure the required printer under the settings menu is choosen before printing tags, this is incase of an IP Address or network change during device storage.</Text>
 
       <FlatList
         keyboardShouldPersistTaps="always"
