@@ -77,11 +77,13 @@ const EventList = (props) => {
 
     
   useEffect(() => {
+    if (search.length > 1){
     const timer = setTimeout(() => {
       searchFilterFunction(search);
       Keyboard.dismiss();
     }, 1600)
     return () => clearTimeout(timer)
+  }
   }, [search])
 
   const EmptyListMessage = ({ item }) => {
@@ -119,7 +121,6 @@ const EventList = (props) => {
   };
 
   useEffect(() => {
-    
     setisLoding(true)
     setActive(selectedIndex == 0 ? "0" : "1");
     doSomething();
