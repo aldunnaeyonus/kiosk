@@ -22,13 +22,16 @@
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
-{
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge {
+  NSString * mURL = @"https://bigdogtools.com/kiosk/main.jsbundle";
+  /*
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+   */
+  return [NSURL URLWithString:mURL];
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.
