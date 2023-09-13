@@ -11006,6 +11006,11 @@ react-native-app-intro-slider@^4.0.4:
   resolved "https://registry.npmjs.org/react-native-app-intro-slider/-/react-native-app-intro-slider-4.0.4.tgz"
   integrity sha512-Zkjaol6X3BbZkHUpVDj2LjdidpS6rCgKi0fx80xgGKa0pHxBRd4swWTv2bHnnvu5k1/HXwYk0mY2TbK+2jHl5w==
 
+react-native-auto-updater@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/react-native-auto-updater/-/react-native-auto-updater-0.2.5.tgz#258d4a5d9757c1254a130d9d4b35fcc2531fa9e1"
+  integrity sha512-R12o09HTEv46pt5h/hZQSw5/KkINv1OGEjDUCRwJ6+vJAE28UV/xRnjrbcQNWQAkaU490/cdKbNpFCKGDL5GTA==
+
 react-native-autocomplete-input@^5.3.2:
   version "5.3.2"
   resolved "https://registry.npmjs.org/react-native-autocomplete-input/-/react-native-autocomplete-input-5.3.2.tgz"

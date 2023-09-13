@@ -3,6 +3,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
 #import "LocalNetworkPrivacy.h"
+#import "ReactNativeAutoUpdater.h"
 
 @implementation AppDelegate
 
@@ -23,15 +24,14 @@
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge {
-  NSString * mURL = @"https://bigdogtools.com/kiosk/main.jsbundle";
-  /*
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-#endif
-   */
-  return [NSURL URLWithString:mURL];
+   //NSString * mURL = @"https:/bigdogtools.com/kiosk/main.jsbundle";
+  //return [NSURL URLWithString:mURL];
+   #endif
+   
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.

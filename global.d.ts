@@ -3,3 +3,4 @@ declare module 'react-native-html-to-pdf';
 declare module 'react-native-brother-printers';
 declare module 'react-native-image-rotate';
 declare module 'react-native-version-check';
+declare module 'react-native-auto-updater';
