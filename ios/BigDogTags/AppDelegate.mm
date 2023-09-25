@@ -3,7 +3,6 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
 #import "LocalNetworkPrivacy.h"
-#import "ReactNativeAutoUpdater.h"
 
 @implementation AppDelegate
 
