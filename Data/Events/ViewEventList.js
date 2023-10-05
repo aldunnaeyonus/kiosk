@@ -8,8 +8,8 @@ import {
   } from "react-native";
   import React, { useState, useEffect } from "react";
   import { useIsFocused } from "@react-navigation/native";
-  import FontAwesome from "@expo/vector-icons/FontAwesome";
-  FontAwesome.loadFont();
+  import { FontAwesome } from '@expo/vector-icons';
+
   const baseUrl = "https://bigdogtools.com/kiosk";
   import { ListItem } from '@rneui/themed'
   import { ALERT_TYPE, Dialog } from "react-native-alert-notification";

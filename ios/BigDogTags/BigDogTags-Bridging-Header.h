@@ -1,15 +1,3 @@
 //
-//  BigDogTags-Bridging-Header.m
-//  BigDogTags
+//  Use this file to import your target's public headers that you would like to expose to Swift.
 //
-//  Created by Andrew Dunn on 5/11/23.
-//
-
-
-  // Import the React Native code we want to use.
-#import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
-
-  // For Expo Core unimodules.
-#import <ExpoModulesCore/EXExportedModule.h>
-#import <ExpoModulesCore/EXModuleRegistryConsumer.h>

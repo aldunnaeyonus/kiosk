@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Big Dog Tags</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -39,6 +39,20 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>127.0.0.1</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>192.168.50.133</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 			<key>bigdogtools.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
@@ -65,7 +79,7 @@
 		</dict>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Big Dog Tags Needs access to bluetooth to connect to local printers.</string>
+	<string>$(PRODUCT_NAME) needs access to bluetooth to connect to local printers.</string>
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_lnp._tcp.</string>
@@ -74,7 +88,7 @@
 		<string>_ipp._tcp</string>
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Big Dog Tags Needs access to locak network to connect to local printers.</string>
+	<string>$(PRODUCT_NAME) needs access to locak network to connect to local printers.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -97,6 +111,7 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
+		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

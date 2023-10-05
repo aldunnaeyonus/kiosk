@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Big Dog Tags",
-    "slug": "Big_Dog-Tags",
+    "slug": "Big Dog Tag",
     "privacy": "private",
     "description": "Big Dog Tags",
     "platforms": [
@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

@@ -17,10 +17,11 @@ import moment from "moment";
 import { useIsFocused } from "@react-navigation/native";
 const { width: ScreenWidth } = Dimensions.get("screen");
 import axios from "axios";
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { FontAwesome } from '@expo/vector-icons';
+
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import DropDownPicker from 'react-native-dropdown-picker';
-FontAwesome.loadFont();
+
 
 const EditEvents = ({ navigation, route }) => {
   const [datePickerVisible, setDatePickerVisible] = useState(false);

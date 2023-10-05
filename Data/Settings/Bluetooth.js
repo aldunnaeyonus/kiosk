@@ -16,10 +16,11 @@ MaterialCommunityIcons.loadFont();
   const [url, setURL] = useState("");
   const isFocused = useIsFocused();
   const baseUrl = "https://bigdogtools.com/kiosk";
-  const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "12"}, {label: "DK-2205 W62 RB", value: "23"}]);
+  const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "10"}, {label: "DK-2205 W62 RB", value: "21"}]);
   const [open, setOpen] = useState(false);
   const [valuepaper, setValuepaper] = useState("");
   const [checks, setChecked] = useState(false);
+  const [checks2, setChecked2] = useState(false);
 
   const logout = async () => {
     await AsyncStorage.removeItem("printerURL");
@@ -124,14 +125,13 @@ const previewAction = () => {
         const kiosPrinterURL = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP");
         const kiosPrinterTitle = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterName") : window.localStorage.getItem("BrotherPrinterName");
 
-        if ((await AsyncStorage.getItem("BrotherPrinterLabel") == "10") || (await AsyncStorage.getItem("BrotherPrinterLabel") == null) ){
-          await AsyncStorage.setItem("BrotherPrinterLabel", "12")
-        setValuepaper("18");
+        if ((await AsyncStorage.getItem("BrotherPrinterLabel") == "12") || (await AsyncStorage.getItem("BrotherPrinterLabel") == null) ){
+          await AsyncStorage.setItem("BrotherPrinterLabel", "10")
+        setValuepaper("10");
         }else{
           const BrotherPrinterLabel = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterLabel") : window.localStorage.getItem("BrotherPrinterLabel");
           setValuepaper(BrotherPrinterLabel);
         }
-        console.log(await AsyncStorage.getItem("useAirPrint"));
         if (await AsyncStorage.getItem("useAirPrint") == null){
           await AsyncStorage.setItem("useAirPrint", JSON.stringify(false))
           setChecked(JSON.stringify(false));
@@ -139,6 +139,14 @@ const previewAction = () => {
           const useAirPrint = Platform.OS !== "web" ? await AsyncStorage.getItem("useAirPrint") : window.localStorage.getItem("useAirPrint");
           setChecked(JSON.parse(useAirPrint));
         }
+        if (await AsyncStorage.getItem("useBT") == null){
+          await AsyncStorage.setItem("useBT", JSON.stringify(false))
+          setChecked2(JSON.stringify(false));
+        }else{
+          const useBT= Platform.OS !== "web" ? await AsyncStorage.getItem("useBT") : window.localStorage.getItem("useBT");
+          setChecked2(JSON.parse(useBT));
+        }
+
         settitle(kiosPrinterTitle);
         setURL(kiosPrinterURL);
       } catch (error) {
@@ -267,10 +275,6 @@ const previewAction = () => {
             <ListItem
                   containerStyle={{ paddingVertical: 5 }}
                   key="11"
-                  onPress={async ()=> {
-                    checks == true ? setChecked(false) : setChecked(true);
-                    await AsyncStorage.setItem("useAirPrint", JSON.stringify(checks == true ? false : true))
-                  }}
                 >
                   <Icon
                     type="ionicon"
@@ -286,22 +290,74 @@ const previewAction = () => {
                       justifyContent: "center",
                     }} />
                   <ListItem.Content>
-                    <ListItem.Title>iOS Airprint / Direct Print</ListItem.Title>
+                    <ListItem.Title>Use iOS Airprint</ListItem.Title>
                   </ListItem.Content>
                   <ListItem.CheckBox 
                   right 
-                  checkedTitle='Using iOS AirPrint' 
-                  title='Using Direct Print' 
+                  checkedTitle='Using AirPrint' 
+                  title='' 
                   checked={checks} 
                   onIconPress={async ()=> {
-                    checks == true ? setChecked(false) : setChecked(true);
-                    await AsyncStorage.setItem("useAirPrint", JSON.stringify(checks == true ? false : true))
+                    if (checks == true){
+                      setChecked(false);
+                      await AsyncStorage.setItem("useAirPrint", JSON.stringify(false))
+                      setChecked2(false);
+                      await AsyncStorage.setItem("useBT", JSON.stringify(false))
+                    }else{
+                      setChecked(true);
+                      await AsyncStorage.setItem("useAirPrint", JSON.stringify(true))
+                      setChecked2(false)
+                      await AsyncStorage.setItem("useBT", JSON.stringify(false))
+                    }
                   }} 
                   iconRight={true}
                   />
                 </ListItem>
                 <View style={[styles.dividerTableStyleShort]} />
-            
+                <ListItem
+                  containerStyle={{ paddingVertical: 5 }}
+                  key="15"
+                >
+                  <Icon
+                    type="ionicon"
+                    name="bluetooth"
+                    size={20}
+                    color="white"
+                    containerStyle={{
+                      backgroundColor: "#007AFF",
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }} />
+                  <ListItem.Content>
+                    <ListItem.Title>Use Bluetooth</ListItem.Title>
+                    <ListItem.Subtitle>iPad must be bluetoothed to the printer.</ListItem.Subtitle>
+
+                  </ListItem.Content>
+                  <ListItem.CheckBox 
+                  right 
+                  checkedTitle='Using Bluetooth' 
+                  title='' 
+                  checked={checks2} 
+                  onIconPress={async ()=> {
+                    if (checks2 == true){
+                      setChecked(false);
+                      await AsyncStorage.setItem("useAirPrint", JSON.stringify(false))
+                      setChecked2(false);
+                      await AsyncStorage.setItem("useBT", JSON.stringify(false))
+                    }else{
+                      setChecked(false);
+                      await AsyncStorage.setItem("useAirPrint", JSON.stringify(false))
+                      setChecked2(true)
+                      await AsyncStorage.setItem("useBT", JSON.stringify(true))
+                    }
+                  }} 
+                  iconRight={true}
+                  />
+                </ListItem>
+                <View style={[styles.dividerTableStyleShort]} />
             <ListItem
                   containerStyle={{ paddingVertical: 5 }}
                   key="3"
@@ -435,7 +491,7 @@ const previewAction = () => {
             <View style={[styles.dividerTableStyleShort]} />
             <ListItem
               containerStyle={{ paddingVertical: 5 }}
-              key="7"
+              key="12"
               onPress={appstore}
             >
               <Icon
@@ -460,7 +516,7 @@ const previewAction = () => {
             <View style={[styles.dividerTableStyle]} />
             <ListItem
               containerStyle={{ paddingVertical: 0 }}
-              key="11"
+              key="13"
               onPress={{}}
             >
               <ListItem.Content>

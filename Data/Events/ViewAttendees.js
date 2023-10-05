@@ -10,9 +10,10 @@ import {
     Alert,
   } from "react-native";
   import React, { useState, useEffect } from "react";
-  import FontAwesome from "@expo/vector-icons/FontAwesome";
+  import { FontAwesome } from '@expo/vector-icons';
+
   import { useIsFocused } from "@react-navigation/native";
-  FontAwesome.loadFont();
+
   import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
   MaterialCommunityIcons.loadFont();
   import { ALERT_TYPE, Toast } from "react-native-alert-notification";

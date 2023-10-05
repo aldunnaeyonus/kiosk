@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, ActivityIndicator, View, FlatList,TouchableOpacity} from 'react-native';
 import {discoverPrinters, registerBrotherListener} from 'react-native-brother-printers';
 import ViewShot from "react-native-view-shot";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-FontAwesome.loadFont();
+import { FontAwesome } from '@expo/vector-icons';
+
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 

@@ -12,8 +12,8 @@ import {
 } from "react-native";
 import React, { useState, useEffect, useRef, createRef } from "react";
 import { useIsFocused } from "@react-navigation/native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-FontAwesome.loadFont();
+import { FontAwesome } from '@expo/vector-icons';
+
 import * as Print from "expo-print";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -138,7 +138,7 @@ const Checkins = (props, navigation) => {
       screenView: "check"
     })
     .then(async (uri) => {
-        printImage(printer, uri, { autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
+        printImage(printer, (JSON.parse(await AsyncStorage.getItem("useBT")) == false) ? "0" : "1", uri, { autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
         .then(() => {
           Toast.show({
             onPress() {},
@@ -177,7 +177,7 @@ const Checkins = (props, navigation) => {
     const timer = setTimeout(() => {
       searchFilterFunction(textValue);
       Keyboard.dismiss();
-    }, 1500)
+    }, 2500)
 
     return () => clearTimeout(timer)
   }, [textValue])
@@ -252,7 +252,6 @@ const Checkins = (props, navigation) => {
           {
             text: "Cancel",
             onPress: () => {
-              console.log("Cancel Pressed");
               setFilteredDataSource([]);
               setisFound(true);
               searchFilterFunction("");
@@ -270,20 +269,12 @@ const Checkins = (props, navigation) => {
             }else{
               print(index);
               print(index);
-              setFilteredDataSource([]);
-              setisFound(true);
-              searchFilterFunction("");
-              settextValue("");
             }
               } else {
                 if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
                   onCapture(index);
               }else{
                 print(index);
-                setFilteredDataSource([]);
-                setisFound(true);
-                searchFilterFunction("");
-                settextValue("");
                 }
             }
 
@@ -321,21 +312,15 @@ const Checkins = (props, navigation) => {
             }else{
               print(index);
               print(index);
-              setFilteredDataSource([]);
-              setisFound(true);
-              searchFilterFunction("");
-              settextValue("");
               }
+
               } else {
                 if (JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false){
                   onCapture(index);
               }else{
                 print(index);
-                setFilteredDataSource([]);
-                setisFound(true);
-                searchFilterFunction("");
-                settextValue("");
                 }
+
             }
         })
         .catch((error) => {
@@ -369,7 +354,11 @@ const Checkins = (props, navigation) => {
         orientation: "landscape",
         printerUrl: printerURL
             });
-
+            setFilteredDataSource([]);
+            setisFound(true);
+            searchFilterFunction("");
+            settextValue("");
+            releaseCapture(uri);
     }).catch((error) => {
       Toast.show({
         onPress() {},

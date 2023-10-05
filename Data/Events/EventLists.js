@@ -13,8 +13,8 @@ import {
 import React, { useState, useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-FontAwesome.loadFont();
+import { FontAwesome } from '@expo/vector-icons';
+
 import SegmentedControlTab from "react-native-segmented-control-tab";
 const baseUrl = "https://bigdogtools.com/kiosk";
 import BRPtouchPrinter from 'react-native-brother-printers';
@@ -37,13 +37,14 @@ const EventList = (props) => {
   const doSomething = async() =>{
     VersionCheck.needUpdate()
     .then(res => {
-      if (res.isNeeded) {
+    if (res.isNeeded) {
         props.navigation.navigate("WebView", {
           url: 'https://apps.apple.com/us/app/big-dog-tags/id6447769349',
           name: "App Store",
         });
       }
     });
+
     const kiosk_id =
     Platform.OS !== "web"
       ? await AsyncStorage.getItem("kiosk_id")
@@ -74,7 +75,6 @@ const EventList = (props) => {
         setisLoding(false)
     });
     }
-
     
   useEffect(() => {
     if (search.length > 1){
@@ -102,6 +102,7 @@ const EventList = (props) => {
       />
     );
   };
+
   const handleSingleIndexSelect = (index) => {
     setActive(index == 0 ? "0" : "1");
     setSelectedIndex(index);
@@ -206,7 +207,6 @@ const EventList = (props) => {
     }
   };
 
-
   async function deleteEvent(id, pin, index) {
     setisLoding(true)
     fetch(
@@ -240,7 +240,6 @@ const EventList = (props) => {
       });
   };
 
-  
   function Item({ item, index }) {
     return (
       <TouchableOpacity

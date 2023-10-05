@@ -16,8 +16,8 @@ import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width: ScreenWidth } = Dimensions.get("screen");
 import axios from "axios";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-FontAwesome.loadFont();
+import { FontAwesome } from '@expo/vector-icons';
+
 import * as Print from "expo-print";
 import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
 import {printImage} from 'react-native-brother-printers';
@@ -34,6 +34,7 @@ const AddAttendee = ({ navigation, route }) => {
   const [printer, setPrinter] = useState("");
   const capref = useRef();
   const [printerURL, setprinterURL] = useState('');
+  const [bt, setBT] = useState("");
 
   useEffect(() => {
       if (route.params.searchText.includes("@")){
@@ -52,7 +53,11 @@ const AddAttendee = ({ navigation, route }) => {
       try {
         setprinterURL(await AsyncStorage.getItem("AirprintURL"));
         const BrotherPrinter = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinter") : window.localStorage.getItem("BrotherPrinter");
+        const BBT = Platform.OS !== "web" ? await AsyncStorage.getItem("useBT") : window.localStorage.getItem("useBT");
+
         setPrinter(JSON.parse(""+BrotherPrinter));
+        setBT(JSON.parse(""+BBT));
+
       } catch (error) {
         setPrinter("");
       }
@@ -60,42 +65,42 @@ const AddAttendee = ({ navigation, route }) => {
     fetchData();
   }, [isFocused]);
 
-  async function onCapture() {
-    captureRef(capref, {
-      format: "jpg",
+  function onCapture(index) {
+    captureRef(refs.current[index], {
+      format: "jpg",    
       quality: 0.9,
-      screenView: "add"
-    }).then(
-      async uri => {printImage(printer, uri, {autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
-      .then(() => {
-        Toast.show({
+      screenView: "check"
+    })
+    .then(async (uri) => {
+        printImage(printer, (JSON.parse(await AsyncStorage.getItem("useBT")) == false) ? "0" : "1", uri, { autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})
+        .then(() => {
+          Toast.show({
             onPress() {},
             type: ALERT_TYPE.SUCCESS,
             title: "Printing Success",
             textBody: "Please grab your name tag.",
             autoClose: 5000, // or time in ms by default 5000
           });
-          releaseCapture(uri);
-          navigation.goBack(null);
-
-        }).catch((error) => {
-          Toast.show({
-            onPress() {},
-            type: ALERT_TYPE.WARNING,
-            title: "Connection Failed",
-            textBody: error,
-            autoClose: 5000, // or time in ms by default 5000
+            releaseCapture(uri);
+          })
+          .catch((error) => {
+            Toast.show({
+              onPress() {},
+              type: ALERT_TYPE.WARNING,
+              title: "Connection Failed",
+              textBody: error,
+              autoClose: 5000, // or time in ms by default 5000
+            });
           });
-          releaseCapture(uri);
-        });  
-      }, 
-      error => Toast.show({
+      },
+      (error) => Toast.show({
         onPress() {},
         type: ALERT_TYPE.WARNING,
         title: "Connection Failed",
         textBody: error,
         autoClose: 5000, // or time in ms by default 5000
-      }));
+      })
+    );
   }
 
   const print = () => {
@@ -117,6 +122,7 @@ const AddAttendee = ({ navigation, route }) => {
         orientation: "landscape",
         printerUrl: printerURL
       });
+      releaseCapture(uri);
 
     }).catch((error) => {
       Toast.show({
