@@ -69,7 +69,6 @@ const AddAttendee = ({ navigation, route }) => {
     captureRef(refs.current[index], {
       format: "jpg",    
       quality: 0.9,
-      screenView: "check"
     })
     .then(async (uri) => {
         printImage(printer, (JSON.parse(await AsyncStorage.getItem("useBT")) == false) ? "0" : "1", uri, { autoCut: true, labelSize: parseInt(await AsyncStorage.getItem("BrotherPrinterLabel"))})

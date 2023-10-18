@@ -1,659 +1,320 @@
-2023-10-05 12:22:40.930 xcodebuild[58714:5283064]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f981137b2a0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126df0d _dispatch_sync_invoke_and_complete_recurse + 65
-	8   libdispatch.dylib                   0x00007ff80126da61 _dispatch_sync_f_slow + 194
-	9   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	10  DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	11  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	12  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	13  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	14  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	15  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	16  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	17  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	18  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	19  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	20  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	21  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	22  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:22:42.263 xcodebuild[58714:5282647] Failed to start service (com.apple.amfi.lockdown): 0xe800001a
-2023-10-05 12:22:43.000 xcodebuild[58714:5282649]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f9810eec090 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126df0d _dispatch_sync_invoke_and_complete_recurse + 65
-	8   libdispatch.dylib                   0x00007ff80126da61 _dispatch_sync_f_slow + 194
-	9   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	10  DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	11  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	12  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	13  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	14  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	15  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	16  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	17  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	18  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	19  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	20  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	21  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	22  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:22:43.596 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.251 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.596 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.251 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.596 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.251 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.596 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.252 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.596 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.252 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.596 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.252 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.597 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.252 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.597 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.252 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.597 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.252 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.597 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.252 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.597 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.253 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.597 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.253 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.597 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.253 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.597 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.253 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.598 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.253 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.598 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.253 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.598 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.253 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.598 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.254 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.598 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.254 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.598 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.254 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.599 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.254 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.599 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.254 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.599 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.254 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.599 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.255 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.599 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.255 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.599 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.255 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.599 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.255 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.599 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.255 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.599 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.255 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.600 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.255 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.600 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.256 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.600 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.256 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.603 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.260 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.603 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.260 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.603 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.260 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.603 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.260 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.603 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.260 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.603 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.261 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.603 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.261 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.604 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.261 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.604 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.261 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.604 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.261 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.604 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.261 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.604 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.262 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.604 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.262 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.604 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.262 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.605 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.262 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.605 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.262 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.605 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.262 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.605 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.262 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.605 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.262 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.605 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.263 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.606 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.263 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.606 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.263 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.606 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.263 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.606 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.263 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.606 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.263 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.607 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.263 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.607 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.264 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.607 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.264 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.607 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.264 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.607 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.264 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.607 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.264 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:43.607 xcodebuild[58714:5282417] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
+2023-10-18 06:51:16.264 xcodebuild[59257:16076536] [MT] DVTAssertions: Warning in /System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot11/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/IDEFrameworks/IDEFrameworks-22267/IDEFoundation/Provisioning/Capabilities Infrastructure/IDECapabilityQuerySelection.swift:103
 Details:  createItemModels creation requirements should not create capability item model for a capability item model that already exists.
 Function: createItemModels(for:itemModelSource:)
-Thread:   <_NSMainThread: 0x7f98e8c05df0>{number = 1, name = main}
+Thread:   <_NSMainThread: 0x7f8ffba046e0>{number = 1, name = main}
 Please file a bug at https://feedbackassistant.apple.com with this warning message and any useful information you can provide.
-2023-10-05 12:22:44.836 xcodebuild[58714:5283509]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f98e8c83c30 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:22:46.567 xcodebuild[58714:5283509]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f97e7f7bae0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:22:48.486 xcodebuild[58714:5283507]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f97f007bc90 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:22:51.802 xcodebuild[58714:5283186]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f98e8a63360 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:22:55.216 xcodebuild[58714:5283519]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f9810eb8ce0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:22:58.640 xcodebuild[58714:5283501]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f97f7ff8af0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:23:03.168 xcodebuild[58714:5283501]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f97f0347f50 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:23:08.305 xcodebuild[58714:5283186]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f9810a329a0 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:23:14.381 xcodebuild[58714:5283519]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f97f0f05260 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:23:21.635 xcodebuild[58714:5283186]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f97f0b30960 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:23:29.856 xcodebuild[58714:5283509]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f981069f050 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
-2023-10-05 12:23:39.037 xcodebuild[58714:5286435]  DTDKRemoteDeviceConnection: Failed to start remote service "com.apple.mobile.notification_proxy" on device. Error: Error Domain=com.apple.dtdevicekit Code=811 "Failed to start remote service "com.apple.mobile.notification_proxy" on device." UserInfo={NSUnderlyingError=0x7f97f027fb40 {Error Domain=com.apple.dt.MobileDeviceErrorDomain Code=-402653158 "The device is passcode protected." UserInfo={MobileDeviceErrorCode=(0xE800001A), com.apple.dtdevicekit.stacktrace=(
-	0   DTDeviceKitBase                     0x0000000110c205fc DTDKCreateNSErrorFromAMDErrorCode + 229
-	1   DTDeviceKitBase                     0x0000000110c2e595 __63-[DTDKRemoteDeviceConnection startFirstServiceOf:unlockKeybag:]_block_invoke + 612
-	2   DTDeviceKitBase                     0x0000000110c2dc4f __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_4 + 22
-	3   DTDeviceKitBase                     0x0000000110c2296e __DTDKExecuteInSession_block_invoke_2 + 52
-	4   DTDeviceKitBase                     0x0000000110c21fa6 __DTDKExecuteWithConnection_block_invoke_2 + 219
-	5   DTDeviceKitBase                     0x0000000110c21ea0 __DTDKExecuteWithConnection_block_invoke + 119
-	6   libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	7   libdispatch.dylib                   0x00007ff80126dba1 _dispatch_lane_barrier_sync_invoke_and_complete + 60
-	8   DVTFoundation                       0x00000001016d8f24 DVTDispatchBarrierSync + 148
-	9   DVTFoundation                       0x00000001016aed43 -[DVTDispatchLock performLockedBlock:] + 60
-	10  DTDeviceKitBase                     0x0000000110c21d96 DTDKExecuteWithConnection + 221
-	11  DTDeviceKitBase                     0x0000000110c227f4 DTDKExecuteInSession + 275
-	12  DTDeviceKitBase                     0x0000000110c2da22 __48-[DTDKRemoteDeviceConnection futureWithSession:]_block_invoke_2 + 207
-	13  DVTFoundation                       0x00000001016d8134 __DVT_CALLING_CLIENT_BLOCK__ + 7
-	14  DVTFoundation                       0x00000001016d8c20 __DVTDispatchAsync_block_invoke + 196
-	15  libdispatch.dylib                   0x00007ff80125ed91 _dispatch_call_block_and_release + 12
-	16  libdispatch.dylib                   0x00007ff801260033 _dispatch_client_callout + 8
-	17  libdispatch.dylib                   0x00007ff801266200 _dispatch_lane_serial_drain + 769
-	18  libdispatch.dylib                   0x00007ff801266d6c _dispatch_lane_invoke + 417
-	19  libdispatch.dylib                   0x00007ff8012713fc _dispatch_workloop_worker_thread + 765
-	20  libsystem_pthread.dylib             0x00007ff8013fdc55 _pthread_wqthread + 327
-	21  libsystem_pthread.dylib             0x00007ff8013fcbbf start_wqthread + 15
-), DVTRadarComponentKey=261622, NSLocalizedDescription=The device is passcode protected.}}, NSLocalizedRecoverySuggestion=Please check your connection to your device., DVTRadarComponentKey=261622, NSLocalizedDescription=Failed to start remote service "com.apple.mobile.notification_proxy" on device.}
