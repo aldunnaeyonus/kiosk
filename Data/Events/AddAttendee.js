@@ -87,7 +87,7 @@ const AddAttendee = ({ navigation, route }) => {
               onPress() {},
               type: ALERT_TYPE.WARNING,
               title: "Connection Failed",
-              textBody: error,
+              textBody: ""+error,
               autoClose: 5000, // or time in ms by default 5000
             });
           });
@@ -96,7 +96,7 @@ const AddAttendee = ({ navigation, route }) => {
         onPress() {},
         type: ALERT_TYPE.WARNING,
         title: "Connection Failed",
-        textBody: error,
+        textBody: ""+error,
         autoClose: 5000, // or time in ms by default 5000
       })
     );
@@ -199,7 +199,7 @@ const AddAttendee = ({ navigation, route }) => {
             onPress() {},
             type: ALERT_TYPE.WARNING,
             title: "Connection Failed",
-            textBody: error,
+            textBody: ""+error,
             autoClose: 5000, // or time in ms by default 5000
           });
         });
