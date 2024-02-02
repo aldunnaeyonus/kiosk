@@ -1,21 +1,26 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import { View, StyleSheet, Platform, Dimensions, ScrollView, Alert } from 'react-native';
-import * as Print from 'expo-print';
+import { View, StyleSheet, Platform, Dimensions, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 const { width: ScreenWidth } = Dimensions.get("screen");
 import { ListItem, Icon } from "@rneui/themed";
 import InfoText from "../extras/InfoText";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import DropDownPicker from "react-native-dropdown-picker";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import * as Application from 'expo-application';
 
+MaterialCommunityIcons.loadFont();
 
-  const Bluetooth = (props, navigation) => {
-
-  const [selectedPrinter, setSelectedPrinter] = useState();
+  const Bluetooth = (props) => {
   const [title, settitle] = useState("");
   const [url, setURL] = useState("");
   const isFocused = useIsFocused();
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const baseUrl = "https://bigdogtools.com/kiosk";
+  const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "10"}, {label: "DK-2205 W62 RB", value: "21"}]);
+  const [open, setOpen] = useState(false);
+  const [valuepaper, setValuepaper] = useState("");
+  const [checks, setChecked] = useState(false);
+  const [checks2, setChecked2] = useState(false);
 
   const logout = async () => {
     await AsyncStorage.removeItem("printerURL");
@@ -32,7 +37,13 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
     props.navigation.navigate("Change Account Details", { title: "Change Account Details", kios_id: props.route.params.kiosk_id });
   }, []);
 
-
+  const appstore = async () => {
+    props.navigation.navigate("WebView", {
+      url: "https://apps.apple.com/us/app/big-dog-tags/id6447769349",
+      name: "App Store",
+    });
+  };
+  
   const privacy = async () => {
     props.navigation.navigate("WebView", {
       url: baseUrl + "/privacyPolicy.html",
@@ -45,7 +56,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
       name: "Terms & Use",
     });
   };
-
 
   const changePassword = useCallback(() => {
     props.navigation.navigate("Change Password", { title: "Change Account Password", kios_id: props.route.params.kiosk_id });
@@ -90,13 +100,55 @@ const previewAction = () => {
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
+    props.navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+        onPress={async () => {
+          await AsyncStorage.setItem("BrotherPrinterLabel", valuepaper)
+
+                  props.navigation.goBack(null);
+        }}
+      >
+        <MaterialCommunityIcons
+          name="chevron-left"
+          size={40}
+          style={styles.moreIcon}
+        />
+      </TouchableOpacity>
+      ),
+    });
+  });
+
+  useEffect(() => {
+    async function fetchData(){
       try {
-        const kiosPrinterURL = Platform.OS !== "web" ? await AsyncStorage.getItem("printerURL") : window.localStorage.getItem("printerURL");
-        const kiosPrinterTitle = Platform.OS !== "web" ? await AsyncStorage.getItem("printerName") : window.localStorage.getItem("printerName");
+        const kiosPrinterURL = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP");
+        const kiosPrinterTitle = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterName") : window.localStorage.getItem("BrotherPrinterName");
+
+        if ((await AsyncStorage.getItem("BrotherPrinterLabel") == "12") || (await AsyncStorage.getItem("BrotherPrinterLabel") == null) ){
+          await AsyncStorage.setItem("BrotherPrinterLabel", "10")
+        setValuepaper("10");
+        }else{
+          const BrotherPrinterLabel = Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterLabel") : window.localStorage.getItem("BrotherPrinterLabel");
+          setValuepaper(BrotherPrinterLabel);
+        }
+        if (await AsyncStorage.getItem("useAirPrint") == null){
+          await AsyncStorage.setItem("useAirPrint", JSON.stringify(false))
+          setChecked(JSON.stringify(false));
+        }else{
+          const useAirPrint = Platform.OS !== "web" ? await AsyncStorage.getItem("useAirPrint") : window.localStorage.getItem("useAirPrint");
+          setChecked(JSON.parse(useAirPrint));
+        }
+        if (await AsyncStorage.getItem("useBT") == null){
+          await AsyncStorage.setItem("useBT", JSON.stringify(false))
+          setChecked2(JSON.stringify(false));
+        }else{
+          const useBT= Platform.OS !== "web" ? await AsyncStorage.getItem("useBT") : window.localStorage.getItem("useBT");
+          setChecked2(JSON.parse(useBT));
+        }
+
         settitle(kiosPrinterTitle);
         setURL(kiosPrinterURL);
-        setSelectedPrinter(kiosPrinterURL);
       } catch (error) {
         settitle("");
         setURL("");
@@ -105,23 +157,12 @@ const previewAction = () => {
     fetchData();
   }, [isFocused]);
 
-
   const selectPrinter = async () => {
-    settitle("");
-    setURL("");
-    setSelectedPrinter("");
-    const printer = await Print.selectPrinterAsync(); // iOS only
-    await AsyncStorage.setItem("printerURL", printer.url);
-    await AsyncStorage.setItem("printerName", printer.name);
-    settitle(printer.name);
-    setURL(printer.url);
-    setSelectedPrinter(printer);
+    props.navigation.navigate("Select Printer");
   };
 
   return (
-    <SafeAreaProvider>
-      <ScrollView style={styles.container}>
-        <View style={{ width: "100%" }}>
+    <ScrollView style={{ backgroundColor:'white' }}>
           <View>
             <InfoText text="Account" />
             <View>
@@ -228,10 +269,96 @@ const previewAction = () => {
               <View style={[styles.dividerTableStyle]} />
             </View>
 
-            {
-            Platform.OS === 'ios' ? 
-            <>
-            <InfoText text="Printers" /><View style={[styles.dividerTableStyle]} /><ListItem
+            <InfoText text="Printers & Paper Size" />
+            <View style={[styles.dividerTableStyle]} />
+
+            <ListItem
+                  containerStyle={{ paddingVertical: 5 }}
+                  key="11"
+                >
+                  <Icon
+                    type="ionicon"
+                    name="albums-outline"
+                    size={20}
+                    color="white"
+                    containerStyle={{
+                      backgroundColor: "#007AFF",
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }} />
+                  <ListItem.Content>
+                    <ListItem.Title>Use iOS Airprint</ListItem.Title>
+                  </ListItem.Content>
+                  <ListItem.CheckBox 
+                  right 
+                  checkedTitle='Using AirPrint' 
+                  title='' 
+                  checked={checks} 
+                  onIconPress={async ()=> {
+                    if (checks == true){
+                      setChecked(false);
+                      await AsyncStorage.setItem("useAirPrint", JSON.stringify(false))
+                      setChecked2(false);
+                      await AsyncStorage.setItem("useBT", JSON.stringify(false))
+                    }else{
+                      setChecked(true);
+                      await AsyncStorage.setItem("useAirPrint", JSON.stringify(true))
+                      setChecked2(false)
+                      await AsyncStorage.setItem("useBT", JSON.stringify(false))
+                    }
+                  }} 
+                  iconRight={true}
+                  />
+                </ListItem>
+                <View style={[styles.dividerTableStyleShort]} />
+                <ListItem
+                  containerStyle={{ paddingVertical: 5 }}
+                  key="15"
+                >
+                  <Icon
+                    type="ionicon"
+                    name="bluetooth"
+                    size={20}
+                    color="white"
+                    containerStyle={{
+                      backgroundColor: "#007AFF",
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }} />
+                  <ListItem.Content>
+                    <ListItem.Title>Use Bluetooth</ListItem.Title>
+                    <ListItem.Subtitle>iPad must be bluetoothed to the printer.</ListItem.Subtitle>
+
+                  </ListItem.Content>
+                  <ListItem.CheckBox 
+                  right 
+                  checkedTitle='Using Bluetooth' 
+                  title='' 
+                  checked={checks2} 
+                  onIconPress={async ()=> {
+                    if (checks2 == true){
+                      setChecked(false);
+                      await AsyncStorage.setItem("useAirPrint", JSON.stringify(false))
+                      setChecked2(false);
+                      await AsyncStorage.setItem("useBT", JSON.stringify(false))
+                    }else{
+                      setChecked(false);
+                      await AsyncStorage.setItem("useAirPrint", JSON.stringify(false))
+                      setChecked2(true)
+                      await AsyncStorage.setItem("useBT", JSON.stringify(true))
+                    }
+                  }} 
+                  iconRight={true}
+                  />
+                </ListItem>
+                <View style={[styles.dividerTableStyleShort]} />
+            <ListItem
                   containerStyle={{ paddingVertical: 5 }}
                   key="3"
                   onPress={selectPrinter}
@@ -250,16 +377,68 @@ const previewAction = () => {
                       justifyContent: "center",
                     }} />
                   <ListItem.Content>
-                    <ListItem.Title>{title != null ? `Selected Printer: ${title}` : 'Select Printer'}</ListItem.Title>
+                    <ListItem.Title>{url != null ? `Selected Printer: ${title} at IP: ${url}` : `Select Printer`}</ListItem.Title>
                   </ListItem.Content>
                   <ListItem.Chevron />
-                </ListItem><View style={[styles.dividerTableStyle]} /></>
-                  : ""
-                  }
+                </ListItem>
+                <View style={[styles.dividerTableStyleShort]} />
+                <ListItem
+                  containerStyle={{ paddingVertical: 5}}
+                  key="9"
+                  onPress={selectPrinter}
+                >
+                  <Icon
+                    type="ionicon"
+                    name="document"
+                    size={20}
+                    color="white"
+                    containerStyle={{
+                      backgroundColor: "#007AFF",
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }} />
+                  <ListItem.Content>
+                   
+          <DropDownPicker
+            dropDownContainerStyle={{
+              borderColor: "#000",
+              backgroundColor: "white",
+              borderWidth: 1.5,
+              justifyContent: "center",
+            }}
+            style={{
+              backgroundColor: "white",
+              borderColor: "white",
+              marginLeft: -10,
+              marginTop: -5,
+              justifyContent: "center",
+            }}
+            autoScroll={true}
+            itemSeparator={true}
+            itemSeparatorStyle={{
+              backgroundColor: "#000",
+              height: 0.5,
+            }}
+            open={open}
+            placeholder="Select Paper Size"
+            placeholderStyle={{ fontSize: 17 }}
+            textStyle={{ fontSize: 17 }}
+            value={valuepaper}
+            items={paper}
+            setOpen={setOpen}
+            setValue={setValuepaper}
+            setItems={setPaper}
+          />
+                  </ListItem.Content>
+                </ListItem>
 
-            <InfoText text="More" />
+                <View style={[styles.dividerTableStyle]} />
+            <InfoText style={{zIndex:-1}} text="Policies" />
             <View style={[styles.dividerTableStyle]} />
-            <View>
+            <View style={{zIndex:-1}}>
             <ListItem
               containerStyle={{ paddingVertical: 5 }}
               key="6"
@@ -308,13 +487,45 @@ const previewAction = () => {
                 <ListItem.Title>Terms & Use Policy</ListItem.Title>
               </ListItem.Content>
               <ListItem.Chevron />
-            </ListItem>            
+            </ListItem>  
+            <View style={[styles.dividerTableStyleShort]} />
+            <ListItem
+              containerStyle={{ paddingVertical: 5 }}
+              key="12"
+              onPress={appstore}
+            >
+              <Icon
+                type="ionicon"
+                name="arrow-up-circle-outline"
+                size={20}
+                color="white"
+                containerStyle={{
+                  backgroundColor: "#FF3232",
+                  width: 28,
+                  height: 28,
+                  borderRadius: 6,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              />
+              <ListItem.Content>
+                <ListItem.Title>Check for App Update</ListItem.Title>
+              </ListItem.Content>
+              <ListItem.Chevron />
+            </ListItem>           
             <View style={[styles.dividerTableStyle]} />
+            <ListItem
+              containerStyle={{ paddingVertical: 0 }}
+              key="13"
+              onPress={{}}
+            >
+              <ListItem.Content>
+              <ListItem.Title>v{Application.nativeApplicationVersion}</ListItem.Title>
+              </ListItem.Content>
+            </ListItem> 
             </View>
-          </View>
         </View>
-      </ScrollView>
-    </SafeAreaProvider>
+    </ScrollView>
 
   );
 }
@@ -329,6 +540,7 @@ const styles = StyleSheet.create({
     borderColor: "#ECECEC",
   },
   dividerStyle: {
+    zIndex:-1,
     height: 0.5,
     marginTop: 0,
     marginBottom: -20,
@@ -338,6 +550,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ccc",
   },
   dividerTableStyle: {
+    zIndex:-1,
     height: 0.5,
     marginTop: 10,
     marginBottom: 10,
@@ -346,6 +559,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ccc",
   },
   dividerTableStyleShort: {
+    zIndex:-2,
     height: 0.5,
     marginTop: 10,
     marginBottom: 10,
@@ -408,12 +622,3 @@ const styles = StyleSheet.create({
   },
 });
 export default Bluetooth;
-/*
-    <View >
-          <Button title="Select printer" onPress={selectPrinter} />
-          <View  />
-          {selectedPrinter ? (
-            <Text >{`Selected printer: ${title} via ${url}`}</Text>
-          ) : undefined}
-    </View>
-    */

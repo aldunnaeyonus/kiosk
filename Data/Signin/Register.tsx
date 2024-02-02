@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 import { sha256 } from "js-sha256";
-const baseUrl = "https://dunn-carabali.com/kiosk";
+const baseUrl = "https://bigdogtools.com/kiosk";
 
 interface Props {
   navigation: any;

@@ -4,11 +4,13 @@ import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
   container: {
+    zIndex:-1,
     paddingTop: 0,
     paddingBottom: 0,
     marginTop: 15,
   },
   infoText: {
+    zIndex:-1,
     fontSize: 17,
     marginLeft: 20,
     color:"#5A5A5A",

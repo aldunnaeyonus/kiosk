@@ -3,187 +3,289 @@ import {
   Text,
   View,
   FlatList,
-  Button,
+  Image,
   TextInput,
   TouchableOpacity,
   Alert,
   Platform,
+  Keyboard,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, createRef } from "react";
 import { useIsFocused } from "@react-navigation/native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-FontAwesome.loadFont();
+import { FontAwesome } from "@expo/vector-icons";
+
 import * as Print from "expo-print";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 MaterialCommunityIcons.loadFont();
-import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
-  
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
+import ViewShot, { captureRef, releaseCapture } from "react-native-view-shot";
+import { printImage } from "react-native-brother-printers";
+
 const Checkins = (props, navigation) => {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [isFound, setisFound] = useState(true);
   const isFocused = useIsFocused();
-  const [url, setURL] = useState("");
+  const [logo, setLogo] = useState("");
   const [textValue, settextValue] = useState("");
   const [addedEmails, setaddedEmails] = useState([]);
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const baseUrl = "https://bigdogtools.com/kiosk";
+  const [printer, setPrinter] = useState();
 
-  const closeEvent = () => {
-    axios
-      .post(
-        baseUrl + "/events/close.php",
-        {
-          kiosk_id: props.route.params.kiosk_id,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-        }
-      )
-      .then((response) => {
-        props.navigation.goBack(null);
-      })
-      .catch((error) => {
+  let refs = useRef([]);
+  const [printerURL, setprinterURL] = useState("");
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerLeft: () =>
+        props.route.params.mode === "NORMAL" ? (
+          <TouchableOpacity
+            onPress={() => {
+              Alert.alert(
+                "Exit Out",
+                "Are you sure you want to exit out of this Event [" +
+                  props.route.params.kiosk_event +
+                  "]\n\nThis will erase the duplicate email checker",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => {
+                      console.log("Cancel Pressed");
+                    },
+                    style: "destructive",
+                  },
+                  {
+                    text: "Go back",
+                    onPress: () => {
+                      props.navigation.goBack(null);
+                    },
+                  },
+                ],
+                { cancelable: false }
+              );
+            }}
+          >
+            <MaterialCommunityIcons
+              name="chevron-left"
+              size={40}
+              style={styles.moreIcon}
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            delayLongPress={2000}
+            onLongPress={() => {
+              Alert.alert(
+                "Exit Out",
+                "Are you sure you want to exit out of this Event [" +
+                  props.route.params.kiosk_event +
+                  "]\n\nThis will erase the duplicate email checker",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "destructive",
+                  },
+                  {
+                    text: "Go back",
+                    onPress: () => {
+                      props.navigation.goBack(null);
+                    },
+                  },
+                ],
+                { cancelable: false }
+              );
+            }}
+          >
+            <MaterialCommunityIcons
+              name="chevron-left"
+              size={40}
+              style={styles.moreIconWhite}
+            />
+          </TouchableOpacity>
+        ),
+      headerRight: () =>
+        props.route.params.mode === "NORMAL" ? (
+          <View style={{ flexDirection: "row" }}>
+            <FontAwesome
+              style={{ paddingRight: 20 }}
+              backgroundColor="white"
+              borderRadius={17}
+              size={28}
+              color="black"
+              name={"users"}
+              onPress={() => {
+                props.navigation.navigate("View Event Attendees", {
+                  kiosk_id: props.route.params.kiosk_id,
+                  logo: props.route.params.event_logo,
+                  kiosk_event: props.route.params.kiosk_event,
+                });
+              }}
+            />
+          </View>
+        ) : (
+          ""
+        ),
+    });
+  }, [navigation]);
+
+  function onCapture(index) {
+    captureRef(refs.current[index], {
+      format: "jpg",
+      quality: 0.9,
+    }).then(
+      async (uri) => {
+        printImage(
+          printer,
+          JSON.parse(await AsyncStorage.getItem("useBT")) == false ? "0" : "1",
+          uri,
+          {
+            autoCut: true,
+            labelSize: parseInt(
+              await AsyncStorage.getItem("BrotherPrinterLabel")
+            ),
+          }
+        )
+          .then(() => {
+            Toast.show({
+              onPress() {},
+              type: ALERT_TYPE.SUCCESS,
+              title: "Printing Success",
+              textBody: "Please grab your name tag.",
+              autoClose: 5000, // or time in ms by default 5000
+            });
+            setFilteredDataSource([]);
+            setisFound(true);
+            searchFilterFunction("");
+            settextValue("");
+            releaseCapture(uri);
+          })
+          .catch((error) => {
+            Toast.show({
+              onPress() {},
+              type: ALERT_TYPE.WARNING,
+              title: "Connection Failed",
+              textBody: ""+error,
+              autoClose: 5000, // or time in ms by default 5000
+            });
+          });
+      },
+      (error) =>
         Toast.show({
           onPress() {},
           type: ALERT_TYPE.WARNING,
           title: "Connection Failed",
-          textBody: "Server Connection Error: " + error,
+          textBody: ""+error,
           autoClose: 5000, // or time in ms by default 5000
-        });
-      });
+        })
+    );
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      searchFilterFunction(textValue);
+      Keyboard.dismiss();
+    }, 1700);
+
+    return () => clearTimeout(timer);
+  }, [textValue]);
+
+  const searchFilterFunction = async (text) => {
+    if (text.length <= 0) {
+      setFilteredDataSource([]);
+      setisFound(true);
+      refs = [];
+    } else {
+      if (text.length >= 3) {
+        await fetch(
+          baseUrl +
+            "/search/index.php?email=" +
+            text +
+            "&pin=" +
+            props.route.params.kiosk_owner +
+            "eventID=" +
+            props.route.kiosk_event_id
+        )
+          .then((response) => response.json())
+          .then(async (jsonData) => {
+            setFilteredDataSource(
+              jsonData.sort((a, b) => a.fullname < b.fullname)
+            );
+          });
+        if (text.length >= 3) {
+          setisFound(false);
+        } else {
+          setisFound(true);
+        }
+      }
+    }
   };
 
   useEffect(() => {
-    props.navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            Alert.alert(
-              "Exit Out",
-              "Are you sure you want to exit out of this Event [" +
-                props.route.params.kiosk_event +
-                "]\n\nThis will erase the duplicate email checker",
-              [
-                {
-                  text: "Cancel",
-                  onPress: () => console.log("Cancel Pressed"),
-                  style: "destructive",
-                },
-                {
-                  text: "Go back",
-                  onPress: () => {
-                    props.navigation.goBack(null);
-                  },
-                },
-              ],
-              { cancelable: false }
-            );
-          }}
-        >
-          <MaterialCommunityIcons
-            name="chevron-left"
-            size={40}
-            style={styles.moreIcon}
-          />
-        </TouchableOpacity>
-      ),
-      headerRight: () => (
-        <Button
-          textStyle={{
-            color: "white",
-          }}
-          color="red"
-          title="Close Event"
-          onPress={() => {
-            Alert.alert(
-              "Close Checkin",
-              "Are you sure you want to close out this Event [" +
-                props.route.params.kiosk_event +
-                "]\n\nThis will prevent attendees from checking in.",
-              [
-                {
-                  text: "Cancel",
-                  onPress: () => console.log("Cancel Pressed"),
-                  style: "destructive",
-                },
-                {
-                  text: "Close Event Checkin",
-                  onPress: () => {
-                    closeEvent();
-                  },
-                },
-              ],
-              { cancelable: false }
-            );
-          }}
-        />
-      ),
-    });
-  }, [navigation]);
+    async function fetchData() {
+      try {
+        setLogo(baseUrl + "/logos/" + props.route.params.event_logo);
+        const BrotherPrinter =
+          Platform.OS !== "web"
+            ? await AsyncStorage.getItem("BrotherPrinter")
+            : window.localStorage.getItem("BrotherPrinter");
+        setprinterURL(await AsyncStorage.getItem("AirprintURL"));
+        setPrinter(JSON.parse(BrotherPrinter));
+      } catch (error) {
+        setPrinter("");
+      }
+    }
+    fetchData();
+  }, [isFocused]);
 
   useEffect(() => {
     setisFound(true);
   }, [isFocused]);
 
-  const searchFilterFunction = async (text) => {
-    if (text.length <= 0){
-      setFilteredDataSource([]);
-      setisFound(true);
-    }else{
-    await fetch(baseUrl + "/search/index.php?email=" + text+"&pin="+props.route.params.kiosk_owner)
-      .then((response) => response.json())
-      .then(async (jsonData) => {
-        const myData = []
-          .concat(jsonData)
-          .sort((a, b) => (a.name > b.name ? 1 : -1));
-        setFilteredDataSource(myData);
-        if (myData.length <= 0){
-          setisFound(false);
-        }else{
-        setisFound(true);
-        }
-      });
-    }
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const kiosPrinterURL =
-          Platform.OS !== "web"
-            ? await AsyncStorage.getItem("printerURL")
-            : window.localStorage.getItem("printerURL");
-        setURL(kiosPrinterURL);
-      } catch (error) {
-        setURL("");
-      }
-    };
-    fetchData();
-  }, [isFocused]);
-
-  const preview = (fname, lname, email, phone, kiosk_id, ifs_id, status) => {
+  const preview = (fname, lname, email, phone, kiosk_id, ifs_id, index) => {
     if (addedEmails.includes(email)) {
       Alert.alert(
         "Duplicate Checkin",
         fname +
           " " +
           lname +
-          " with email address of" +
+          " with email address with " +
           email +
-          " has already checked in.",
+          ", has already checked into this event.",
         [
           {
             text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
+            onPress: () => {
+              setFilteredDataSource([]);
+              setisFound(true);
+              searchFilterFunction("");
+              settextValue("");
+            },
             style: "destructive",
           },
           {
             text: "Re-Print Tag",
-            onPress: () => {
-              print(Print.Orientation.landscape, fname, lname, status);
+            onPress: async () => {
+              if (parseInt(props.route.params.prints) > 1) {
+                if (
+                  JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false
+                ) {
+                  onCapture(index);
+                  onCapture(index);
+                } else {
+                  print(index);
+                  print(index);
+                }
+              } else {
+                if (
+                  JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false
+                ) {
+                  onCapture(index);
+                } else {
+                  print(index);
+                }
+              }
             },
           },
         ],
@@ -208,74 +310,85 @@ const Checkins = (props, navigation) => {
             },
           }
         )
-        .then((response) => {
+        .then(async function () {
           addedEmails.push(email);
-
-          setFilteredDataSource([]);
-          setisFound(true);
-          searchFilterFunction("");
-          settextValue("");
-          print(Print.Orientation.landscape, fname, lname, status);
+          setaddedEmails(addedEmails);
+          if (parseInt(props.route.params.prints) > 1) {
+            if (
+              JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false
+            ) {
+              onCapture(index);
+              onCapture(index);
+            } else {
+              print(index);
+              print(index);
+            }
+          } else {
+            if (
+              JSON.parse(await AsyncStorage.getItem("useAirPrint")) == false
+            ) {
+              onCapture(index);
+            } else {
+              print(index);
+            }
+          }
         })
         .catch((error) => {
           Toast.show({
             onPress() {},
             type: ALERT_TYPE.WARNING,
             title: "Connection Failed",
-            textBody: "Server Connection Error: " + error,
+            textBody: ""+error,
             autoClose: 5000, // or time in ms by default 5000
           });
         });
     }
   };
 
-  const print = async (orientations, fname, lname, status) => {
-    // On iOS/android prints the given html. On web prints the HTML from the current page.
-    await Print.printAsync({
-      html: `
-      <html>
-      <head>
-        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes" />
-        <style>
-          @page {
-            margin: 0;
-          }
-          #body {
-            zoom:500%
-            height: '100%';
-            width: '100%';
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            align-items: center;
-            justify-content: center;
-          }
-          #content {
-            position: relative;
-        }
-         #content img {
-            position: absolute;
-            top: 0px;
-            right: 0px;
-        }
-        </style>
-      </head>
-      <body id="body"">
-      <div style="font-size: 55vw; font-weight: bolder; width:'100%'; text-align: center;">${fname}<div>
-      <div style="font-size: 35vw;  width:'100%';  margin: 0 auto; text-align: center;">${lname}<div>
-      <div style="font-size: 25vw;  width:'100%';  margin: 0 auto; text-align: center;">${status}<div>
-      </body>
-    </html>
-      `,
-      orientation: orientations,
-      printerUrl: url, // iOS only
-    });
+  const print = (index) => {
+    captureRef(refs.current[index], {
+      format: "jpg",
+      quality: 0.9,
+    })
+      .then((uri) => {
+        Print.printAsync({
+          uri: uri,
+          orientation: "landscape",
+          printerUrl: printerURL,
+        });
+        setFilteredDataSource([]);
+        setisFound(true);
+        searchFilterFunction("");
+        settextValue("");
+        releaseCapture(uri);
+      })
+      .catch(
+        (error) => {
+          Toast.show({
+            onPress() {},
+            type: ALERT_TYPE.WARNING,
+            title: "Connection Failed",
+            textBody: "Ensure your printer is not asleep. " + error,
+            autoClose: 5000, // or time in ms by default 5000
+          });
+        },
+        (error) =>
+          Toast.show({
+            onPress() {},
+            type: ALERT_TYPE.WARNING,
+            title: "Connection Failed",
+            textBody: "Ensure your printer is not asleep. " + error,
+            autoClose: 5000, // or time in ms by default 5000
+          })
+      );
   };
 
-  function Item({ item }) {
+  function Item({ item, index }) {
+    refs.current[index] = createRef();
+
     return (
       <TouchableOpacity
-        onPress={() => {
+        onPress={async () => {
           preview(
             item.fname,
             item.lname,
@@ -283,11 +396,59 @@ const Checkins = (props, navigation) => {
             item.phone,
             props.route.params.kiosk_id,
             item.ifs_id,
-            item.status
+            index
           );
         }}
       >
         <View style={styles.listItem}>
+          <ViewShot
+            style={{
+              transform: [{ rotate: "-90deg" }],
+              position: "absolute",
+              left: -1000,
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            ref={refs.current[index]}
+          >
+            <Text
+              style={{
+                fontSize: 50,
+                fontFamily: "Avenir",
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
+              {item.fname}
+            </Text>
+            <Text
+              style={{
+                fontSize: 40,
+                fontFamily: "Avenir",
+                marginTop: -10,
+                textAlign: "center",
+                fontWeight: "500",
+              }}
+            >
+              {item.lname}
+            </Text>
+            <Image
+              resizeMode="contain"
+              resizeMethod="auto"
+              tintColor="black"
+              style={{
+                width: 200,
+                marginTop: 10,
+                height: 80,
+                alignSelf: "center",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+              source={{ uri: logo }}
+            />
+          </ViewShot>
+
           <View style={{ alignItems: "flex-start", marginStart: 15, flex: 1 }}>
             <View
               style={{
@@ -315,37 +476,45 @@ const Checkins = (props, navigation) => {
               />
               <Text style={{ marginTop: 5 }}>{item.email}</Text>
             </View>
-            <View
-              style={{
-                width: 100,
-                marginTop: 5,
-                marginBottom: 5,
-                height: 25,
-                borderRadius: 40,
-                flexDirection: "row",
-                borderWidth: 1,
-                borderColor: "#efefef",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "#efefef",
-              }}
-            >
-              <FontAwesome name="id-badge" size={12} style={styles.whiteIcon} />
-              <Text
+            {item.status != "" ? (
+              <View
                 style={{
-                  color: "#000000",
-                  fontSize: 12,
+                  width: 100,
+                  marginTop: 5,
+                  marginBottom: 5,
+                  height: 25,
+                  borderRadius: 40,
+                  flexDirection: "row",
+                  borderWidth: 1,
+                  borderColor: "#efefef",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#efefef",
                 }}
               >
-                {item.status}
-              </Text>
-            </View>
+                <FontAwesome
+                  name="id-badge"
+                  size={12}
+                  style={styles.whiteIcon}
+                />
+                <Text
+                  style={{
+                    color: "#000000",
+                    fontSize: 12,
+                  }}
+                >
+                  {item.status}
+                </Text>
+              </View>
+            ) : (
+              ""
+            )}
           </View>
-
           <View
             style={{
               width: 90,
               height: 40,
+              marginTop: item.status != "" ? 18 : 2,
               justifyContent: "center",
               backgroundColor: "#2E8B57",
               alignSelf: "center",
@@ -354,7 +523,7 @@ const Checkins = (props, navigation) => {
             }}
           >
             <Text style={{ color: "white", fontSize: 15, fontWeight: "bold" }}>
-              Check In
+              Checkin
             </Text>
           </View>
         </View>
@@ -364,71 +533,77 @@ const Checkins = (props, navigation) => {
 
   return (
     <View style={styles.container}>
+      {logo.includes("NoLogo.png") ? (
+        <Image
+          resizeMode="contain"
+          resizeMethod="auto"
+          style={{
+            width: "100%",
+            marginTop: 10,
+            height: "10%",
+            alignSelf: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+          source={require("../../assets/register.png")}
+        />
+      ) : (
+        <Image
+          resizeMode="contain"
+          resizeMethod="auto"
+          style={{
+            width: "100%",
+            marginTop: 10,
+            height: "10%",
+            alignSelf: "center",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+          source={{ uri: logo }}
+        />
+      )}
+
       <TextInput
+        autoCapitalize="words"
         style={styles.textInputStyle}
         onChangeText={(text) => {
-          searchFilterFunction(text);
           settextValue(text);
         }}
         keyboardType="default"
         underlineColorAndroid="transparent"
-        placeholder="Search by Email or First & Last name"
+        placeholder="Search by Email or Name"
         value={textValue}
       />
-      <View
-        style={{
-          height: 50,
-          width: "75%",
-          marginBottom: 30,
-          marginTop: -20,
-          flexDirection: "row",
-          borderRadius: 100,
-          fontWeight: "bold",
-          justifyContent: "center",
-          alignItems: "center",
-          alignSelf: "center",
+
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate("Add Attendee", {
+            kiosk_id: props.route.params.kiosk_id,
+            email: textValue,
+            logo: props.route.params.event_logo,
+            prints: props.route.params.prints,
+            searchText: textValue,
+            prints: props.route.params.prints,
+            pin: props.route.params.kiosk_id,
+          });
+          setFilteredDataSource([]);
+          setisFound(true);
+          searchFilterFunction("");
+          settextValue("");
         }}
       >
-        <Text
-          style={{
-            color: "gray",
-            justifyContent: "center",
-            alignSelf: "center",
-            alignItems: "center",
-            fontSize: 15,
-            textAlign: "center",
-          }}
-        >
-          Enter an email address or first and last name.{"\n"}If you are a guest
-          or your data can not be found, type in your email and you will be
-          guided on how to register.
-        </Text>
-      </View>
-      {isFound ? (
-        <View></View>
-      ) : (
-        <TouchableOpacity
-          onPress={() => {
-            props.navigation.navigate("Add Attendee", {
-              kiosk_id: props.route.params.kiosk_id,
-              email: textValue,
-            });
-            addedEmails.push(textValue);
-            setFilteredDataSource([]);
-            setisFound(true);
-            searchFilterFunction("");
-            settextValue("");
-          }}
-        >
+        {!isFound ? (
           <View
             style={{
               height: 50,
-              width: "75%",
-              marginBottom: 30,
-              marginTop: 30,
+              width: "50%",
+              marginBottom: 10,
+              marginTop: 0,
               flexDirection: "row",
               borderRadius: 100,
-              backgroundColor: "red",
+              backgroundColor: "white",
+              borderWidth: 2,
+              borderColor: "red",
               fontWeight: "bold",
               justifyContent: "center",
               alignItems: "center",
@@ -437,23 +612,61 @@ const Checkins = (props, navigation) => {
           >
             <Text
               style={{
-                color: "white",
+                color: "red",
                 fontWeight: "bold",
                 justifyContent: "center",
                 alignItems: "center",
                 fontSize: 20,
               }}
             >
-              Attendee Not Found, Touch to Add
+              Add An Attendee
             </Text>
           </View>
-        </TouchableOpacity>
-      )}
+        ) : (
+          ""
+        )}
+      </TouchableOpacity>
 
       <FlatList
+        onScrollBeginDrag={() => Keyboard.dismiss()}
+        ListEmptyComponent={
+          <View
+            style={{
+              height: "100%",
+              width: "90%",
+              marginTop: 20,
+              flexDirection: "row",
+              borderRadius: 100,
+              fontWeight: "bold",
+              justifyContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
+            <Text
+              style={{
+                color: "black",
+                justifyContent: "center",
+                alignSelf: "center",
+                alignItems: "center",
+                fontSize: 20,
+                textAlign: "center",
+              }}
+            >
+              1. Enter an email address or the first and last name of the
+              attendee in the search bar above.{"\n\n"}2. Find your name.
+              {"\n\n"}3. Touch the green checkin button next to the attendee
+              name.{"\n\n"}4. Grab your printed name tag.{"\n\n\n"}Note: If your
+              information can not be found, touch the red "Add An Attendee"
+              button that will show after you begin typing. And on the next
+              screen enter your information and print your name tag.
+            </Text>
+          </View>
+        }
+        keyboardShouldPersistTaps="always"
         style={{ flex: 1 }}
         data={filteredDataSource}
-        renderItem={({ item }) => <Item item={item} />}
+        renderItem={({ item, index }) => <Item item={item} index={index} />}
       />
     </View>
   );
@@ -468,7 +681,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderWidth: 1,
     paddingLeft: 20,
-    width: "60%",
+    width: "90%",
     alignSelf: "center",
     marginTop: 10,
     marginBottom: 30,
@@ -501,7 +714,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   moreIcon: {
+    marginLeft: 5,
+    justifyContent: "center",
+  },
+  moreIconWhite: {
     marginLeft: -5,
+    color: "transparent",
     justifyContent: "center",
   },
 });

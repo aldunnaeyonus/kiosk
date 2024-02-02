@@ -2,12 +2,13 @@ import LoginScreen from "react-native-login-screen";
 import React, { Component } from "react";
 import { sha256 } from "js-sha256";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ALERT_TYPE, Toast } from "react-native-alert-notification";
+
 interface Props {
   navigation: any;
 }
-import { ALERT_TYPE, Toast } from "react-native-alert-notification";
 
-const baseUrl = "https://dunn-carabali.com/kiosk";
+const baseUrl = "https://bigdogtools.com/kiosk";
 export default class SignIn extends Component<Props> {
   emails: any;
   passwords: any;

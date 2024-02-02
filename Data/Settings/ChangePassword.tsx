@@ -9,7 +9,7 @@ import { ALERT_TYPE, Toast, Dialog } from "react-native-alert-notification";
 const ChangePassword = ({ navigation, route }) => {
   const [userPassword, setuserPassword] = useState("");
   const [userPassword2, setuserPassword2] = useState("");
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const baseUrl = "https://bigdogtools.com/kiosk";
   const [visible, setvisible] = useState(false);
   const CustomProgressBar = ({ visible }) => (
     <Modal style={{backgroundColor: 'transparent'}} onRequestClose={() => null} visible={visible}>
@@ -84,7 +84,7 @@ const ChangePassword = ({ navigation, route }) => {
   return (
     <SafeAreaProvider style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
                             <CustomProgressBar visible={visible} />
-                            <ScrollView style={styles.container}>
+                            <ScrollView keyboardShouldPersistTaps="always" style={styles.container}>
 
       <View style={{ width: "100%" }}></View>
       <View

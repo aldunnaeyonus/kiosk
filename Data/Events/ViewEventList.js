@@ -4,12 +4,13 @@ import {
     FlatList,
     TextInput,
     Image,
+    Keyboard
   } from "react-native";
   import React, { useState, useEffect } from "react";
   import { useIsFocused } from "@react-navigation/native";
-  import FontAwesome from "@expo/vector-icons/FontAwesome";
-  FontAwesome.loadFont();
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  import { FontAwesome } from '@expo/vector-icons';
+
+  const baseUrl = "https://bigdogtools.com/kiosk";
   import { ListItem } from '@rneui/themed'
   import { ALERT_TYPE, Dialog } from "react-native-alert-notification";
 
@@ -20,6 +21,15 @@ import {
     const isFocused = useIsFocused();
     const [isLoding, setisLoding] = useState(true);
 
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        searchFilterFunction(textValue);
+        Keyboard.dismiss();
+      }, 750)
+  
+      return () => clearTimeout(timer)
+    }, [search])
 
     const EmptyListMessage = () => {
       return (
@@ -61,6 +71,22 @@ import {
       props.navigation.setOptions({
         headerTitle: props.route.params.kiosk_event + " Event List",
         headerRight: () => (
+          <View style={{flexDirection:"row"}}>
+          <FontAwesome
+            style={{ paddingRight: 20 }}
+            backgroundColor="white"
+            borderRadius={17}
+            size={28}
+            color="black"
+            name={"users"}
+            onPress={() => {
+              props.navigation.navigate("View Event Attendees", {
+                kiosk_id: props.route.params.kiosk_id,
+                logo: props.route.params.event_logo,
+                kiosk_event: props.route.params.kiosk_event,
+              });
+            }}
+          />
           <FontAwesome
             style={{ paddingRight: 20 }}
             backgroundColor="white"
@@ -81,6 +107,7 @@ import {
               })
             }}
           />
+                     </View>
         ),
       });
     });
@@ -103,13 +130,15 @@ import {
     return (
       <View style={styles.container}>
         <TextInput
+                autoCapitalize="words"
           style={styles.textInputStyle}
-          onChangeText={(text) => searchFilterFunction(text)}
+          onChangeText={(text) => setSearch(text)}
           underlineColorAndroid="transparent"
           placeholder="Search by Attendee Name"
         />
         <FlatList
-         refreshing={isLoding}
+        keyboardShouldPersistTaps="always"
+        refreshing={isLoding}
           style={{ flex: 1 }}
           ListEmptyComponent={EmptyListMessage}
           data={filteredDataSource}
@@ -147,7 +176,7 @@ import {
       height: 60,
       borderWidth: 1,
       paddingLeft: 20,
-      width: "60%",
+      width: "90%",
       alignSelf: "center",
       marginTop: 10,
       marginBottom: 30,

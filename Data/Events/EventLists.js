@@ -7,18 +7,22 @@ import {
   TouchableOpacity,
   Platform,
   Image,
+  Alert,
+  Keyboard
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-FontAwesome.loadFont();
+import { FontAwesome } from '@expo/vector-icons';
+
 import SegmentedControlTab from "react-native-segmented-control-tab";
-const baseUrl = "https://dunn-carabali.com/kiosk";
-import AppIntroSlider from 'react-native-app-intro-slider';
-import Icon from 'react-native-vector-icons/Ionicons';
-Icon.loadFont();
-const EventList = (props, navigation) => {
+const baseUrl = "https://bigdogtools.com/kiosk";
+import BRPtouchPrinter from 'react-native-brother-printers';
+import { ALERT_TYPE, Dialog, Toast } from "react-native-alert-notification";
+import axios from "axios";
+import VersionCheck from 'react-native-version-check';
+
+const EventList = (props) => {
   const [search, setSearch] = useState("");
   const [active, setActive] = useState(0);
   const [kiosk_ids, setkiosk_ids] = useState(0);
@@ -28,31 +32,64 @@ const EventList = (props, navigation) => {
   const isFocused = useIsFocused();
   const [isLoding, setisLoding] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [showRealApp, setshowRealApp] = useState(false);
-  const slides = [
-  {
-    key: '1',
-    title: 'Set Printer',
-    text: 'Description.\nSay something cool',
-    backgroundColor: '#007AFF',
-  },
-  {
-    key: '2',
-    title: 'Infusionsoft Intergration',
-    text: 'Other cool stuff',
-    backgroundColor: '#007AFF',
-  },
-  {
-    key: '3',
-    title: 'Prints all size name tags',
-    text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
-    backgroundColor: '#007AFF',
+  const [kiosk_is_ifs, setkiosk_is_ifs] = useState("0");
+  
+  const doSomething = async() =>{
+    VersionCheck.needUpdate()
+    .then(res => {
+    if (res.isNeeded) {
+        props.navigation.navigate("WebView", {
+          url: 'https://apps.apple.com/us/app/big-dog-tags/id6447769349',
+          name: "App Store",
+        });
+      }
+    });
+
+    const kiosk_id =
+    Platform.OS !== "web"
+      ? await AsyncStorage.getItem("kiosk_id")
+      : window.localStorage.getItem("kiosk_id");
+      const kioskifs = Platform.OS !== "web" ? await AsyncStorage.getItem("kiosk_is_ifs") : window.localStorage.getItem("kiosk_is_ifs");
+
+  const kiosk_comapny_name =
+    Platform.OS !== "web"
+      ? await AsyncStorage.getItem("kiosk_comapny_name")
+      : window.localStorage.getItem("kiosk_comapny_name");
+  setkiosk_ids(kiosk_id);
+  setkiosk_name(kiosk_comapny_name);
+  setkiosk_is_ifs(""+kioskifs)
+  props.navigation.setOptions({
+    title: kiosk_comapny_name + " Events List",
+  });
+  fetch(
+    baseUrl +
+      "/events/index.php?kiosk_id=" +
+      kiosk_id +
+      "&active=" +
+      active
+  )
+    .then((response) => response.json())
+    .then((jsonData) => {
+        setFilteredDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
+        setMasterDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
+        setisLoding(false)
+    });
+    }
+    
+  useEffect(() => {
+    if (search.length > 1){
+    const timer = setTimeout(() => {
+      searchFilterFunction(search);
+      Keyboard.dismiss();
+    }, 1600)
+    return () => clearTimeout(timer)
   }
-];
+  }, [search])
+
   const EmptyListMessage = ({ item }) => {
     return (
-      // Flat List Item
       <Image
+        key={item}
         style={{
           flex: 1,
           width: 400,
@@ -65,6 +102,7 @@ const EventList = (props, navigation) => {
       />
     );
   };
+
   const handleSingleIndexSelect = (index) => {
     setActive(index == 0 ? "0" : "1");
     setSelectedIndex(index);
@@ -77,55 +115,59 @@ const EventList = (props, navigation) => {
     )
       .then((response) => response.json())
       .then(async (jsonData) => {
-        const myData = []
-          .concat(jsonData)
-          .sort((a, b) =>
-            a.kiosk_event_timestamp > b.kiosk_event_timestamp ? 1 : -1
-          );
         setisLoding(false)
-        setFilteredDataSource(myData);
-        setMasterDataSource(myData);
+        setFilteredDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
+        setMasterDataSource(jsonData.sort((a, b) => b.kiosk_event_timestamp < a.kiosk_event_timestamp));
       });
   };
 
   useEffect(() => {
     setisLoding(true)
     setActive(selectedIndex == 0 ? "0" : "1");
-    const fetchData = async () => {
-      const kiosk_id =
-        Platform.OS !== "web"
-          ? await AsyncStorage.getItem("kiosk_id")
-          : window.localStorage.getItem("kiosk_id");
-      const kiosk_comapny_name =
-        Platform.OS !== "web"
-          ? await AsyncStorage.getItem("kiosk_comapny_name")
-          : window.localStorage.getItem("kiosk_comapny_name");
-      setkiosk_ids(kiosk_id);
-      setkiosk_name(kiosk_comapny_name);
-      props.navigation.setOptions({
-        title: kiosk_comapny_name + " Events List",
-      });
-      fetch(
-        baseUrl +
-          "/events/index.php?kiosk_id=" +
-          kiosk_id +
-          "&active=" +
-          active
-      )
-        .then((response) => response.json())
-        .then(async (jsonData) => {
-          const myData = []
-            .concat(jsonData)
-            .sort((a, b) =>
-              a.kiosk_event_timestamp > b.kiosk_event_timestamp ? 1 : -1
-            );
-            setisLoding(false)
-          setFilteredDataSource(myData);
-          setMasterDataSource(myData);
-        });
+    doSomething();
+  }, [isFocused]);
+
+  useEffect(() => {
+    async function fetchData () {
+        try {
+        if (await AsyncStorage.getItem("BrotherPrinterIP") != null){
+          BRPtouchPrinter().discoverPrinters({}).then(async () => {
+            Toast.show({
+              onPress() {},
+              type: ALERT_TYPE.SUCCESS,
+              title: "Found a Printer",
+              textBody: "The selected Printer's IP Address was found.",
+              autoClose: 5000, // or time in ms by default 5000
+            });
+            pingPrinter(Platform.OS !== "web" ? await AsyncStorage.getItem("BrotherPrinterIP") : window.localStorage.getItem("BrotherPrinterIP"))
+            .then((error) => {
+              console.log(error);
+            }).catch((err) => {
+            });
+          }).catch(() => {
+            Toast.show({
+              onPress() {},
+              type: ALERT_TYPE.WARNING,
+              title: "Failed to Find a Printer",
+              textBody: "The selected Printer's IP Address could not be accessed, please go to the Select A Printer in the settings menu and search for a new printer.",
+              autoClose: 5000, // or time in ms by default 5000
+            });
+          });
+        }else{
+          Dialog.show({
+            onPress() {},
+            type: ALERT_TYPE.WARNING,
+            title: "Failed to Connect",
+            textBody: "The selected Printer's IP Address could not be accessed, please go to the Select A Printer in the settings menu and search for a new printer.",
+            autoClose: 5000, // or time in ms by default 5000
+          });
+        }
+      } catch (error) {
+      }
     };
     fetchData();
-  }, [isFocused]);
+  }, []);
+
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -165,23 +207,183 @@ const EventList = (props, navigation) => {
     }
   };
 
-  function Item({ item }) {
+  async function deleteEvent(id, pin, index) {
+    setisLoding(true)
+    fetch(
+      baseUrl +
+        "/events/delete.php?kiosk_id=" +
+        id +
+        "&active=" +
+        active +
+        "&kiosk_pin="+pin
+    )
+      .then((response) => response.json())
+      .then(async (jsonData) => {
+        handleRefresh();
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.SUCCESS,
+          title: "Success",
+          textBody: "Event was successfully deleted.",
+          autoClose: 5000, // or time in ms by default 5000
+        });
+        setisLoding(false)
+      })
+      .catch((error) => {
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.WARNING,
+          title: "Connection Failed",
+          textBody: "Server Connection Error: " + error,
+          autoClose: 5000, // or time in ms by default 5000
+        });
+      });
+  };
+
+  function Item({ item, index }) {
     return (
       <TouchableOpacity
         onPress={() => {
           if (item.kiosk_event_status == "0") {
-            props.navigation.navigate("Check In Attendees", {
-              kiosk_id: item.kiosk_event_id,
-              kiosk_event: item.kiosk_event_name,
-              kiosk_owner: item.kiosk_event_owner_id,
-              event_status: item.kiosk_event_status,
-            });
+
+          Alert.alert(
+            "Event Actions",
+            "Choose a view mode:",
+            [
+              {
+                text: "Kiosk Mode",
+                onPress: () => {
+                  props.navigation.navigate("Check In Attendees", {
+                    kiosk_id: item.kiosk_event_id,
+                    kiosk_event: item.kiosk_event_name,
+                    kiosk_owner: item.kiosk_event_owner_id,
+                    event_status: item.kiosk_event_status,
+                    event_logo: item.kiosk_event_logo,
+                    prints: item.kiosk_event_print,
+                    mode: "KIOSK",
+                  });
+                },
+              },
+                {
+                text: "Admin Mode",
+                onPress: () => {
+                  props.navigation.navigate("Check In Attendees", {
+                    kiosk_id: item.kiosk_event_id,
+                    kiosk_event: item.kiosk_event_name,
+                    kiosk_owner: item.kiosk_event_owner_id,
+                    event_status: item.kiosk_event_status,
+                    event_logo: item.kiosk_event_logo,
+                    prints: item.kiosk_event_print,
+                    mode: "NORMAL",
+                  });
+                },
+              },
+              {
+                text: "Edit Mode",
+                onPress: () => {
+                  props.navigation.navigate("Edit Mode", {
+                    kiosk_id: item.kiosk_event_id,
+                    kiosk_event: item.kiosk_event_name,
+                    kiosk_owner: item.kiosk_event_owner_id,
+                    ifs_mode: kiosk_is_ifs,
+                  });
+                },
+              },
+              {
+                text: "Archive Event",
+                onPress: () => {
+                  Alert.alert(
+                    "Archive Event",
+                    "Are you sure you want to Archive this Event [" +
+                    item.kiosk_event_name +
+                      "]\n\nThis will prevent attendees from checking in.",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "destructive",
+                      },
+                      {
+                        text: "Archive Event",
+                        onPress: () => {
+                          setisLoding(true)
+    axios
+      .post(
+        baseUrl + "/events/close.php",
+        {
+          kiosk_id: item.kiosk_event_id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+        }
+      )
+      .then(async (jsonData) => {
+        setisLoding(false)
+        handleRefresh();
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.SUCCESS,
+          title: "Success",
+          textBody: "Event was successfully archived.",
+          autoClose: 5000, // or time in ms by default 5000
+      })
+      })
+      .catch((error) => {
+        setisLoding(false)
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.WARNING,
+          title: "Connection Failed",
+          textBody: "Server Connection Error: " + error,
+          autoClose: 5000, // or time in ms by default 5000
+        });
+      });
+                        },
+                      },
+                    ],
+                    { cancelable: false }
+                  );
+                },
+              },
+              {
+                text: "Delete Event",
+                onPress: () => {
+                  Alert.alert(
+                    "Delete Event",
+                    "Are you sure you want to delete this event.",
+                    [
+                      {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "destructive",
+                      },
+                      {
+                        text: "Delete Event",
+                        onPress: async () => {
+                          deleteEvent(item.kiosk_event_id, item.kiosk_event_owner_id, index)
+                          }
+                        }
+                    ],
+                    { cancelable: false }
+                  );
+                },
+              },
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "destructive",
+              },
+            ],
+            { cancelable: false }
+          );
           } else {
-            props.navigation.navigate("View Event Attendee List", {
-              kiosk_id: item.kiosk_event_id,
-              kiosk_owner: item.kiosk_event_owner_id,
-              kiosk_event: item.kiosk_event_name,
-            });
+              props.navigation.navigate("View Event Attendees", {
+                kiosk_id: item.kiosk_event_id,
+                logo: item.kiosk_event_logo,
+                kiosk_event: item.kiosk_event_name,
+              });
           }
         }}
       >
@@ -259,9 +461,8 @@ const EventList = (props, navigation) => {
                 size={20}
                 style={styles.moreIcon}
               />
-            ) : (
-              <FontAwesome name="file" size={20} style={styles.fileIcon} />
-            )}
+            ) : ""
+            }
           </View>
         </View>
       </TouchableOpacity>
@@ -273,51 +474,16 @@ const EventList = (props, navigation) => {
     setisLoding(true);
   };
 
-  const onDone = () => {
-    setshowRealApp(true);
-  }
-  const renderItem = ({ item }) => {
-    return (
-      <View style={styles.slide}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Image source={item.image} />
-        <Text style={styles.text}>{item.text}</Text>
-      </View>
-    );
-  }
+  
 
-  const renderNextButton = () => {
-    return (
-      <View style={styles.buttonCircle}>
-        <Icon
-          name="md-arrow-round-forward"
-          color="rgba(255, 255, 255, .9)"
-          size={24}
-        />
-      </View>
-    );
-  };
-
-  const renderDoneButton = () => {
-    return (
-      <View style={styles.buttonCircle}>
-        <Icon
-          name="md-checkmark"
-          color="rgba(255, 255, 255, .9)"
-          size={24}
-        />
-      </View>
-    );
-  };
-
-  if (showRealApp) {
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.textInputStyle}
-        onChangeText={(text) => searchFilterFunction(text)}
+        autoCapitalize="words"
+        onChangeText={(text) => setSearch(text)}
         underlineColorAndroid="transparent"
-        placeholder="Search Past, Present & Future Events"
+        placeholder="Search "
       />
       <View
         style={{
@@ -339,14 +505,18 @@ const EventList = (props, navigation) => {
           onTabPress={handleSingleIndexSelect}
         />
       </View>
+      <Text style={{margin:10, textAlign:'center'}}>Ensure the required printer under the settings menu is choosen before printing tags, this is incase of an IP Address or network change during device storage.</Text>
+
       <FlatList
+        keyboardShouldPersistTaps="always"
         style={{ flex: 1 }}
+        numColumns={1}
         ListEmptyComponent={EmptyListMessage}
         refreshing={isLoding}
         keyExtractor={item => item.kiosk_event_id}
         onRefresh={handleRefresh}
         data={filteredDataSource}
-        renderItem={({ item }) => <Item item={item} />}
+        renderItem={({ item, index }) => <Item item={item} index={index} />}
       />
       <TouchableOpacity
         onPress={() => {
@@ -384,28 +554,11 @@ const EventList = (props, navigation) => {
       </TouchableOpacity>
     </View>
   );
-}else{
-  return <AppIntroSlider 
-  renderDoneButton={renderDoneButton}
-  renderNextButton={renderNextButton}
-  renderItem={renderItem} 
-  data={slides} 
-  onDone={onDone}/>;
-
-}
 };
 
 
 const styles = StyleSheet.create({
-  buttonCircle: {
-    width: 40,
-    height: 40,
-    backgroundColor: 'rgba(0, 0, 0, .2)',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
+    container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
@@ -460,7 +613,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderWidth: 1,
     paddingLeft: 20,
-    width: "60%",
+    width: "90%",
     alignSelf: "center",
     marginTop: 10,
     marginBottom: 30,

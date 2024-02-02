@@ -13,7 +13,7 @@ const ChangeData = ({ navigation, route }) => {
   const [myEmail, setMyEmail] = useState("");
   const [myName, setMyName] = useState("");
   const [myMobile, setmyMobile] = useState("");
-  const baseUrl = "https://dunn-carabali.com/kiosk";
+  const baseUrl = "https://bigdogtools.com/kiosk";
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   const [visible, setvisible] = useState(false);
@@ -131,7 +131,7 @@ const ChangeData = ({ navigation, route }) => {
 
   return (
     <SafeAreaProvider style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
-            <ScrollView style={styles.container}>
+            <ScrollView keyboardShouldPersistTaps="always" style={styles.container}>
      <CustomProgressBar visible={visible} />
       <View
         style={{
@@ -321,7 +321,7 @@ const ChangeData = ({ navigation, route }) => {
           style={{
             fontSize: 13,
             color: "#5A5A5A",
-            height: 60,
+            height: 80,
             textAlign: "center",
             marginTop: 20,
             marginLeft: 20,
