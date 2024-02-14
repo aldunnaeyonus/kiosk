@@ -120,6 +120,13 @@ const AddAttendee = ({ navigation, route }) => {
         orientation: "landscape",
         printerUrl: printerURL
       });
+      Toast.show({
+        onPress() {},
+        type: ALERT_TYPE.SUCCESS,
+        title: "Printing Success",
+        textBody: "Please grab your name tag.",
+        autoClose: 5000, // or time in ms by default 5000
+      });
       releaseCapture(uri);
 
     }).catch((error) => {

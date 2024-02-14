@@ -1,0 +1,43 @@
+diff --git a/node_modules/react-native-view-shot/ios/RNViewShot.m b/node_modules/react-native-view-shot/ios/RNViewShot.m
+index 9015847..0d442d5 100644
+--- a/node_modules/react-native-view-shot/ios/RNViewShot.m
++++ b/node_modules/react-native-view-shot/ios/RNViewShot.m
+@@ -22,6 +22,7 @@ RCT_EXPORT_MODULE()
+   return RCTGetUIManagerQueue();
+ }
+ 
++
+ RCT_EXPORT_METHOD(captureScreen: (NSDictionary *)options
+                   resolve:(RCTPromiseResolveBlock)resolve
+                   reject:(RCTPromiseRejectBlock)reject) 
+@@ -41,6 +42,7 @@ RCT_EXPORT_METHOD(releaseCapture:(nonnull NSString *)uri)
+   }
+ }
+ 
++
+ RCT_EXPORT_METHOD(captureRef:(nonnull NSNumber *)target
+                   withOptions:(NSDictionary *)options
+                   resolve:(RCTPromiseResolveBlock)resolve
+@@ -117,8 +119,20 @@ RCT_EXPORT_METHOD(captureRef:(nonnull NSNumber *)target
+       // this doesn't work for large views and reports incorrect success even though the image is blank
+       success = [rendered drawViewHierarchyInRect:(CGRect){CGPointZero, size} afterScreenUpdates:YES];
+     }
+-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+-    UIGraphicsEndImageContext();
++ 
++	  
++
++	  UIImage *images = UIGraphicsGetImageFromCurrentImageContext();
++	  UIGraphicsEndImageContext();
++
++	  UIGraphicsBeginImageContext(CGSizeMake(size.height, size.width));
++	  [[UIImage imageWithCGImage:[images CGImage]
++						   scale:1.0
++					 orientation:UIImageOrientationRight]
++	   drawInRect:CGRectMake(0,0,size.height ,size.width)];
++	  
++	  UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
++	  UIGraphicsEndImageContext();
+ 	  
+     if (snapshotContentContainer) {
+       // Restore scroll & frame

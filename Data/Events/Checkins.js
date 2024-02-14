@@ -361,6 +361,13 @@ const Checkins = (props, navigation) => {
         searchFilterFunction("");
         settextValue("");
         releaseCapture(uri);
+        Toast.show({
+          onPress() {},
+          type: ALERT_TYPE.SUCCESS,
+          title: "Printing Success",
+          textBody: "Please grab your name tag.",
+          autoClose: 5000, // or time in ms by default 5000
+        });
       })
       .catch(
         (error) => {
@@ -571,7 +578,7 @@ const Checkins = (props, navigation) => {
         }}
         keyboardType="default"
         underlineColorAndroid="transparent"
-        placeholder="Search by Email or Name"
+        placeholder="Search by First  and Last Name"
         value={textValue}
       />
 

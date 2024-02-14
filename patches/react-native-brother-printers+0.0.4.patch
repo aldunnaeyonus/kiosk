@@ -1,0 +1,44 @@
+diff --git a/node_modules/react-native-brother-printers/index.js b/node_modules/react-native-brother-printers/index.js
+index 3308571..1446126 100644
+--- a/node_modules/react-native-brother-printers/index.js
++++ b/node_modules/react-native-brother-printers/index.js
+@@ -137,12 +137,12 @@ export async function pingPrinter(ip) {
+  *
+  * @return {Promise<*>}
+  */
+-export async function printImage(device, uri, params = {}) {
++export async function printImage(device, isBT, uri, params = {}) {
+   if (!params.labelSize) {
+     return new Error("Label size must be given when printing a label");
+   }
+ 
+-  return _printImage(device, uri, params);
++  return _printImage(device, isBT, uri, params);
+ }
+ 
+ // export async function printPDF(device, uri, params = {}) {
+diff --git a/node_modules/react-native-brother-printers/ios/ReactNativeBrotherPrinters.m b/node_modules/react-native-brother-printers/ios/ReactNativeBrotherPrinters.m
+index 6e3890e..a3a9ff9 100644
+--- a/node_modules/react-native-brother-printers/ios/ReactNativeBrotherPrinters.m
++++ b/node_modules/react-native-brother-printers/ios/ReactNativeBrotherPrinters.m
+@@ -77,12 +77,18 @@ RCT_REMAP_METHOD(pingPrinter, printerAddress:(NSString *)ip resolver:(RCTPromise
+     resolve(Nil);
+ }
+ 
+-RCT_REMAP_METHOD(printImage, deviceInfo:(NSDictionary *)device printerUri: (NSString *)imageStr printImageOptions:(NSDictionary *)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
++RCT_REMAP_METHOD(printImage, deviceInfo:(NSDictionary *)device isBT:(NSString *)btUse printerUri: (NSString *)imageStr printImageOptions:(NSDictionary *)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+ {
+     NSLog(@"Called the printImage function");
+     BRPtouchDeviceInfo *deviceInfo = [self deserializeDeviceInfo:device];
+ 
+-    BRLMChannel *channel = [[BRLMChannel alloc] initWithWifiIPAddress:deviceInfo.strIPAddress];
++	BRLMChannel *channel;
++	
++	if (btUse){
++		channel = [[BRLMChannel alloc] initWithBluetoothSerialNumber:deviceInfo.strSerialNumber];
++	}else{
++		channel = [[BRLMChannel alloc] initWithWifiIPAddress:deviceInfo.strIPAddress];
++	}
+ 	
+     BRLMPrinterDriverGenerateResult *driverGenerateResult = [BRLMPrinterDriverGenerator openChannel:channel];
+     if (driverGenerateResult.error.code != BRLMOpenChannelErrorCodeNoError ||

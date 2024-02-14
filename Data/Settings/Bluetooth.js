@@ -16,7 +16,7 @@ MaterialCommunityIcons.loadFont();
   const [url, setURL] = useState("");
   const isFocused = useIsFocused();
   const baseUrl = "https://bigdogtools.com/kiosk";
-  const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "10"}, {label: "DK-2205 W62 RB", value: "21"}]);
+  const [paper, setPaper] = useState([{label: "DK-1234 W60xH86 (Common)", value: "10"}, {label: "DK-2205 W62 RB", value: "20"}]);
   const [open, setOpen] = useState(false);
   const [valuepaper, setValuepaper] = useState("");
   const [checks, setChecked] = useState(false);
