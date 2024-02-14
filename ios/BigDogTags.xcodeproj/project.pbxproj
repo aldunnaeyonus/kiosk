@@ -847,7 +847,7 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = BigDogTags/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Big Dog Tags";
+				INFOPLIST_KEY_CFBundleDisplayName = BigDogTags;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -882,7 +882,7 @@
 				DEVELOPMENT_TEAM = 8Q2CG2HVZ9;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = BigDogTags/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Big Dog Tags";
+				INFOPLIST_KEY_CFBundleDisplayName = BigDogTags;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (

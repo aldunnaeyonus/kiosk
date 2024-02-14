@@ -18,7 +18,7 @@ index 3308571..1446126 100644
  
  // export async function printPDF(device, uri, params = {}) {
 diff --git a/node_modules/react-native-brother-printers/ios/ReactNativeBrotherPrinters.m b/node_modules/react-native-brother-printers/ios/ReactNativeBrotherPrinters.m
-index 6e3890e..a3a9ff9 100644
+index 6e3890e..282e1d2 100644
 --- a/node_modules/react-native-brother-printers/ios/ReactNativeBrotherPrinters.m
 +++ b/node_modules/react-native-brother-printers/ios/ReactNativeBrotherPrinters.m
 @@ -77,12 +77,18 @@ RCT_REMAP_METHOD(pingPrinter, printerAddress:(NSString *)ip resolver:(RCTPromise
@@ -34,7 +34,7 @@ index 6e3890e..a3a9ff9 100644
 -    BRLMChannel *channel = [[BRLMChannel alloc] initWithWifiIPAddress:deviceInfo.strIPAddress];
 +	BRLMChannel *channel;
 +	
-+	if (btUse){
++	if (btUse == "1"){
 +		channel = [[BRLMChannel alloc] initWithBluetoothSerialNumber:deviceInfo.strSerialNumber];
 +	}else{
 +		channel = [[BRLMChannel alloc] initWithWifiIPAddress:deviceInfo.strIPAddress];
