@@ -80,6 +80,7 @@ const AddAttendee = ({ navigation, route }) => {
             autoClose: 5000, // or time in ms by default 5000
           });
             releaseCapture(uri);
+            navigation.goBack(null);
           })
           .catch((error) => {
             Toast.show({
@@ -128,6 +129,7 @@ const AddAttendee = ({ navigation, route }) => {
         autoClose: 5000, // or time in ms by default 5000
       });
       releaseCapture(uri);
+      navigation.goBack(null);
 
     }).catch((error) => {
       Toast.show({
