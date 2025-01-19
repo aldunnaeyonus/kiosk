@@ -1,6 +1,6 @@
 PODS:
   - boost (1.76.0)
-  - BRLMPrinterKit (4.0.2.1)
+  - BRLMPrinterKit (4.7.2)
   - DoubleConversion (1.1.6)
   - EXApplication (5.3.0):
     - ExpoModulesCore
@@ -350,9 +350,15 @@ PODS:
   - React-jsinspector (0.72.4)
   - React-logger (0.72.4):
     - glog
+  - react-native-blob-util (0.19.11):
+    - React-Core
   - react-native-brother-printers (0.0.4):
     - BRLMPrinterKit
     - React
+  - react-native-ota-hot-update (2.0.6):
+    - RCT-Folly (= 2021.07.22.00)
+    - React-Core
+    - SSZipArchive (~> 2.4.3)
   - react-native-print (0.11.0):
     - React-Core
   - react-native-safe-area-context (4.6.3):
@@ -481,6 +487,8 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
+  - RNFS (2.20.0):
+    - React-Core
   - RNGestureHandler (2.12.1):
     - React-Core
   - RNImageRotate (2.1.0):
@@ -522,6 +530,7 @@ PODS:
   - RNVectorIcons (9.2.0):
     - React-Core
   - SocketRocket (0.6.1)
+  - SSZipArchive (2.4.3)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -561,7 +570,9 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-blob-util (from `../node_modules/react-native-blob-util`)
   - react-native-brother-printers (from `../node_modules/react-native-brother-printers`)
+  - react-native-ota-hot-update (from `../node_modules/react-native-ota-hot-update`)
   - react-native-print (from `../node_modules/react-native-print`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-version-check (from `../node_modules/react-native-version-check`)
@@ -586,6 +597,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageRotate (from `../node_modules/react-native-image-rotate`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -600,6 +612,7 @@ SPEC REPOS:
     - fmt
     - libevent
     - SocketRocket
+    - SSZipArchive
 
 EXTERNAL SOURCES:
   boost:
@@ -671,8 +684,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-blob-util:
+    :path: "../node_modules/react-native-blob-util"
   react-native-brother-printers:
     :path: "../node_modules/react-native-brother-printers"
+  react-native-ota-hot-update:
+    :path: "../node_modules/react-native-ota-hot-update"
   react-native-print:
     :path: "../node_modules/react-native-print"
   react-native-safe-area-context:
@@ -721,6 +738,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNImageRotate:
@@ -738,7 +757,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
-  BRLMPrinterKit: 79ca593275bdae5309c8ee93674df2e5177a1b52
+  BRLMPrinterKit: f416b3d2733079686defd2fa0e9a13959008b8dd
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   EXApplication: 02655a251434d564bb0e73291f5a490c74b5b76f
   EXConstants: ce5bbea779da8031ac818c36bea41b10e14d04e1
@@ -774,7 +793,9 @@ SPEC CHECKSUMS:
   React-jsiexecutor: c7f826e40fa9cab5d37cab6130b1af237332b594
   React-jsinspector: aaed4cf551c4a1c98092436518c2d267b13a673f
   React-logger: da1ebe05ae06eb6db4b162202faeafac4b435e77
+  react-native-blob-util: 39a20f2ef11556d958dc4beb0aa07d1ef2690745
   react-native-brother-printers: 705899cf3be2e9c6f31d494b97feea6ca09913bf
+  react-native-ota-hot-update: 93401f31ac6a23cd39c1111fca35dce143b460e7
   react-native-print: f704aef52d931bfce6d1d84351dbb5232d7ecb89
   react-native-safe-area-context: 36cc67648134e89465663b8172336a19eeda493d
   react-native-version-check: 6cd36aad4e30b8e3216747e3b4ddeb09e0647af8
@@ -799,6 +820,7 @@ SPEC CHECKSUMS:
   ReactCommon: 4b2bdcb50a3543e1c2b2849ad44533686610826d
   RNCAsyncStorage: ddc4ee162bfd41b0d2c68bf2d95acd81dd7f1f93
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNImageRotate: 61c62c5a907405821e28dc8c0e04e4fdc909b1fa
   RNReanimated: 9f7068e43b9358a46a688d94a5a3adb258139457
@@ -806,8 +828,9 @@ SPEC CHECKSUMS:
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
+  SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
 
 PODFILE CHECKSUM: fc07659d74762efc2135512398a8202ba5a644b2
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2
