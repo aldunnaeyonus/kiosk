@@ -23,12 +23,39 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import * as Print from 'expo-print';
 import { FontAwesome } from '@expo/vector-icons';
 import { requestLocalNetworkAccess, checkLocalNetworkAccess } from "react-native-local-network-permission";
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import hotUpdate  from 'react-native-ota-hot-update';
 
 export default function App() {
   const Stack = createStackNavigator();
   const [showRealApp, setshowRealApp] = useState(false);
   const [signIn, setSignIn] = useState(false);
   const [isReady, setIsReady] = useState(false);
+
+  const startUpdate = async (url, urlversion) => {
+    hotUpdate.downloadBundleUri(ReactNativeBlobUtil, url, urlversion, {
+      updateSuccess: () => {
+        console.log('update success!');
+      },
+      updateFail(message) {
+        console.log(message);
+
+      },
+      restartAfterInstall: false,
+    });
+  };
+
+  const onCheckVersion = () => {
+    fetch("https://bigdogtools.com/kiosk/update.json").then(async (data) => {
+      const result = await data.json();
+      const currentVersion = await hotUpdate.getCurrentVersion();
+      if (result?.version > isNaN(currentVersion) ? 1 : currentVersion) {
+                startUpdate(result?.downloadIosUrl,
+                  result.version
+                );
+    };
+  });
+  };
 
   LogBox.ignoreAllLogs(true);
   const stringToBoolean = (stringValue) => {
@@ -101,7 +128,7 @@ export default function App() {
         await SplashScreen.hideAsync();
         await checkLocalNetworkAccess();
         await requestLocalNetworkAccess();
-
+        onCheckVersion();
       }
     }
 
