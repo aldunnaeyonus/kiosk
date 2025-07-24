@@ -32,32 +32,40 @@ export default function App() {
   const [signIn, setSignIn] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
-  const startUpdate = async (url, urlversion) => {
-    hotUpdate.downloadBundleUri(ReactNativeBlobUtil, url, urlversion, {
-      updateSuccess: () => {
-        console.log('update success!');
-      },
-      updateFail(message) {
-        console.log(message);
 
+  const startUpdate = async (url, urlversion) => {
+    await hotUpdate.downloadBundleUri(ReactNativeBlobUtil, url, urlversion, {
+      updateSuccess: () => {},
+      updateFail: () => {},
+      restartAfterInstall: true,
+      progress: (received, total) => {
+        // Update UI to show download progress
       },
-      restartAfterInstall: false,
     });
   };
 
-  const onCheckVersion = () => {
-    fetch("https://bigdogtools.com/kiosk/update.json").then(async (data) => {
+    const onCheckVersion = () => {
+    fetch("https://bigdogtools.com/kiosk/update.json", {
+      headers: {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        Pragma: "no-cache",
+        Expires: 0,
+      },
+    }).then(async (data) => {
       const result = await data.json();
       const currentVersion = await hotUpdate.getCurrentVersion();
-      if (result?.version > isNaN(currentVersion) ? 1 : currentVersion) {
-                startUpdate(result?.downloadIosUrl,
-                  result.version
-                );
-    };
-  });
+      if (parseInt(result?.version) > parseInt(currentVersion)) {
+        startUpdate(
+          Platform.OS === "ios"
+            ? result?.downloadIosUrl
+            : result?.downloadAndroidUrl,
+          result?.version
+        );
+      }
+    });
   };
 
-  LogBox.ignoreAllLogs(true);
+  LogBox.ignoreAllLogs(__DEV__ ? false : true);
   const stringToBoolean = (stringValue) => {
     switch(stringValue?.toLowerCase()?.trim()){
         case "true": 
@@ -89,7 +97,7 @@ export default function App() {
     {
       key: '2',
       title: 'Infusionsoft and Sql Database Intergrations',
-      text: 'Administratios can opt in to use the infusionsoft database for established members.\n-OR-\nAdministrators can start fresh and create your own user base within the app.\nThis option is under settings, Update Account Details option.',
+      text: 'Administrators can opt in to use the infusionsoft/KEAP database for established members.\n-OR-\nAdministrators can start fresh and create your own user base within the app.\nThis option is under settings, Update Account Details option.',
       image: require('./assets/data-processing.png'),
       backgroundColor: '#055C9D',
     },
@@ -101,6 +109,16 @@ export default function App() {
       backgroundColor: '#0E86D4',
     }
   ];
+
+    useEffect(() => {
+    async function prepare() {
+        await checkLocalNetworkAccess();
+        await requestLocalNetworkAccess();
+        onCheckVersion();
+    }
+    prepare();
+  }, []);
+
 
   useEffect(() => {
     async function prepare() {
@@ -126,9 +144,6 @@ export default function App() {
         const value = Platform.OS !== "web" ? await AsyncStorage.getItem("logedIn") : window.localStorage.getItem("logedIn");
         setSignIn(stringToBoolean(value));
         await SplashScreen.hideAsync();
-        await checkLocalNetworkAccess();
-        await requestLocalNetworkAccess();
-        onCheckVersion();
       }
     }
 

@@ -3,6 +3,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
 #import "LocalNetworkPrivacy.h"
+#import "OtaHotUpdate.h"
 
 @implementation AppDelegate
 
@@ -27,7 +28,9 @@
 #if DEBUG
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@".expo/.virtual-metro-entry"];
 #else
-  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  //return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+    return [OtaHotUpdate getBundle];
+
 #endif
 }
 
@@ -58,6 +61,21 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
   return [super application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+  if (self.taskIdentifier != UIBackgroundTaskInvalid) {
+    [application endBackgroundTask:self.taskIdentifier];
+    self.taskIdentifier = UIBackgroundTaskInvalid;
+  }
+  
+  __weak AppDelegate *weakSelf = self;
+  self.taskIdentifier = [application beginBackgroundTaskWithName:nil expirationHandler:^{
+    if (weakSelf) {
+      [application endBackgroundTask:weakSelf.taskIdentifier];
+      weakSelf.taskIdentifier = UIBackgroundTaskInvalid;
+    }
+  }];
 }
 
 @end
