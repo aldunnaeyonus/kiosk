@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = "https://bigdogtools.com/kiosk";
+const BASE_URL = "https://website.com/kiosk";
 
 const kioskApi = axios.create({
   baseURL: BASE_URL,
