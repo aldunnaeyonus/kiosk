@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🐾 Big Dog Tags — Mobile Check-In App
+# 🐾 Dog Tags — Mobile Check-In App
 
 **Seamless, high-speed guest check-in for events of any scale.**
 
@@ -13,7 +13,7 @@
 
 ---
 
-Check-in is the first physical touchpoint of your event. The **Big Dog Tags** mobile app removes queues, stress, and friction — delivering a fast entry experience for guests and a real-time dashboard for event teams.
+Check-in is the first physical touchpoint of your event. The **Dog Tags** mobile app removes queues, stress, and friction — delivering a fast entry experience for guests and a real-time dashboard for event teams.
 
 ---
 
@@ -68,7 +68,7 @@ The Big Dog Tags mobile app operates in two flexible configurations:
 
 ### 2. Integrated Setup
 
-1. Link the app to your **Big Dog Tags Core Event Marketing Platform** account via **QR code** or **OAuth login**.
+1. Link the app to your **Dog Tags Core Event Marketing Platform** account via **QR code** or **OAuth login**.
 2. Select the active event from your dashboard.
 3. Live attendee records will sync automatically across all paired check-in terminals.
 
@@ -88,6 +88,6 @@ The Big Dog Tags mobile app operates in two flexible configurations:
 
 <div align="center">
 
-**Big Dog Tags** — turning the door into the start of the experience.
+**Dog Tags** — turning the door into the start of the experience.
 
 </div>
