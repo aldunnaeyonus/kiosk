@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Big Dog Tags",
-    "slug": "Big Dog Tag",
+    "name": "Dog Tags",
+    "slug": "Dog Tag",
     "privacy": "private",
-    "description": "Big Dog Tags",
+    "description": "Dog Tags",
     "platforms": [
       "ios",
       "android",
@@ -25,10 +25,10 @@
     ],
     "android": {
       "versionCode": 33,
-      "package": "com.dunncarabali.bigdogkiosk"
+      "package": "com.dunncarabali.dogkiosk"
     },
     "ios": {
-      "bundleIdentifier": "com.dunn-carabali.bigdogkiosk",
+      "bundleIdentifier": "com.dunn-carabali.dogkiosk",
       "supportsTablet": true,
       "infoPlist": {
         "NSAppTransportSecurity": {
