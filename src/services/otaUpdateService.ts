@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import hotUpdate from 'react-native-ota-hot-update';
 
-const UPDATE_JSON_URL = "https://bigdogtools.com/kiosk/update.json";
+const UPDATE_JSON_URL = "https://websute.com/kiosk/update.json";
 
 const startUpdate = async (url: string, version: number) => {
   try {
